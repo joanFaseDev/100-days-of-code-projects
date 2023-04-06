@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap');
+
+:root {
+    --font-family: 'Chakra Petch', sans-serif;
+    --font-size: 18px;
+    --primary-color: #f2e9e4;
+    --secondary-color: #22223b;
+}
+
+body {
+    box-sizing: border-box;
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    transition: background-color 0.5s linear, color 0.5s linear;
+}
+
+h1, p {
+    text-align: center;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+button {
+    font-family: inherit;
+    padding: 0.5rem 0.4rem;
+    font-size: 4rem;
+    border: none;
+    background-color: transparent;
+    color: inherit;
+    transition: transform .2s linear;
+}
+
+button:hover {
+    transform: scale(1.5);
+}
+
+#main {
+    min-height: 70vh;
+}
+
+#count {
+    /* font-size: 3rem; */
+    font-weight: 600;
+}
+
+#btns {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    padding: 0 1rem;
+}
+
+@media (min-width: 500px) {
+    h1 {
+        font-size: 4rem;
+    }
+
+    button {
+        font-size: 6rem;
+    }
+
+    #btns {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        column-gap: 3rem;
+    }
+
+    #decrease {
+        order: 1;
+    }
+
+    #count {
+        order: 2;
+    }
+
+    #increase {
+        order: 3;
+    }
+}
