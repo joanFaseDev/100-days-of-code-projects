@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+:root{
+    --default-font-size: 18px;
+    --mobile-font-size: 16px;
+    --default-font-family: 'Mali', cursive;
+    --primary-color: #f2e9e4;
+    --secondary-color: #4a4e69;
+    --font-color: #22223b;
+}
+
+body {
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: var(--mobile-font-size);
+    font-family: var(--default-font-family);
+    background-color: var(--primary-color);
+    color: var(--font-color);
+}
+
+h1 {
+    text-align: center;
+}
+
+details {
+    margin: 1rem 0;
+    text-align: justify;
+}
+
+summary {
+    text-decoration: var(--secondary-color) underline; 
+}
+
+button {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 1em;
+    padding: 0.5rem 1rem;
+    transition: background-color .3s cubic-bezier(0, 0.55, 0.45, 1),
+    transform .2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+button:hover {
+    background-color: var(--font-color);
+}
+
+button:active {
+    transform: scale(1.2);
+}
+
+q {
+    font-style: italic;
+}
+
+#main-container {
+    min-height: 85vh;
+    width: min(360px, 90%);
+    padding: 1rem;
+}
+
+#definition {
+    margin: 16px 20px;
+    text-align: justify;
+    font-style: italic;
+}
+
+#input-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    font-family: inherit;
+}
+
+#label-input {
+    text-align: justify;
+}
+
+#user-input {
+    font-family: inherit;
+    font-weight: bold;
+    border: 1px solid var(--secondary-color);
+    border-radius: .5em;
+    background-color: var(--primary-color);
+    padding: .4em .6em;
+}
+
+#buttons-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 1rem 0;
+}
+
+#btn-check, #btn-generate {
+    font-family: inherit;
+}
+
+.result {
+    text-align: center;
+    background-color: var(--font-color);
+    color: var(--primary-color);
+    border-radius: 1em;
+    padding: 1em;
+}
+
+.result-input {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.label-warning {
+    text-decoration: var(--secondary-color) underline;
+}
+
+@media(min-width: 500px)
+{
+    body {
+        font-size: var(--default-font-size);
+    }
+
+    h1 {
+        margin-bottom: 3rem;
+    }
+
+    details, summary {
+        margin: 1rem 0;
+    }
+
+    #main-container {
+        width: min(80%, 600px);
+    }
+
+    #btn-check, #btn-generate, #user-input {
+        font-size: inherit;
+    }
+
+    .result {
+        margin: 4rem 0 2rem;
+    }
+}

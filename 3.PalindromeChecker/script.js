@@ -77,18 +77,23 @@ btnCheck.addEventListener('click', (evt) => {
     evt.preventDefault();
     // Clear the DOM of the previous answer
     removeResult();
+    removeLabelWarning();
 
     const str = input.value;
     if (checkValidInput(str))
     {
-        label.textContent = 'Write something here';
+        label.textContent = 'Write something below';
         const isPalindrome = checkPalindrome(str);
         generateResult(str, isPalindrome);
         input.value = '';
     }
     else
     {
-        label.textContent = 'Write something here WITH AT LEAST ONE CHARACTER!';
+        // label.textContent = 'Write something below WITH AT LEAST ONE CHARACTER!';
+        const span = document.createElement('span');
+        span.textContent = ' WITH AT LEAST ONE CHARACTER!';
+        span.setAttribute('class', 'label-warning');
+        label.append(span);
     }
 });
 
@@ -104,13 +109,25 @@ function removeResult()
     if (result) result.remove();
 }
 
+// Delete the warning message from the DOM
+function removeLabelWarning()
+{
+    const warning = document.querySelector('.label-warning');
+    if (warning) warning.remove();
+}
+
 // Display to the screen the result of user's input being a palindrome or not
 function generateResult(inputTested, result)
 {
     const paragraph = document.createElement('p');
+    // Create a span to apply proper styling later but only to the user's input
+    const span = document.createElement('span');
+    span.textContent = `"${inputTested}"`;
+    span.setAttribute('class', 'result-input');
     paragraph.setAttribute('class', 'result');
-    paragraph.textContent = (result) ? `"${inputTested}" is a valid palindrome.`
-        : `"${inputTested}" is not a palindrome.`;
+    paragraph.textContent = (result) ? ` is a valid palindrome.`
+        : ` is not a palindrome.`;
+    paragraph.insertBefore(span, paragraph.lastChild);
     mainCtn.append(paragraph);
 }
 
@@ -135,12 +152,10 @@ function checkPalindrome(input)
     // Regular expression matching any punctuation characters (litteral notation is used for better performances)
     const regEx = /[!"#$%&'’()*+,-./:;<=>?@[\]^_`{|}\s~]/g;
     const noPunctuation = input.replace(regEx, '');
-    console.log(noPunctuation);
+    
     // Convert into an array and create a copy to use the reverse method then convert back into string
     const chars = Array.from(noPunctuation, (char) => char.toLowerCase()).join('');
     const reverseChars = Array.from(chars).reverse().join('');
-
-    console.log(chars, reverseChars);
 
     // If both array's contents match then the user's input is a palindrome
     return chars === reverseChars;

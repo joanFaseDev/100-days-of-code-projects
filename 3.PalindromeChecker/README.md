@@ -25,3 +25,5 @@ To build a vanilla JavaScript application taking a user input and checking if th
     - https://becomeawritertoday.com/palindrome-words/
     - http://www.palindromelist.net/
     - https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
+    - https://developer.mozilla.org/en-US/docs/Web/API/Node/lastChild
+    - https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
