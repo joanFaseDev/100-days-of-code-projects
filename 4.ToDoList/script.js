@@ -3,8 +3,6 @@ const btnAdd = document.querySelector('#btn-add');
 const btnGenerate = document.querySelector('#btn-generate');
 const main = document.querySelector('#main-content');
 
-console.dir(main);
-
 btnAdd.addEventListener('click', (evt) => {
     evt.preventDefault();
     clearWarningMessage();
@@ -28,27 +26,38 @@ function generateTask()
         const li = document.createElement('li');
         const div = document.createElement('div');
         const paragraph = document.createElement('p');
+        const ctnBtns = document.createElement('div');
         const btnClear = document.createElement('button');
         const btnRemove = document.createElement('button');
         
         paragraph.textContent = data;
-    
+
+        li.addEventListener('dragend', (evt) => {
+            evt.target.classList.remove('is-dragged');
+        });
+
+        li.classList.add('is-unchecked');
+        ctnBtns.classList.add('ctn-btns');
         btnClear.setAttribute('type', 'button');
         btnClear.textContent = 'Clear';
         btnRemove.setAttribute('type', 'button');
         btnRemove.textContent = 'Delete';
-        
+
         // Add / remove special style to completed tasks
         btnClear.addEventListener('click', (evt) => {
             if (btnClear.textContent === 'Clear')
             {
                 paragraph.setAttribute('class', 'is-clear');
                 btnClear.textContent = 'Unclear';
+                li.classList.remove('is-unchecked');
+                li.classList.add('is-checked-green');
             }
             else
             {
                 paragraph.removeAttribute('class');
                 btnClear.textContent = 'Clear';
+                li.classList.remove('is-checked-green');
+                li.classList.add('is-unchecked');
             }
         });
         
@@ -62,15 +71,17 @@ function generateTask()
         if (!ul)
         {
             ul = document.createElement('ul');
-            ul.setAttribute('id', 'tasks-list'); 
+            ul.setAttribute('id', 'tasks-list');
         }
     
+        ctnBtns.append(btnClear);
+        ctnBtns.append(btnRemove);
         div.append(paragraph);
-        div.append(btnClear);
-        div.append(btnRemove);
+        div.append(ctnBtns);
         li.append(div);
         ul.append(li);
         main.append(ul);
+        console.dir(ul);
     }
 }
 

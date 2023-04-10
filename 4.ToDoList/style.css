@@ -1,2 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+:root {
+    --default-font-size: 18px;
+    --desktop-font-size: 22px;
+    --default-font-family: 'Roboto Condensed', sans-serif;
+    --primary-color: #f4f1de;
+    --secondary-color: #3d405b;
+    --clear-color: #81B29A;
+    --warning-color: #E07A5F;
+}
+
+body {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    font-size: var(--default-font-size);
+    font-family: var(--default-font-family);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 100vh;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 1em;
+    margin-bottom: 2em;
+}
+
+button {
+    font-family: inherit;
+    font-size: inherit;
+    border: none;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: .3em .6em;
+}
+
+ul {
+    padding: 0 1rem;
+}
+
+p {
+    padding: .3em .6em;
+    background: linear-gradient(to right, var(--clear-color) 50%, var(--primary-color) 50%);
+    background-size: 0 0;
+    background-position: left bottom;
+    transition: all 1s ease;
+}
+
+#main-content {
+    flex-grow: 1;
+    /* min-height: 85vh; */
+    width: min(80%, 600px);
+    padding: 1em .5em;
+}
+
+#ctn-user-data {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+}
+
+#user-data {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+#ctn-btns {
+    display: flex;
+    justify-content: space-between;
+}
+
+#tasks-list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.5em;
+}
+
+#warning {
+   text-align: center; 
+   background-color: var(--warning-color);
+   color: var(--primary-color);
+}
+
+.ctn-btns {
+    display: flex;
+    justify-content: flex-start;
+    column-gap: 2em;
+}
+
 /*Special style for tasks completed*/
-.is-clear{}
+.is-clear{
+    background-color: var(--clear-color);
+    color: var(--primary-color); 
+}
+
+
+.is-checked {
+    list-style: url(./assets/checked-svgrepo-com.svg);
+    background-position: right top;
+}
+
+.is-checked-green {
+    list-style: url(./assets/green-checked.svg);
+}
+
+.is-unchecked {
+    list-style: url(./assets/unchecked-svgrepo-com.svg);
+}
+
+@media(min-width: 500px)
+{
+    body {
+        font-size: var(--desktop-font-size);
+    }
+}
+
