@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400;500;600;700&display=swap');
+
+:root {
+    --ctn-drag-bg-clr: #5E548E;
+    --letter-bg-clr: #E0B1CB;
+    --letter-clr: #231942;
+    --default-font-family: 'DynaPuff', cursive;
+}
+
+body {
+    box-sizing: border-box;
+    font-family: var(--default-font-family);
+    font-size: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+#main-content {
+    width: min(80%, 500px);
+    min-height: 90vh;
+}
+
+#ctn-btn {
+    display: flex;
+    justify-content: center;
+}
+
+.ctn-drag, .ctn-drop {
+    background-color: var(--ctn-drag-bg-clr);
+    display: flex;
+    min-height: 100px;
+    flex-direction: row;
+    column-gap: 1rem;
+    padding: 0 1rem;
+}
+
+.ctn-drop {
+    
+}
+
+.letter {
+    /* font-size: 25px; */
+    background-color: var(--letter-bg-clr);
+    color: var(--letter-clr);
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.is-dragged {
+    transform: scale(1.1);
+}
