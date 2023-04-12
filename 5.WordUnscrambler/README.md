@@ -5,7 +5,8 @@
 To build a vanilla JavaScript application based on the drag-and-drop API where a random word (related to programming concept) is generated with its letters' order rearranged. The user have to drap and drop each letter in the correct order inside a container builded for that purpose.
 
 ### To Do
-    - In the 'drop' container, create as much div as there is letters in the word displayed on screen then make all these divs potential drop zones. 
+    - In the 'drop' container, create as much div as there is letters in the word displayed on screen then make all these divs potential drop zones.
+    - Add the possibility to switch back a letter from the drop zone into the drag container. 
 
 ### Done
     - Create a button element to execute the generating script.

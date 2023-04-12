@@ -1,16 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400;500;600;700&display=swap');
 
 :root {
-    --ctn-drag-bg-clr: #5E548E;
-    --letter-bg-clr: #E0B1CB;
-    --letter-clr: #231942;
+    --ctn-drag-bg-clr: #403D39;
+    --ctn-drop-bg-clr: #CCC5B9;
+    --letter-bg-clr: #EB5E28;
+    --letter-clr: #252422;
+    --bg-clr: #fffcf2;
+    --success-clr: #669bbc;
     --default-font-family: 'DynaPuff', cursive;
+    --mobile-font-size: 20px;
+    --desktop-font-size: 26px;
 }
 
 body {
+    background-color: var(--bg-clr);
+    color: var(--letter-clr);
     box-sizing: border-box;
     font-family: var(--default-font-family);
-    font-size: 20px;
+    font-size: var(--mobile-font-size);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -20,10 +27,15 @@ body {
 
 h1 {
     text-align: center;
+    font-size: 2rem;
+}
+
+p {
+    border-radius: 0.5rem;
 }
 
 #main-content {
-    width: min(80%, 500px);
+    width: min(80%, 300px);
     min-height: 90vh;
 }
 
@@ -32,17 +44,45 @@ h1 {
     justify-content: center;
 }
 
+#btn-generate {
+    font-family: inherit;
+    padding: .6rem .8rem;
+    border: none;
+    border-radius: .5rem;
+    background-color: var(--ctn-drag-bg-clr);
+    color: var(--ctn-drop-bg-clr);
+    font-size: inherit;
+    transition: background-color .1s cubic-bezier(0.76, 0, 0.24, 1),
+        color .1s cubic-bezier(0.76, 0, 0.24, 1),
+        transform .1s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+#btn-generate:hover {
+    background-color: var(--letter-clr);
+    color: var(--bg-clr);
+}
+
+#btn-generate:active {
+    transform: scale(1.1);
+}
+
 .ctn-drag, .ctn-drop {
     background-color: var(--ctn-drag-bg-clr);
     display: flex;
-    min-height: 100px;
-    flex-direction: row;
-    column-gap: 1rem;
-    padding: 0 1rem;
+    flex-direction: column;
+    row-gap: 1rem;
+    padding: 1rem;
 }
 
 .ctn-drop {
-    
+    min-height: 100px;
+}
+
+.div-drop {
+    flex-grow: 1;
+    transform: scale(1.2);
+    background-color: var(--ctn-drop-bg-clr);
+    min-height: 1.5rem;
 }
 
 .letter {
@@ -57,4 +97,48 @@ h1 {
 
 .is-dragged {
     transform: scale(1.1);
+    background-color: var(--success-clr);
+}
+
+.is-dropzone {
+    transform: scale(1.2);
+    background-color: var(--success-clr);
+    display: flex;
+    flex-direction: column;
+}
+
+.is-correct {
+    background-color: var(--success-clr);
+}
+
+.congratulation {
+    color: var(--success-clr);
+    text-align: center;
+}
+
+@media(min-width: 750px)
+{
+    body {
+        font-size: var(--desktop-font-size);
+    }
+
+    #main-content {
+        width: min(70%, 800px);
+    }
+
+    .ctn-drag, .ctn-drop {
+        flex-direction: row;
+        column-gap: 1rem;
+        min-height: 10vh;
+    }
+
+    .div-drop {
+        transform: scaleY(1.5);
+    }
+
+    .congratulation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
