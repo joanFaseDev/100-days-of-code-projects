@@ -1,0 +1,106 @@
+:root {
+    --font-size-mobile: 18px;
+    --font-size-desktop: 20px;
+    --font-family-default: 'Roboto Condensed', sans-serif;
+    --bg-clr: #F8F9FA;
+    --bg-profile: #CED4DA;
+    --clr: #212529;
+    --clr-border-profile: #6C757D;
+}
+
+body {
+    box-sizing: border-box;
+    font-size: var(--font-size-mobile);
+    font-family: var(--font-family-default);
+    background-color: var(--bg-clr);
+    color: var(--clr);
+    min-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+button {
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    background-color: #DEE2E6;
+    border: 1px solid var(--clr);
+    border-radius: 1em;
+    padding: .5em .7em;
+    transition: color .4s cubic-bezier(0.33, 1, 0.68, 1),
+        background-color .4s cubic-bezier(0.33, 1, 0.68, 1),
+        transform .3s cubic-bezier(0.33, 1, 0.68, 1)
+}
+
+button:hover {
+    background-color: var(--clr-border-profile);
+    color: var(--bg-clr);
+}
+
+button:active {
+    background-color: var(--clr);
+    transform: scale(.9);
+}
+
+#title {
+    text-align: center;
+}
+
+#global-ctn {
+    padding: 2em .5em 0;
+    flex-grow: 2;
+}
+
+#main-ctn {
+    margin-bottom: 2em;
+    
+}
+
+#btns-ctn {
+    display: flex;
+    column-gap: .5em;
+    justify-content: space-evenly;
+}
+
+#profile-ctn {
+    background-color: var(--bg-profile);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    row-gap: .5em;
+    padding: .7em;
+    border-radius: 1em;
+    border-top-width: .2em;
+    border-bottom-width: .2em;
+    border-left-width: .1em;
+    border-right-width: .1em;
+    border-color: var(--clr-border-profile);
+    border-style: solid;
+    max-width: 350px;
+}
+
+#photo-ctn img {
+    border-radius: 50%;
+    border: 1px solid var(--clr);
+}
+
+#city-ctn, #name-ctn, #address-ctn
+{
+    background-color: var(--clr-border-profile);
+    color: var(--bg-clr);
+    padding: .8em .5em;
+    border-radius: 1rem;
+    border: 1px solid var(--clr);
+    width: 90%;
+}
+
+@media(min-width: 500px)
+{
+    body {
+        font-size: var(--font-size-desktop);
+    }
+}

@@ -12,10 +12,8 @@
         4) Check the response's status using the **status** property
         5) Do whatever you want with the response'data.
 
-## To Do
-    - Generate a list of random users objects.
-
 ## Links
     - [MDN-Getting started with AJAX](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX/Getting_Started)
     - https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest#bypassing_the_cache
     - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+    - https://randomuser.me/

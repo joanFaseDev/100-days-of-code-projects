@@ -46,7 +46,6 @@ function printUserData()
             {
                 // Parse the JSON response into an object.
                 const obj = JSON.parse(httpRequest.response);
-                console.dir(obj);
             }
             else
             {
@@ -86,21 +85,26 @@ function displayUserProfile(arr, idx)
     try
     {
         const name = document.createElement('div');
+        name.setAttribute('id', 'name-ctn');
         name.textContent = `${arr[idx].name.last.toUpperCase()} ${arr[idx].name.first}`;
 
         const address = document.createElement('div');
+        address.setAttribute('id', 'address-ctn');
         address.textContent = `${arr[idx].location.street.number} ${arr[idx].location.street.name}`;
 
         const city = document.createElement('div');
+        city.setAttribute('id', 'city-ctn');
         city.textContent = `${arr[idx].location.postcode} ${arr[idx].location.city} (${arr[idx].location.state}) ${arr[idx].location.country}`;
 
         const photo = document.createElement('div');
         const image = document.createElement('img');
+        photo.setAttribute('id', 'photo-ctn');
         photo.append(image);
-        image.src = `${arr[idx].picture.thumbnail}`;
+        image.src = `${arr[idx].picture.large}`;
 
         const body = document.querySelector('body');
         const profile = document.createElement('div');
+        profile.setAttribute('id', 'profile-ctn');
         
         profile.append(name, address, city, photo);
         mainCtn.append(profile);
@@ -185,10 +189,8 @@ function requestRandomUser()
             if (xhr.status === 200)
             {
                 const obj = JSON.parse(xhr.response);
-                console.dir(obj);
                 if (users)
                 {
-                    console.dir(obj.results[0]);
                     users.push(obj.results[0]);
                     cleanMainContent();
                     displayUserProfile(users, users.length - 1);
