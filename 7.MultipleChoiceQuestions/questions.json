@@ -1,0 +1,36 @@
+[
+    {
+        "number": 1,
+        "label": "What is the name of the JavaScript engine used by Chrome and Opera?",
+        "choices": {
+            "A": "SpiderMonkey",
+            "B": "RollingThunder",
+            "C": "SCP",
+            "D": "V8"
+        },
+        "type": "radio",
+        "answers": [
+            "D"
+        ],
+        "points": [
+            10
+        ]
+    },
+    {
+        "number": 2,
+        "label": "What is the original name of the JavaScript programming language?",
+        "choices": {
+            "A": "CoffeeScript",
+            "B": "EcmaScript",
+            "C": "BeanScript",
+            "D": "LiveScript"
+        },
+        "type": "radio",
+        "answers": [
+            "D"
+        ],
+        "points": [
+            10
+        ]
+    }
+]
