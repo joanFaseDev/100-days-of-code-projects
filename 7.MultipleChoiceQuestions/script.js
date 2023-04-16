@@ -6,11 +6,15 @@ const mainCtn = document.querySelector('#main-ctn');
 let idxQuestion = 0;
 let question = questions[idxQuestion];
 
+let scoreUser = 0;
+let scoreSummary = [];
+
 displayQuestion(idxQuestion);
 
 // Write a function which takes a number (question's number), create the DOM elements needed to render it and initialized their contents based on the actual question pair keys/values
 function displayQuestion(idxQuestion)
 {
+    // Update the actual question
     question = questions[idxQuestion];
 
     const h2 = document.createElement('h2');
@@ -71,4 +75,122 @@ function evaluateAnswer(event)
     console.dir(userAnswers);
 
     // Get all the valid answers for the actual question
+    const validKeys = question['answers'];
+    const validAnswers = validKeys.map((key) => question['choices'][validKeys]);
+    console.dir(validAnswers);
+
+    // Create an object to store all datas used in the summary displayed at the end of MCQ
+    const playerResult = {};
+    playerResult.nmbQuestion = question['number'];
+    let pointsEarned = 0;
+    
+    // Compare the user's answers to the valid ones and increment the user's score accordingly
+    validAnswers.forEach((answer) => {
+        if (userAnswers.includes(answer))
+        {
+            scoreUser += question["points"];
+            pointsEarned += question["points"];
+            (playerResult.correctAnswer) ? playerResult.correctAnswer.push(answer)
+                : playerResult.correctAnswer = [answer];
+        }
+        else {
+            // Keep a record of the user's failed attempts, it will be used at the end of the MCQ
+            (playerResult.failedAnswer) ? playerResult.failedAnswer.push(answer)
+                : playerResult.failedAnswer = [answer];
+        }
+    });
+
+    // Keep a trace of the number of points earned for this specific question
+    playerResult.pointsEarned = pointsEarned.toString();
+
+    scoreSummary.push(playerResult);    
+    console.log(scoreSummary);
+    
+    updateQuestion()
+}
+
+// Check if there's any question unanswered and update the web page accordingly
+function updateQuestion()
+{
+    const nmbsQuestion = questions.map((question) => question["number"]);
+    const lastQuestion = Math.max(...nmbsQuestion);
+    
+    resetMainContent();
+
+    // If there's no question in the list, display the user's summary
+    if (idxQuestion >= lastQuestion - 1)
+    {
+        console.log('Multiple Choice Questions is over! CONGRATULATIONS!');
+        displaySummary();
+    }
+    // If there is still questions in the list, then remove the actual content and display the next question
+    else {
+        idxQuestion += 1;
+
+
+        displayQuestion(idxQuestion);
+    }
+}
+
+// Create the summary content displayed at the end of the MCQ
+function displaySummary()
+{
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
+
+    const headRow = document.createElement('tr');
+    headRow.setAttribute('id', 'head-row');
+
+    const headRowSub = document.createElement('tr');
+    headRowSub.setAttribute('id', 'head-row-sub');
+
+    const th = document.createElement('th');
+    th.setAttribute('colspan', '4');
+    th.setAttribute('id', 'table-header');
+    th.textContent = "Answers Summary";
+
+    const thQuestion = document.createElement('th');
+    thQuestion.setAttribute('colspan', '1');
+    thQuestion.setAttribute('id', 'table-header-question');
+    thQuestion.textContent = "Question";
+
+    const thUserAnswers = document.createElement('th');
+    thUserAnswers.setAttribute('colspan', '1');
+    thUserAnswers.setAttribute('id', 'table-header-user-answers');
+    thUserAnswers.textContent = "User Answer(s)";
+
+    const thCorrectAnswers = document.createElement('th');
+    thCorrectAnswers.setAttribute('colspan', '1');
+    thCorrectAnswers.setAttribute('id', 'table-header-correct-answers');
+    thCorrectAnswers.textContent = "Correct Answer(s)";
+
+    const thPointsEarned = document.createElement('th');
+    thPointsEarned.setAttribute('colspan', '1');
+    thPointsEarned.setAttribute('id', 'table-header-points-earned');
+    thPointsEarned.textContent = "Points Earned";
+
+    headRow.append(th);
+    headRowSub.append(thQuestion, thUserAnswers, thCorrectAnswers);
+
+    thead.append(headRow, headRowSub);
+
+    scoreSummary.forEach((entry) => {
+        const tr = document.createElement('tr');
+        const questionLabel = document.createElement('td');
+        const correctAnswers = document.createElement('td')
+        const expectedAnswers = document.createElement('td')
+        const pointsEarned = document.createElement('td')
+
+        // Update table data's content
+        
+    });
+}
+
+// Remove the actual content of the main-ctn div
+function resetMainContent()
+{
+    // HTML Collection automatically updates when the document changes, to prevent troubles we convert into Array
+    const displayedElements = Array.from(mainCtn.children);
+    displayedElements.forEach((elem) => elem.remove());
 }
