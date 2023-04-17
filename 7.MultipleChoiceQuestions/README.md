@@ -10,3 +10,5 @@ To create an application asking multiple choice questions concerning JavaScript 
 ## Links
 - [Lean JSON in 10 minutes - Web Dev Simplified](https://www.youtube.com/watch?v=iiADhChRriM)
 - [How to Read a JSON File in JavaScript - freeCodeCamp](https://www.freecodecamp.org/news/how-to-read-json-file-in-javascript/)
+- [3 ways to style radio buttons with modern CSS - Joakim Lindberg](https://bryntum.com/blog/3-ways-to-style-radio-buttons-with-modern-css/)
+- [Border-spacing - MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border-spacing)
