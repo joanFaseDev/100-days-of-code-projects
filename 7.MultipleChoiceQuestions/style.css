@@ -6,7 +6,7 @@
     --font-family: 'Fira Sans', sans-serif;
     --background-color: #eff6e0;
     --color: #01161E;
-    --hover-color: #124559;
+    --hover-color: #AEC3B0;
 }
 
 body {
@@ -22,31 +22,64 @@ body {
     min-height: 95vh;
 }
 
+p::selection {
+    background-color: var(--color);
+    color: var(--background-color);
+}
+
 h1 {
     text-align: center;
 }
 
 table {
     padding: 1rem 0;
-    border: 1px solid var(--color);
+    border: 3px solid var(--color);
+    border-collapse: collapse;
     flex-grow: 2;
-    border-spacing: .5rem 1rem;
+    table-layout: fixed;
+    width: 100%;
+    /* border-spacing: .5rem 1rem; */
 }
 
 thead {
     padding: .8rem .5rem;
 }
 
+th, td {
+    padding: 1.5rem;
+}
+
+th {
+    font-size: 1.1rem;
+}
+
 tr {
     margin: 1rem 0;
+}
+
+tr:nth-child(even) {
+    background-color: var(--hover-color);
+    color: var(--color);
+}
+
+tr:nth-child(odd) {
+    background-color: var(--background-color);
+    color: var(--color);
+}
+
+footer {
+    margin: 3rem 2rem 1rem;
 }
 
 /* Id */
 
 #main-ctn {
     min-height: 80vh;
+    width: min(100%, 700px);
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #nmb-question {
@@ -54,6 +87,7 @@ tr {
 }
 
 #form-question {
+    width: 100%;
     display: flex;
     flex-direction: column;
     row-gap: 2rem;
@@ -72,9 +106,11 @@ tr {
     text-align: justify;
     padding: .8rem 1rem;
     margin-bottom: 1.5rem;
+    /* line-height*/
+
 }
 
-#btn-question {
+#btn-question, #reset-btn{
     width: min(40%, 10rem);
     padding: 1rem .5rem;
     font-family: inherit;
@@ -85,12 +121,12 @@ tr {
     transition: all .3s cubic-bezier(0, 0.55, 0.45, 1);
 }
 
-#btn-question:hover {
+#btn-question:hover, #reset-btn:hover {
     background-color: var(--color);
     color: var(--background-color);
 }
 
-#btn-question:active {
+#btn-question:active, #reset-btn:active {
     transform: scale(.9);
 }
 
@@ -99,11 +135,12 @@ tr {
 }
 
 #head-row-sub {
-
+    background-color: var(--color);
+    color: var(--background-color);
 }
 
 #table-header {
-    
+    font-size: 1.5rem;    
 }
 
 #table-header-question {
@@ -124,6 +161,8 @@ tr {
 
 #congratulation-ctn {
     flex-grow: 1;
+    margin: 2rem 0;
+    text-align: center;
 }
 
 #congratulation-msg {
@@ -168,6 +207,7 @@ tr {
 
 .wrong-answer {
     margin: 1rem 0rem;
+    border: 1px solid var(--color);
 }
 
 .user-correct {
@@ -180,4 +220,8 @@ tr {
 
 .table-data {
     text-align: center;
+}
+
+.question-field{
+    font-weight: 600;
 }

@@ -1,3 +1,6 @@
+// Activate strict mode
+"use strict"
+
 import questions from './questions.json' assert { type: 'json' };
 
 const mainCtn = document.querySelector('#main-ctn');
@@ -76,12 +79,10 @@ function evaluateAnswer(event)
     // Get all the user's answers for the actual question
     const inputs = document.querySelectorAll('.input-question');
     const userAnswers = Array.from(inputs).filter((input) => input.checked).map((input) => input.value);
-    console.dir(userAnswers);
 
     // Get all the valid answers for the actual question
     const validKeys = question['answers'];
     const validAnswers = validKeys.map((key) => question['choices'][validKeys]);
-    console.dir(validAnswers);
 
     // Create an object to store all datas used in the summary displayed at the end of MCQ
     const playerResult = {};
@@ -110,7 +111,6 @@ function evaluateAnswer(event)
     playerResult.pointsEarned = pointsEarned.toString();
 
     scoreSummary.push(playerResult);    
-    console.log(scoreSummary);
     
     updateQuestion()
 }
@@ -126,7 +126,6 @@ function updateQuestion()
     // If there's no question in the list, display the user's summary
     if (idxQuestion >= lastQuestion - 1)
     {
-        console.log('Multiple Choice Questions is over! CONGRATULATIONS!');
         displaySummary();
     }
     // If there is still questions in the list, then remove the actual content and display the next question
@@ -216,6 +215,7 @@ function displaySummary()
             : tr.setAttribute('class', 'wrong-answer');
         
         questionLabel.setAttribute('class', 'table-data');
+        questionLabel.setAttribute('class', 'question-field');
         correctAnswers.setAttribute('class', 'table-data');
         expectedAnswers.setAttribute('class', 'table-data');
         pointsEarned.setAttribute('class', 'table-data');

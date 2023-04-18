@@ -28,5 +28,125 @@
             "D"
         ],
         "points": 10
+    },
+    {
+        "number": 3,
+        "label": "JavaScript's strict mode is a way to opt in to a restricted variant of JavaScript. It can applies to: ",
+        "choices": {
+            "A": "Entire scripts",
+            "B": "Individual functions",
+            "C": "Entire scripts and individual functions",
+            "D": "None of the above"
+        },
+        "type": "radio",
+        "answers": [
+            "C"
+        ],
+        "points": 10
+    },
+    {
+        "number": 4,
+        "label": "BigInt type was added to JavaScript to represent integers of arbitrary length. How is a BigInt value declared?",
+        "choices": {
+            "A": "By appending the letter 'n' to the end of an integer",
+            "B": "By prepending the letter 'b' to the start of an integer",
+            "C": "By calling the method Math.BigI()",
+            "D": "By prepending the word 'Big' to the start of a variable name"
+        },
+        "type": "radio",
+        "answers": [
+            "A"
+        ],
+        "points": 10
+    },
+    {
+        "number": 5,
+        "label": "Among the following data types, which one isn't part of the JavaScript language?",
+        "choices": {
+            "A": "BigInt",
+            "B": "null",
+            "C": "char",
+            "D": "undefined"
+        },
+        "type": "radio",
+        "answers": [
+            "C"
+        ],
+        "points": 10
+    },
+    {
+        "number": 6,
+        "label": "What is the result of 'typeof null'?",
+        "choices": {
+            "A": "null",
+            "B": "object",
+            "C": "undefined",
+            "D": "0"
+        },
+        "type": "radio",
+        "answers": [
+            "B"
+        ],
+        "points": 10
+    },
+    {
+        "number": 7,
+        "label": "The value 'null' is equal to 0 when converted into a number. If we do the same operation on 'undefined' what do we obtain?",
+        "choices": {
+            "A": "NaN",
+            "B": "0",
+            "C": "false",
+            "D": "defined"
+        },
+        "type": "radio",
+        "answers": [
+            "A"
+        ],
+        "points": 10
+    },
+    {
+        "number": 8,
+        "label": "Which one of the following value doesn't become false when converted into a boolean?",
+        "choices": {
+            "A": "0",
+            "B": "'0'",
+            "C": "''",
+            "D": "false"
+        },
+        "type": "radio",
+        "answers": [
+            "B"
+        ],
+        "points": 10
+    },
+    {
+        "number": 9,
+        "label": "What is the result of this expression: 3 + 8 + '11'?",
+        "choices": {
+            "A": "'3811'",
+            "B": "'319'",
+            "C": "'22'",
+            "D": "'1111'"
+        },
+        "type": "radio",
+        "answers": [
+            "D"
+        ],
+        "points": 10
+    },
+    {
+        "number": 10,
+        "label": "When comparing values of different types, in what type does JavaScript convert them?",
+        "choices": {
+            "A": "string",
+            "B": "number",
+            "C": "boolean",
+            "D": "object"
+        },
+        "type": "radio",
+        "answers": [
+            "B"
+        ],
+        "points": 10
     }
 ]
