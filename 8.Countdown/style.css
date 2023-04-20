@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;600&display=swap');
+
+:root {
+    --font-family-default: 'Roboto Mono', monospace;
+    --font-size-mobile: 18px;
+}
+
+body {
+    box-sizing: border-box;
+    font-family: var(--font-family-default);
+    font-size: var(--font-size-mobile);
+    min-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#title {
+    border: 2px solid black;
+    padding: .6rem .8rem;
+}
+
+#main-ctn {
+    width: min(80%, 600px);
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    margin: 1rem 2rem;
+}
+
+#date-ctn, #time-ctn {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+#end-date, #end-time {
+    font-family: inherit;
+    font-size: inherit;
+    margin-left: 1.5rem;
+}
+
+#btn-validate, #clear-btn {
+    width: min(50%, 150px);
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: bold;
+    padding: .8rem .2rem;
+    margin-top: 2rem;
+    text-align: center;
+    align-self: center;
+    border: 2px solid black;
+}
+
+#countdown-ctn {
+    font-size: 36px;
+    display: flex;
+    justify-content: center;
+    column-gap: .8rem;
+}
+
+#field-title-ctn {
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    column-gap: .5rem;
+}
