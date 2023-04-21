@@ -3,10 +3,15 @@
 :root {
     --font-family-default: 'Roboto Mono', monospace;
     --font-size-mobile: 18px;
+    --font-size-desktop: 22px;
+    --background-color: #d8f3dc;
+    --font-color-default: #081c15;
 }
 
 body {
     box-sizing: border-box;
+    background-color: var(--background-color);
+    color: var(--font-color-default);
     font-family: var(--font-family-default);
     font-size: var(--font-size-mobile);
     min-height: 95vh;
@@ -14,6 +19,10 @@ body {
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
+}
+
+p {
+    text-align: center;
 }
 
 #title {
@@ -26,7 +35,8 @@ body {
     min-height: 70vh;
     display: flex;
     flex-direction: column;
-    row-gap: 1rem;
+    align-items: center;
+    row-gap: 3rem;
     margin: 1rem 2rem;
 }
 
@@ -37,13 +47,27 @@ body {
     row-gap: 1rem;
 }
 
-#end-date, #end-time {
-    font-family: inherit;
-    font-size: inherit;
-    margin-left: 1.5rem;
+#date-ctn > label, #time-ctn > label {
+    font-size: 1.5em;
+    text-align: center;
+    border-top: 1px solid var(--font-color-default);
+    border-left: 1px solid var(--font-color-default);
+    border-right: 1px solid var(--font-color-default);
 }
 
-#btn-validate, #clear-btn {
+#end-date, #end-time {
+    background-color: var(--font-color-default);
+    color: var(--background-color);
+    font-family: inherit;
+    font-size: inherit;
+    color-scheme: dark;
+    border: none;
+    padding: .5em;
+}
+
+#btn-validate, #clear-btn, #start-btn {
+    background: inherit;
+    color: inherit;
     width: min(50%, 150px);
     font-family: inherit;
     font-size: inherit;
@@ -53,9 +77,30 @@ body {
     text-align: center;
     align-self: center;
     border: 2px solid black;
+    transition: background-color .2s linear,
+        color .2s linear,
+        font-size .2s linear,
+        transform .1s linear;
+}
+
+#start-btn {
+    width: min(50%, 200px);
+}
+
+#btn-validate:hover, #clear-btn:hover, #start-btn:hover {
+    background-color: var(--font-color-default);
+    color: var(--background-color);
+    /* font-size: 1.1em; */
+}
+
+#btn-validate:active, #clear-btn:active, #start-btn:active {
+    transform: scale(1.1);
+    font-size: .9em;
 }
 
 #countdown-ctn {
+    background-color: var(--font-color-default);
+    color: var(--background-color);
     font-size: 36px;
     display: flex;
     justify-content: center;
@@ -67,4 +112,54 @@ body {
     display: flex;
     justify-content: center;
     column-gap: .5rem;
+}
+
+#author {
+    padding: .5rem;
+    border-bottom: 1px solid var(--font-color-default);
+    border-left: 1px solid var(--font-color-default);
+    border-right: 1px solid var(--font-color-default);
+    transition: border-top .5s linear,
+        border-bottom .5s linear,
+        background-color .2s linear,
+        color .2s linear;
+}
+
+#author:hover {
+    border-bottom: none;
+    border-top: 1px solid var(--font-color-default);
+    background-color: var(--font-color-default);
+    color: var(--background-color);
+}
+
+#github-account {
+    text-decoration: none;
+    transition: color .2s linear;
+}
+
+#github-account:visited {
+    color: var(--font-color-default);
+}
+
+#github-account:hover {
+    color: var(--background-color);
+}
+
+@media (min-width: 500px)
+{
+    body {
+        font-size: var(--font-size-desktop);
+    }
+
+    #title {
+        font-size: 3.5rem;
+    }
+
+    #countdown-ctn {
+        font-size: 50px;
+    }
+
+    #field-title-ctn {
+        font-size: 16px;
+    }
 }

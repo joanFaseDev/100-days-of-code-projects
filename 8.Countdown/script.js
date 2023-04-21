@@ -18,8 +18,6 @@ function getRemainingTime(milliseconds)
     const hours = getHoursLeft(milliseconds);
     const days = getDaysLeft(milliseconds);
 
-    console.log(`days:hours:minutes:seconds => ${days}:${hours}:${minutes}:${seconds}`);
-
     // Can easily get any of these values by writing countdownHandler.property
     return {
         days,
@@ -79,9 +77,9 @@ function initialiazeCountdown(userCountdown, mainContainer)
     console.dir(fields);
 
     // Call updateCountdown one time before the loop to remove the first interval
-    updateCountdown(userCountdown, fields);
+    updateCountdown(userCountdown, fields, mainContainer);
     const intervalId = setInterval(() => {
-        updateCountdown(userCountdown, fields);
+        updateCountdown(userCountdown, fields, mainContainer, intervalId);
     }
     , 1000);
 
@@ -89,7 +87,7 @@ function initialiazeCountdown(userCountdown, mainContainer)
 }
 
 // Update the countdown time every second
-function updateCountdown(userCountdown, fields)
+function updateCountdown(userCountdown, fields, mainContainer, intervalId)
 {
     const countdownMilliseconds = getMillisecondsCountdown(userCountdown);
     const timeLeft = getRemainingTime(countdownMilliseconds);
@@ -104,11 +102,15 @@ function updateCountdown(userCountdown, fields)
     // Once the countdown's timer reachs 0, interrupts the loop
     if (countdownMilliseconds <= 0)
     {
+        console.log(intervalId);
         clearInterval(intervalId);
         clearMainContent();
 
-        const p = document.createElement('p');
-        p.textContent = 'Countdown has reached 0!\nPress the button below to start again.';
+        const p1 = document.createElement('p');
+        p1.textContent = 'Countdown has reached 0!';
+        
+        const p2 = document.createElement('p');
+        p2.textContent = 'Press the button below to start again.';
 
         const restartBtn = document.createElement('button');
         restartBtn.setAttribute('id', 'start-btn');
@@ -118,7 +120,7 @@ function updateCountdown(userCountdown, fields)
             clearMainContent()
             initializeUserInputs(mainContainer);
         });
-        mainContainer.append(restartBtn);
+        mainContainer.append(p1, p2, restartBtn);
     }
 }
 
@@ -181,7 +183,6 @@ function clearMainContent()
     const mainCtn = document.getElementById('main-ctn');
     if (mainCtn.children)
     {
-        console.log(mainCtn.children);
         const mainChildrens = Array.from(mainCtn.children);
         mainChildrens.forEach((children) => children.remove());
     }
@@ -196,7 +197,7 @@ function initializeUserInputs(parentElement)
     dateContainer.setAttribute('id', 'date-ctn');
 
     const dateLabel = document.createElement('label');
-    dateLabel.textContent = 'Enter a date: ';
+    dateLabel.textContent = 'Enter a date';
     dateLabel.setAttribute('for', 'end-date');
 
     const dateInput = document.createElement('input');
@@ -209,7 +210,7 @@ function initializeUserInputs(parentElement)
     timeContainer.setAttribute('id', 'time-ctn');
 
     const timeLabel = document.createElement('label');
-    timeLabel.textContent = 'Enter a time: ';
+    timeLabel.textContent = 'Enter a time';
     timeLabel.setAttribute('for', 'end-time');
 
     const timeInput = document.createElement('input');
