@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400;500;600;700&display=swap');
+
+:root {
+    --default-font-family: 'DynaPuff', cursive;
+    --default-font-size: 16px;
+    --countdown-font-size: 5rem;
+    --shadow-btn: #343A40;
+}
+
+body {
+    font-family: var(--default-font-family);
+    font-size: var(--default-font-size);
+    box-sizing: border-box;
+    margin: 1rem auto;
+    max-width: 70%;
+    min-height: 90vh;
+}
+
+header {
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+
+footer {
+    text-align: center;
+}
+
+#main-ctn {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#countdown-ctn {
+    width: min(80%, 500px);
+    min-height: 30vh;
+    padding: 1em 1.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: .6em;
+}
+
+#countdown {
+    font-size: var(--countdown-font-size);
+    margin: 1rem 0;
+}
+
+#start-btn {
+    font-family: inherit;
+    font-size: 1.5rem;
+    color: white;
+    background-color: black;
+    padding: .6em 1.4em;
+    border: 1px solid black;
+    border-bottom: 5px solid var(--shadow-btn);
+    box-shadow: 0px 5px 1px var(--shadow-btn);
+    border-radius: .2em;
+    transition: all .1s linear;
+}
+
+#start-btn:hover {
+    cursor: pointer;
+}
+
+#start-btn[class="is-pressed"] {
+    box-shadow: none;
+    border-bottom: 1px solid black;
+}
