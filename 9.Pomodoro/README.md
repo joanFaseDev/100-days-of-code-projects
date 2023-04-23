@@ -19,6 +19,12 @@ To build a vanilla JavaScript application that can be used to apply the [Pomodor
         d. Once a task is added, its field (*Task Container*) should take the place of the button used to create it and another Add button should appear below so that user can generate another new task.
         e. A Task container should display the name of the task and a little button (*Clear button*) to validate/unvalidate the task. Once a task is validate, it is crossed out (through CSS) and the time at which the task was finished is displayed.
 
+## To do
+- Implement the feature to instantly change the application state from 'Pomodoro' to 'Short Break' throught a new div of buttons located at the top of the countdown.
+- Implement the long break feature (15 minutes pause, visual update, countdown update)
+- Update the label of the countdown footer and its pomodoro count depending of the application state
+- Implement the tasks feature
+
 ## Links
 - [Pomodoro Technique - Wikipedia](https://en.wikipedia.org/wiki/Pomodoro_Technique)
 - [Pomofocus](https://pomofocus.io/)
@@ -26,13 +32,6 @@ To build a vanilla JavaScript application that can be used to apply the [Pomodor
 - [Cursor - MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor)
 - [Palette - Coolors](https://coolors.co/palette/f8f9fa-e9ecef-dee2e6-ced4da-adb5bd-6c757d-495057-343a40-212529)
 
-## To do
 
------------------- TO DO ------------------
-- Changer le bouton Start en bouton Pause une fois qu'il a été pressé
-- Modifier le style du bouton lorsqu'il est pressé (en Pause)
-- Arrêter le compte à rebours lorsque la pause est active
-- Reprendre le compte à rebours lorsque la pause est inactive
-- Lors qu'une tâche est accomplie, inscrire dans son panneau dédié l'heure à laquelle elle a été terminé (*endTime* variable)
 
 

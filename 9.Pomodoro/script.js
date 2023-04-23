@@ -2,27 +2,90 @@
 
 // 25 minutes converted into milliseconds
 const POMODORO_TIME = 1500000;
+
+// 5 minutes converted into milliseconds
+const SHORT_BREAK_TIME = 300000;
 const MILLISECOND = 1000;
 const startBtn = document.querySelector('#start-btn');
 
+// Initialize the countdown (start at 25 minutes)
+// let countdown = POMODORO_TIME;
+let countdown = 10000;
+
+let isPauseActive = true; 
+let idIntervalGlobal = null;
+
 startBtn.addEventListener('click', () => {    
+    console.log(isPauseActive);
     // Countdown's endtime is equal to the current time plus 25 minutes
     const currentTime = Date.parse(new Date);
     const endTime = currentTime + POMODORO_TIME;
-    
-    // Initialize the countdown (start at 25 minutes)
-    let countdown = POMODORO_TIME;
 
-    // Call updateCountdown once to compensate for the first delay
-    countdown = updateCountdown(countdown, MILLISECOND);
+    if (isPauseActive)
+    {
+        updateStartButton(isPauseActive);
 
-    const idInterval = setInterval(() => {
+        // Call updateCountdown once to compensate for the first delay
         countdown = updateCountdown(countdown, MILLISECOND);
-
-    }, 1000, countdown, MILLISECOND);
     
+        const idInterval = setInterval(() => {
+            countdown = updateCountdown(countdown, MILLISECOND);
+            
+            if (countdown < 0)
+            {
+                // Change the countdown value to 5 minutes (short break)
+                countdown = SHORT_BREAK_TIME;
+
+                // Stop the countdown
+                clearInterval(idInterval);
+                
+                // Visually update various elements of the document to reflect the change of the application's state
+                updateStartButton(isPauseActive);
+                updateShortBreak(); 
+
+                // Visually update the countdown
+                updateCountdown(countdown);
+
+                // Update the pause state so the countdown instantly begins next time the button is pressed
+                isPauseActive = true;
+            }
+
+        }, 1000, countdown, MILLISECOND);
+
+        // Pass the idInterval value in global scope so the else block can actually use it and stop the setInterval() function
+        idIntervalGlobal = idInterval;
+        isPauseActive = false;
+    }
+    else 
+    {
+        updateStartButton(isPauseActive);
+
+        // Stop the countdown
+        clearInterval(idIntervalGlobal);
+        isPauseActive = true;
+    }
 });
 
+// Update the style and text of the start button depending of the countdown being in pause or not
+function updateStartButton(isPauseActive)
+{
+    if (isPauseActive)
+    {
+        startBtn.textContent = 'PAUSE';
+        startBtn.classList.add('is-pressed');
+    }
+    else {
+        startBtn.textContent = 'START';
+        startBtn.classList.remove('is-pressed');
+    }
+}
+
+function updateShortBreak()
+{
+    document.querySelector('#body').classList.add('short-break');
+    document.querySelector('#countdown-ctn').classList.add('short-break');
+    document.querySelector('#start-btn').classList.add('short-break');
+}
 
 function updateCountdown(countdown, MILLISECOND)
 {
