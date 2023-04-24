@@ -20,10 +20,14 @@ To build a vanilla JavaScript application that can be used to apply the [Pomodor
         e. A Task container should display the name of the task and a little button (*Clear button*) to validate/unvalidate the task. Once a task is validate, it is crossed out (through CSS) and the time at which the task was finished is displayed.
 
 ## To do
-- Implement the feature to instantly change the application state from 'Pomodoro' to 'Short Break' throught a new div of buttons located at the top of the countdown.
-- Implement the long break feature (15 minutes pause, visual update, countdown update)
-- Update the label of the countdown footer and its pomodoro count depending of the application state
+- Implement the feature to instantly change the application state from 'Pomodoro' to 'Short Break' throught a new div of three buttons located at the top of the countdown.
+- Pressing one of these buttons do the following:
+    - Change the visual of the web page depending of the state selected ('Pomodoro', 'Short Break', 'Long Break').
+    - Change the countdown's time to match the state selected ('Pomodoro' = 25 minutes, 'Short Break' = 5 minutes, 'Long Break' = 15 minutes).
+    - Change the footer's message (located below the pomodoro count) to match the state selected ('Pomodoro' or 'Break'). 
+
 - Implement the tasks feature
+- Change the favicon's color depending of the application's actual state ('Pomodoro', 'Short Break' or 'Long Break').
 
 ## Links
 - [Pomodoro Technique - Wikipedia](https://en.wikipedia.org/wiki/Pomodoro_Technique)

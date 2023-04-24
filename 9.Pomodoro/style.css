@@ -9,8 +9,10 @@
     --font-color-shade: #cac0aa;
     --bg-color-pomodoro-heavy: #780000;
     --bg-color-pomodoro-light: #C1121F;
-    --bg-color-break-heavy: #003049;
-    --bg-color-break-light: #669BBC;
+    --bg-color-short-break-heavy: #003049;
+    --bg-color-short-break-light: #669BBC;
+    --bg-color-long-break-heavy: #57CC99;
+    --bg-color-long-break-light: #80ED99;
 }
 
 body {
@@ -110,19 +112,30 @@ footer {
     margin-top: .5em;
 }
 
-.icon8 {
+.icon8, .pixabay {
     color: inherit;
 }
 
 #body[class="short-break"] {
-    background-color: var(--bg-color-break-heavy);
+    background-color: var(--bg-color-short-break-heavy);
 }
 
 #countdown-ctn[class="short-break"] {
-    background-color: var(--bg-color-break-light);
-    border: 1px solid var(--bg-color-break-light);
+    background-color: var(--bg-color-short-break-light);
+    border: 1px solid var(--bg-color-short-break-light);
 }
 
 #start-btn[class="short-break"], #start-btn[class="short-break is-pressed"] {
-    color: var(--bg-color-break-light);
+    color: var(--bg-color-short-break-light);
+}
+
+#body[class="long-break"] {
+    background-color: var(--bg-color-long-break-heavy);
+}
+#countdown-ctn[class="long-break"] {
+    background-color: var(--bg-color-long-break-light);
+    border: 1px solid var(--bg-color-long-break-light);
+}
+#start-btn[class="long-break"], #start-btn[class="long-break is-pressed"] {
+    color: var(--bg-color-long-break-light);
 }

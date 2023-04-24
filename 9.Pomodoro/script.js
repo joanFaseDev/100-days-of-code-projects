@@ -1,22 +1,39 @@
 "use strict";
 
 // 25 minutes converted into milliseconds
-const POMODORO_TIME = 1500000;
+// const POMODORO_TIME = 1500000;
+const POMODORO_TIME = 10000;
 
 // 5 minutes converted into milliseconds
-const SHORT_BREAK_TIME = 300000;
+// const SHORT_BREAK_TIME = 300000;
+const SHORT_BREAK_TIME = 10000;
+
+// 15 minutes converted into milliseconds
+// const LONG_BREAK_TIME = 900000;
+const LONG_BREAK_TIME = 10000;
+
 const MILLISECOND = 1000;
+
+const body = document.querySelector('#body');
+const countdownCtn = document.querySelector('#countdown-ctn');
 const startBtn = document.querySelector('#start-btn');
+
+const pomodoroRing = new Audio('./assets/pomodoro-ring.mp3');
 
 // Initialize the countdown (start at 25 minutes)
 // let countdown = POMODORO_TIME;
 let countdown = 10000;
 
+// Number of 25 minutes time period done by the user
+let pomodoroCount = 3;
+
+// Represents the user's current activity, work (POMODORO) or pause (BREAK)
+let state = 'POMODORO';
+
 let isPauseActive = true; 
 let idIntervalGlobal = null;
 
 startBtn.addEventListener('click', () => {    
-    console.log(isPauseActive);
     // Countdown's endtime is equal to the current time plus 25 minutes
     const currentTime = Date.parse(new Date);
     const endTime = currentTime + POMODORO_TIME;
@@ -33,21 +50,67 @@ startBtn.addEventListener('click', () => {
             
             if (countdown < 0)
             {
-                // Change the countdown value to 5 minutes (short break)
-                countdown = SHORT_BREAK_TIME;
-
-                // Stop the countdown
-                clearInterval(idInterval);
+                // Play a ring sound every time a countdown reach its end
+                playPomodoroRing(pomodoroRing);
                 
-                // Visually update various elements of the document to reflect the change of the application's state
-                updateStartButton(isPauseActive);
-                updateShortBreak(); 
+                // If user just worked
+                if (state === 'POMODORO')
+                {
+                    pomodoroCount = updatePomodoroCount(pomodoroCount);
+                    
+                    // If the actual pomodoro count isn't divisible by 4 then next pause is short
+                    if (pomodoroCount % 4)
+                    {
+                        // Change the countdown value to 5 minutes (short break)
+                        countdown = SHORT_BREAK_TIME;
+                        updateShortBreak(body, countdownCtn, startBtn); 
+                    }
+                    // If the actual pomodoro count is divisible by 4 then next pause is long
+                    else
+                    {
+                        // Change the countdown value to 15 minutes (long break)
+                        countdown = LONG_BREAK_TIME;
+                        updateLongBreak(body, countdownCtn, startBtn);
+                    }
 
-                // Visually update the countdown
-                updateCountdown(countdown);
+                    // Stop the countdown
+                    clearInterval(idInterval);
+                    
+                    // Visually update various elements of the document to reflect the change of the application's state
+                    updateStartButton(isPauseActive);
+    
+                    // Visually update the countdown
+                    updateCountdown(countdown);
+    
+                    // Update the pause state so the countdown instantly begins next time the button is pressed
+                    isPauseActive = true;
 
-                // Update the pause state so the countdown instantly begins next time the button is pressed
-                isPauseActive = true;
+                    state = 'BREAK';
+                }
+                // If user just took a break
+                else
+                {
+                    // Change the countdown value to 25 minutes (pomodoro)
+                    countdown = POMODORO_TIME;
+
+                    resetVisual(body, countdownCtn, startBtn);
+
+                    // Stop the countdown
+                    clearInterval(idInterval);
+
+                    // Visually update various elements of the document to reflect the change of the application's state
+                    updateStartButton(isPauseActive);
+
+                    // Visually update the countdown
+                    updateCountdown(countdown);
+
+                    // Update the pause state so the countdown instantly begins next time the button is pressed
+                    isPauseActive = true;
+
+                    state = 'POMODORO';
+                }
+
+
             }
 
         }, 1000, countdown, MILLISECOND);
@@ -66,6 +129,15 @@ startBtn.addEventListener('click', () => {
     }
 });
 
+function playPomodoroRing(audioElement)
+{
+    // Play the sound but only if there's enough data to play it to the end without interruption
+    if (audioElement.readyState === 4)
+    {
+        audioElement.play();
+    }
+}
+
 // Update the style and text of the start button depending of the countdown being in pause or not
 function updateStartButton(isPauseActive)
 {
@@ -80,11 +152,93 @@ function updateStartButton(isPauseActive)
     }
 }
 
-function updateShortBreak()
+// Remove all break relative visuals to display the web page's default style
+function resetVisual(body, countdownCtn, startBtn)
 {
-    document.querySelector('#body').classList.add('short-break');
-    document.querySelector('#countdown-ctn').classList.add('short-break');
-    document.querySelector('#start-btn').classList.add('short-break');
+    if (body.classList.contains('long-break'))
+    {
+        body.classList.remove('long-break');
+    }
+
+    if (countdownCtn.classList.contains('long-break'))
+    {
+        countdownCtn.classList.remove('long-break');
+    }
+
+    if (startBtn.classList.contains('long-break'))
+    {
+        startBtn.classList.remove('long-break');
+    }
+
+    if (body.classList.contains('short-break'))
+    {
+        body.classList.remove('short-break');
+    }
+
+    if (countdownCtn.classList.contains('short-break'))
+    {
+        countdownCtn.classList.remove('short-break');
+    }
+
+    if (startBtn.classList.contains('short-break'))
+    {
+        startBtn.classList.remove('short-break');
+    }
+}
+
+// Remove actual styles and display the web page's short break visual
+function updateShortBreak(body, countdownCtn, startBtn)
+{
+    if (body.classList.contains('long-break'))
+    {
+        body.classList.remove('long-break');
+    }
+
+    if (countdownCtn.classList.contains('long-break'))
+    {
+        countdownCtn.classList.remove('long-break');
+    }
+
+    if (startBtn.classList.contains('long-break'))
+    {
+        startBtn.classList.remove('long-break');
+    }
+
+    body.classList.add('short-break');
+    countdownCtn.classList.add('short-break');
+    startBtn.classList.add('short-break');
+}
+
+// Remove actual styles and display the web page's long break visual
+function updateLongBreak(body, countdownCtn, startBtn)
+{
+    if (body.classList.contains('short-break'))
+    {
+        body.classList.remove('short-break');
+    }
+
+    if (countdownCtn.classList.contains('short-break'))
+    {
+        countdownCtn.classList.remove('short-break');
+    }
+
+    if (startBtn.classList.contains('short-break'))
+    {
+        startBtn.classList.remove('short-break');
+    }
+
+    body.classList.add('long-break');
+    countdownCtn.classList.add('long-break');
+    startBtn.classList.add('long-break');
+}
+
+// Increment the pomodoro count and update the web page to reflect the change
+function updatePomodoroCount(count)
+{
+    const pomodoroCount = document.querySelector('#pomodoro-number');
+    count = count + 1;
+    pomodoroCount.textContent = `#${count}`;
+    return count;
 }
 
 function updateCountdown(countdown, MILLISECOND)
