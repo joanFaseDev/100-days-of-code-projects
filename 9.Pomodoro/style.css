@@ -65,6 +65,11 @@ footer {
         border .5s cubic-bezier(0.5, 1, 0.89, 1);
 }
 
+#states {
+    display: flex;
+    column-gap: 2rem;
+}
+
 #countdown {
     font-size: var(--countdown-font-size);
     margin: 1rem 0;
@@ -116,6 +121,21 @@ footer {
     color: inherit;
 }
 
+.state-btn {
+    background-color: transparent;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    padding: .4em .6em;
+    border-radius: .5em;
+    border: none;
+    transition: background-color .5s cubic-bezier(0.5, 1, 0.89, 1);
+}
+
+.state-btn:hover {
+    cursor: pointer;
+}
+
 #body[class="short-break"] {
     background-color: var(--bg-color-short-break-heavy);
 }
@@ -132,10 +152,24 @@ footer {
 #body[class="long-break"] {
     background-color: var(--bg-color-long-break-heavy);
 }
+
 #countdown-ctn[class="long-break"] {
     background-color: var(--bg-color-long-break-light);
     border: 1px solid var(--bg-color-long-break-light);
 }
+
 #start-btn[class="long-break"], #start-btn[class="long-break is-pressed"] {
     color: var(--bg-color-long-break-light);
+}
+
+.state-is-active[data-state="pomodoro"] {
+    background-color: var(--bg-color-pomodoro-heavy);
+}
+
+.state-is-active[data-state="short-break"] {
+    background-color: var(--bg-color-short-break-heavy);
+}
+
+.state-is-active[data-state="long-break"] {
+    background-color: var(--bg-color-long-break-heavy);
 }

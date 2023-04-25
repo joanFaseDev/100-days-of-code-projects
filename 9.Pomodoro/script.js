@@ -1,22 +1,23 @@
 "use strict";
 
 // 25 minutes converted into milliseconds
-// const POMODORO_TIME = 1500000;
-const POMODORO_TIME = 10000;
+const POMODORO_TIME = 1500000;
+// const POMODORO_TIME = 20000;
 
 // 5 minutes converted into milliseconds
-// const SHORT_BREAK_TIME = 300000;
-const SHORT_BREAK_TIME = 10000;
+const SHORT_BREAK_TIME = 300000;
+// const SHORT_BREAK_TIME = 5000;
 
 // 15 minutes converted into milliseconds
-// const LONG_BREAK_TIME = 900000;
-const LONG_BREAK_TIME = 10000;
+const LONG_BREAK_TIME = 900000;
+// const LONG_BREAK_TIME = 15000;
 
 const MILLISECOND = 1000;
 
 const body = document.querySelector('#body');
 const countdownCtn = document.querySelector('#countdown-ctn');
 const startBtn = document.querySelector('#start-btn');
+const stateBtns = document.querySelectorAll('.state-btn');
 
 const pomodoroRing = new Audio('./assets/pomodoro-ring.mp3');
 
@@ -32,6 +33,66 @@ let state = 'POMODORO';
 
 let isPauseActive = true; 
 let idIntervalGlobal = null;
+
+initializePomodoroApp();
+
+stateBtns.forEach((btn) => {
+    btn.addEventListener(('click'), (event) => {
+
+        resetBreakVisuals(body, countdownCtn, startBtn);
+        resetStateVisuals(stateBtns);
+        clearInterval(idIntervalGlobal);
+
+        // Visually update various elements of the document to reflect the change of the application's state
+        isPauseActive = false;
+        updateStartButton(isPauseActive);
+
+        // Apply the new style to the button being pressed
+        event.target.classList.add('state-is-active');
+
+        // Get the state button to adapt the function's behavior
+        const stateData = event.target.dataset['state'];
+        
+        // Get the countdown timer corresponding to the actual state
+        let stateCountdown = null;
+
+        switch (stateData) {
+            case 'pomodoro':
+                stateCountdown = POMODORO_TIME;
+                state = 'POMODORO';        
+                break;
+        
+            case 'short-break':
+                stateCountdown = SHORT_BREAK_TIME;
+                state = 'BREAK';
+                break;
+            
+            default:
+                stateCountdown = LONG_BREAK_TIME;
+                state = 'BREAK';
+                break;
+        }
+
+        // Update the countdown on the webpage
+        countdown = stateCountdown
+        updateCountdown(countdown, MILLISECOND);
+
+        // Remove all the styles relatives to break states (short or long)
+        resetBreakVisuals(body, countdownCtn, startBtn);
+
+        // Apply a new visual style but only if user is in a break state (short or long)
+        if (stateData === 'short-break')
+        {
+            updateShortBreak(body, countdownCtn, startBtn);
+        }
+
+        if (stateData === 'long-break')
+        {
+            updateLongBreak(body, countdownCtn, startBtn);
+        }
+
+    });
+});
 
 startBtn.addEventListener('click', () => {    
     // Countdown's endtime is equal to the current time plus 25 minutes
@@ -50,6 +111,9 @@ startBtn.addEventListener('click', () => {
             
             if (countdown < 0)
             {
+                // Check if any state button have a style, it there is the style is removed
+                resetStateVisuals(stateBtns);
+
                 // Play a ring sound every time a countdown reach its end
                 playPomodoroRing(pomodoroRing);
                 
@@ -63,7 +127,8 @@ startBtn.addEventListener('click', () => {
                     {
                         // Change the countdown value to 5 minutes (short break)
                         countdown = SHORT_BREAK_TIME;
-                        updateShortBreak(body, countdownCtn, startBtn); 
+                        updateShortBreak(body, countdownCtn, startBtn);
+                        updateStateButton('short-break'); 
                     }
                     // If the actual pomodoro count is divisible by 4 then next pause is long
                     else
@@ -71,6 +136,7 @@ startBtn.addEventListener('click', () => {
                         // Change the countdown value to 15 minutes (long break)
                         countdown = LONG_BREAK_TIME;
                         updateLongBreak(body, countdownCtn, startBtn);
+                        updateStateButton('long-break');
                     }
 
                     // Stop the countdown
@@ -93,13 +159,14 @@ startBtn.addEventListener('click', () => {
                     // Change the countdown value to 25 minutes (pomodoro)
                     countdown = POMODORO_TIME;
 
-                    resetVisual(body, countdownCtn, startBtn);
+                    resetBreakVisuals(body, countdownCtn, startBtn);
 
                     // Stop the countdown
                     clearInterval(idInterval);
 
                     // Visually update various elements of the document to reflect the change of the application's state
                     updateStartButton(isPauseActive);
+                    updateStateButton('pomodoro');
 
                     // Visually update the countdown
                     updateCountdown(countdown);
@@ -129,6 +196,14 @@ startBtn.addEventListener('click', () => {
     }
 });
 
+// Initialize the application's default values and styles
+function initializePomodoroApp()
+{
+    updateStateButton('pomodoro');
+    pomodoroCount = 0;
+    countdown = POMODORO_TIME;
+}
+
 function playPomodoroRing(audioElement)
 {
     // Play the sound but only if there's enough data to play it to the end without interruption
@@ -152,8 +227,19 @@ function updateStartButton(isPauseActive)
     }
 }
 
+// Update the state button corresponding to the application's current state
+function updateStateButton(label)
+{
+    stateBtns.forEach((btn) => {
+        if (btn.dataset['state'] === label)
+        {
+            btn.classList.add('state-is-active');
+        }
+    });
+}
+
 // Remove all break relative visuals to display the web page's default style
-function resetVisual(body, countdownCtn, startBtn)
+function resetBreakVisuals(body, countdownCtn, startBtn)
 {
     if (body.classList.contains('long-break'))
     {
@@ -184,6 +270,17 @@ function resetVisual(body, countdownCtn, startBtn)
     {
         startBtn.classList.remove('short-break');
     }
+}
+
+// Reset all state buttons style before applying a new one
+function resetStateVisuals(stateBtns)
+{
+    stateBtns.forEach((button) => {
+        if (button.classList.contains('state-is-active'))
+        {
+            button.classList.remove('state-is-active');
+        }
+    });
 }
 
 // Remove actual styles and display the web page's short break visual
