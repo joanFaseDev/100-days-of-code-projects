@@ -136,9 +136,18 @@ footer {
     cursor: pointer;
 }
 
+#body[class="pomodoro"] {
+    background-color: var(--bg-color-pomodoro-heavy);
+}
+
 #body[class="short-break"] {
     background-color: var(--bg-color-short-break-heavy);
 }
+
+#body[class="long-break"] {
+    background-color: var(--bg-color-long-break-heavy);
+}
+
 
 #countdown-ctn[class="short-break"] {
     background-color: var(--bg-color-short-break-light);
@@ -149,9 +158,6 @@ footer {
     color: var(--bg-color-short-break-light);
 }
 
-#body[class="long-break"] {
-    background-color: var(--bg-color-long-break-heavy);
-}
 
 #countdown-ctn[class="long-break"] {
     background-color: var(--bg-color-long-break-light);
@@ -162,14 +168,41 @@ footer {
     color: var(--bg-color-long-break-light);
 }
 
-.state-is-active[data-state="pomodoro"] {
+
+
+
+/* .state-btn[data-state="pomodoro"] .pomodoro{
     background-color: var(--bg-color-pomodoro-heavy);
 }
 
-.state-is-active[data-state="short-break"] {
+.state-btn[data-state="short-break"] .short-break{
     background-color: var(--bg-color-short-break-heavy);
 }
 
-.state-is-active[data-state="long-break"] {
+.state-btn[data-state="long-break"] .long-break{
     background-color: var(--bg-color-long-break-heavy);
+} */
+
+.pomodoro {
+    background-color: var(--bg-color-pomodoro-heavy);
+}
+
+.short-break {
+    background-color: var(--bg-color-short-break-heavy);
+}
+
+.long-break {
+    background-color: var(--bg-color-long-break-heavy);
+}
+
+.start-btn[class="pomodoro"] {
+    color: var(--bg-color-pomodoro-heavy);
+}
+
+.start-btn[class="short-break"] {
+    color: var(--bg-color-short-break-heavy);
+}
+
+.start-btn[class="long-break"] {
+    color: var(--bg-color-long-break-heavy);
 }
