@@ -93,12 +93,9 @@ footer {
     cursor: pointer;
 }
 
-#start-btn[class="is-pressed"] {
-    box-shadow: none;
-    border-bottom: 1px solid var(--font-color--shade);
-}
-
-#start-btn[class="short-break is-pressed"] {
+#start-btn.pomodoro.is-pressed,
+#start-btn.short-break.is-pressed,
+#start-btn.long-break.is-pressed {
     box-shadow: none;
     border-bottom: 1px solid var(--font-color--shade);
 }
@@ -205,4 +202,14 @@ footer {
 
 .start-btn[class="long-break"] {
     color: var(--bg-color-long-break-heavy);
+}
+
+/* .is-pressed {
+    box-shadow: none;
+    border-bottom: 1px solid var(--font-color--shade);
+} */
+
+#start-btn[data-state="start"] {
+    box-shadow: none;
+    border-bottom: 1px solid var(--font-color--shade);
 }
