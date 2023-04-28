@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Darumadrop+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+
+:root {
+    --font-family-default: 'Patrick Hand', cursive;
+    --font-size-default: 18px;
+    --primary-color-heavy: #ffc300;
+    --primary-color-light: #ffd60a;
+    --secondary-color-heavy: #001d3d;
+    --secondary-color-light: #003566;
+    --color-font: #000814;
+}
+
+body {
+    background-color: var(--primary-color-heavy);
+    color: var(--color-font);
+    font-size: var(--font-size-default);
+    font-family: var(--font-family-default);
+    width: 80%;
+    min-height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: var(--primary-color-heavy);
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    padding: .3em .8em;
+    margin: 1em;
+    border: 1px solid var(--color-font);
+    /* border-bottom: 4px solid var(--color-font); */
+    box-shadow: 0px 3px 2px var(--color-font);
+    border-radius: .4em;
+    transition: all .2s linear;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+button:active {
+    /* transform: scale(.95); */
+    box-shadow: none;
+    /* padding-bottom: calc(.8em + 3px); */
+}
+
+input {
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    padding: .5em .7em;
+    border: 1px solid var(--color-font);
+    border-radius: .6em;
+}
+
+#main {
+    min-height: 80vh;
+}
+
+#introduction, #name-div {
+    background-color: var(--primary-color-light);
+    font-size: 1.8rem;
+    text-align: center;
+    padding: 1em 1.2em 1.2em;
+    border: 2px solid var(--color-font);
+    border-bottom: 4px solid var(--color-font);
+    border-radius: .4em;
+}
+
+#name-sub-div {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    column-gap: 2rem;
+}
