@@ -5,6 +5,7 @@
 :root {
     --font-family-default: 'Patrick Hand', cursive;
     --font-size-default: 18px;
+    --font-size-letters: 32px;
     --primary-color-heavy: #ffc300;
     --primary-color-light: #ffd60a;
     --secondary-color-heavy: #001d3d;
@@ -62,6 +63,8 @@ input {
 
 #main {
     min-height: 80vh;
+    margin: 1rem auto;
+    text-align: center;
 }
 
 #introduction, #name-div {
@@ -79,4 +82,22 @@ input {
     justify-content: space-evenly;
     align-items: center;
     column-gap: 2rem;
+}
+
+#letters-ctn {
+    display: flex;
+    justify-content: space-evenly;
+    column-gap: .5em;
+}
+
+.letters {
+    color: transparent;
+    font-size: var(--font-size-letters);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    border: 2px solid var(--color-font);
+    border-radius: .3em;
 }

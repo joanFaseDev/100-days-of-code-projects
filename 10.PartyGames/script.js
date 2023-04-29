@@ -9,10 +9,14 @@ const introBtn = createMessage(
     'message'
     );
 
-let nameBtn = introBtn.addEventListener(('click'), (event) => {
-    removeMessage('introduction');
-    return createNameField('1');
-});
+addButton('intro', introBtn);
+gameHandler.buttons.intro.listener('introduction', '1');
+
+const nameBtn = document.querySelector('#name-button');
+addButton('name', nameBtn);
+console.dir(gameHandler);
+gameHandler.buttons.name.listener(0, 'name-div', 2);
+
 
 function createNameField(playerNumber)
 {
@@ -40,8 +44,6 @@ function createNameField(playerNumber)
     subDiv.append(label, input);
     div.append(subDiv, button);
     main.append(div);
-
-    return button;
 }
 
 // GameHandler groups together all the datas necessary for the application to work properly.
@@ -63,7 +65,32 @@ function createGameHandler()
             name: null
         }
     );
+    gameHandler.buttons = {
+        intro: {
+            button: null,
+            event: 'click',
+            listener: function(messageToRemove, playerNumber) 
+            {
+                this.button.addEventListener(this.event, (event) => {
+                    removeMessage(messageToRemove);
+                    createNameField(playerNumber);
+                });
+            }
+        },
+        name: {
+            button: null,
+            event: 'click',
+            listener: function(idxPlayer, messageToRemove, playerNumber)
+            {
+                this.button.addEventListener(this.event, (event) => {
+                    addUserName(idxPlayer);
+                    removeMessage(messageToRemove);
+                    createNameField(playerNumber);
+                })
+            }
+        }
 
+    };
     return gameHandler;
 }
 
@@ -95,6 +122,18 @@ function removeMessage(messageId)
     {
         message.remove();
     }
+}
+
+function addUserName(idxPlayer)
+{
+    const nameInput = document.querySelector('#name-input');
+    const userName = nameInput.value;
+    gameHandler.players[idxPlayer].name = userName;
+}
+
+function addButton(btnContext, button)
+{
+    gameHandler.buttons[btnContext].button = button;
 }
 
 function checkUser()
