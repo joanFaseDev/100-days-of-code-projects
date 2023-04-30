@@ -62,3 +62,46 @@ Functions are actions so their name should be a verb. It should be brief, accura
 A good named function should immediately tell what it does and what it returns.
 Ideally, a function should do one action (the one suggested by its name) and no more.
 A good named function is called **self-describing** because it prevent the use of comment by being clear enough.
+
+```javascript
+
+// Function expression
+let greetings = function()
+{
+    console.log('Hello everyone!');
+}
+
+greetings() // Hello everyone
+
+let sameGreetings = greetings; // Functions, declared or expressed, are values.
+sameGreetings() // Hello everyone
+console.log(sameGreetings) // Return the code source of the function.
+```
+
+```javascript
+
+// Callback functions
+function checkAge(question, yes, no)
+{
+    if (confirm(question))
+    {
+        yes();
+    }
+    else
+    {
+        no();
+    }
+}
+
+function authorize()
+{
+    console.log('You can enter sir.');
+}
+
+checkAge(
+    'Are you eighteen years old or more?',
+    authorize,
+    function() { console.log('You`re too young to enter sir. Come back in a few years.') }
+);
+
+```
