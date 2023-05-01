@@ -105,3 +105,12 @@ checkAge(
 );
 
 ```
+
+```javascript
+
+// Arrow functions
+let showFavoriteVideoGames = ([...videoGames]) => console.log(...videoGames); 
+
+showFavoriteVideoGames(['Secret of Evermore', 'Odin Sphere']) // Secret of Evermore Odin Sphere
+
+```
