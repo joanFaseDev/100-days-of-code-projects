@@ -12,7 +12,13 @@
     - [X] Learn how the canvas' coordinates system works.
     - [X] Experiment with the rectangle functions.
     - [X] Using rectangles, draw satisfying gallows.
-    - [] Experiment with the path functions.
+    - [X] Experiment with the path functions.
+    - [X] Draw the gallows.
+    - [X] Draw the hangman.
+    - [X] Finish placing the shadows.
+    - [X] Find a nice colors palette to draw the hangman plus gallows
+- [X] Create a script to show the hangman drawing step by step (using setInterval() ?).
+- [] Refactor the existing code before adding new features to the application.
 - [] Make the drawing half transparent on screen. Each element of the drawing can become fully opaque when activated.
 - [] Ask the user for a letter and get its input.
 - [] If the letter is correct, display the letter in its div.
@@ -21,6 +27,8 @@
 - [] Victory goes to the player who have scored the most points.
 
 ## Worthy of note
+### Canvas
+#### Basics
 - **<canvas>** is an HTML element that can be used to draw graphics via scripting.
 - Default size of the canvas element is **300px x 150px** (width * height).
 - To avoid distortion, it is recommended to set custom width and height for the canvas through its HTML attributes instead of using CSS.
@@ -30,6 +38,20 @@
     * [fillRect - MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillRect)
     * [strokeRect - MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/strokeRect)
     * [clearRect - MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/clearRect)
+
+#### Path
+- To create a path on the canvas, start with the [beginPath - MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/beginPath) function. The function automatically empty the sub-paths (list of paths which together forms a shape) so by calling it one can start drawing new shapes.
+- To set the starting position, call the [moveTo - MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/moveTo) function. Its behavior is similar to the act of lifting/putting down a pen on a surface before drawing.
+- To go from point to point through straight lines, use the [lineTo - MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineTo) function.
+- There are two functions to draw arcs and circles:
+    * [arc - MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc)
+    * [arcTo - MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arcTo)
+
+- More complex shapes can be achieved by using the [quadraticCurveTo - MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/quadraticCurveTo) and [bezierCurveTo](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/bezierCurveTo) functions.
+
+
+### Shortcuts Visual Studio Code
+- **Ctrl + Begin / Ctrl + End**: Go to the beginning / end of file
 
 ## Links
 * [Getting started with AJAX - MDN](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX/Getting_Started)
