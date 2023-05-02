@@ -18,6 +18,8 @@
     - [X] Finish placing the shadows.
     - [X] Find a nice colors palette to draw the hangman plus gallows
 - [X] Create a script to show the hangman drawing step by step (using setInterval() ?).
+- [] Create a field to receive Player's input.
+- [] Make the field overlap the hangman's canvas (using relative/absolute position?)
 - [] Refactor the existing code before adding new features to the application.
 - [] Make the drawing half transparent on screen. Each element of the drawing can become fully opaque when activated.
 - [] Ask the user for a letter and get its input.

@@ -62,10 +62,14 @@ function responseHandler(xmlHttpRequest)
             {
                 displayRandomWord(xmlHttpRequest);
                 createHangmanSlots(xmlHttpRequest);
+                
                 deactivateHangmanButton();
-                const ctx = showHangman();
-                showAnimationButton();
-                setAnimationButton(ctx);
+                const ctx = getContext();
+
+                showPlayerField('Jordan');
+                const userInput = handleUserInput();
+                // showAnimationButton();
+                // setAnimationButton(ctx);
             }
             else
             {
@@ -79,7 +83,7 @@ function responseHandler(xmlHttpRequest)
     } 
     catch (error) 
     {
-        console.log(`Caught exception: ${error.description}`);
+        console.log(`Caught exception: ${error}`);
     }
     
 }
@@ -101,6 +105,7 @@ function createHangmanSlots(xmlHttpRequest)
     {
         const div = document.createElement('div');
         div.setAttribute('class', 'letters');
+        div.setAttribute('data-index', i)
         div.textContent = randomWord[i];
         divParent.append(div);
     }
@@ -117,6 +122,123 @@ function showAnimationButton()
     button.textContent = 'Start Hangman Animation';
     div.append(button);
     main.append(div);
+}
+
+function showPlayerField(player)
+{
+    console.log('Hi! It\'s the showPlayerField function!');
+    const main = document.querySelector('#main');
+
+    const containers = createPlayerFieldContainers();
+    const items = createPlayerFieldItems(player);
+    
+    containers.sub.append(
+        items.label, 
+        items.input
+        );
+
+    containers.main.append(
+        containers.sub, 
+        items.button
+        );
+
+    main.append(containers.main);
+}
+
+function showWarning()
+{
+    const warning = document.createElement('p');
+    warning.textContent = 'You need to write a letter. Any other character is not valid.';
+    warning.classList.add('warning');
+    document.querySelector('#player-field-letter-sub').prepend(warning);
+}
+
+function removeWarning()
+{
+    const warning = document.querySelector('.warning');
+    if (warning)
+    {
+        warning.remove();
+    }
+}
+
+function createPlayerFieldContainers()
+{
+    const div = document.createElement('div');
+    const subDiv = document.createElement('div');
+    div.setAttribute('id', 'player-field-letter');
+    subDiv.setAttribute('id', 'player-field-letter-sub');
+    return {
+        main: div,
+        sub: subDiv
+    };
+    
+}
+
+function createPlayerFieldItems(player)
+{
+    const label = document.createElement('label');
+    label.textContent = `${player}, it is your turn to guess a letter!`;
+    label.setAttribute('for', 'letter-field');
+
+    const input = document.createElement('input');
+    input.setAttribute('id', 'letter-field');
+    input.setAttribute('placeholder', 'Ex: L, a, i,...');
+    input.setAttribute('minlength', 1);
+    input.setAttribute('maxlength', 1);
+
+    const button = document.createElement('button');
+    button.setAttribute('id', 'player-field-btn');
+    button.textContent = 'Validate letter';
+
+    return {
+        label: label,
+        input: input,
+        button: button
+    };
+    
+}
+
+function handleUserInput()
+{
+    const validationBtn = document.querySelector('#player-field-btn');
+    if (validationBtn)
+    {
+        validationBtn.addEventListener('click', (event) => {
+            const userInput = document.querySelector('#letter-field').value;
+            checkUserInput(userInput);
+        });
+    } 
+}
+
+function checkUserInput(userInput)
+{
+    const regExp = new RegExp('[a-zA-Z]');
+    if (regExp.test(userInput))
+    {
+        removeWarning();
+        checkValidLetter(userInput);
+    }
+    else
+    {
+        if (document.querySelector('.warning'))
+        {
+            return;
+        }
+        else
+        {
+            showWarning();        
+        }
+    }
+}
+
+function checkValidLetter(userInput)
+{
+    const lettersCtn = document.querySelector('#letters-ctn');
+    const letters = Array.from(lettersCtn.children);
+    const validLetters = letters.filter((letter) => letter.textContent === userInput.toLowerCase());
+    console.dir(validLetters);
+    
 }
 
 function setAnimationButton(context)
@@ -147,7 +269,7 @@ function deactivateHangmanButton()
     btn.setAttribute('disabled', '');
 }
 
-function showHangman()
+function getContext()
 {
     const canvas = setUpCanvas();
     const ctx = setUpContext(canvas);
