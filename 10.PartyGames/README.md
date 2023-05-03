@@ -18,11 +18,18 @@
     - [X] Finish placing the shadows.
     - [X] Find a nice colors palette to draw the hangman plus gallows
 - [X] Create a script to show the hangman drawing step by step (using setInterval() ?).
-- [] Create a field to receive Player's input.
-- [] Make the field overlap the hangman's canvas (using relative/absolute position?)
+
+- [X] Create a field to receive Player's input.
 - [] Refactor the existing code before adding new features to the application.
+- [X] Clear the user's input once sended.
+- [X] Once clicked, replace the 'Start Hangman' button by a 'Start over' button to refresh the page and start a new game.
+- [] Add the logic to set both player's name at the beginning of the game.
+- [] Check players names through regular expressions (only letters, no special characters or numbers)
+- [] Create two pools, one for the player's valid letters and another for the unvalid ones.
+- [] Use the collected names and implement them to work with the showInputPlayer function.
+- [] Make the field overlap the hangman's canvas (using relative/absolute position?)
 - [] Make the drawing half transparent on screen. Each element of the drawing can become fully opaque when activated.
-- [] Ask the user for a letter and get its input.
+- [X] Ask the user for a letter and get its input.
 - [] If the letter is correct, display the letter in its div.
 - [] If the letter is not correct, show a part of the hangman.
 - [] The game ends when all letters are found or when the drawing is complete.
@@ -61,3 +68,5 @@
 * [Free Random Word Generator API - Rando](https://random-word-api.vercel.app/)
 * [Canvas API - MDN](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
 * [Canvas Tutorial - MDN](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial)
+* [Refresh the page in JavaScript](https://www.freecodecamp.org/news/refresh-the-page-in-javascript-js-reload-window-tutorial/)
+* [location: reload() method - MDN](https://developer.mozilla.org/en-US/docs/Web/API/Location/reload)

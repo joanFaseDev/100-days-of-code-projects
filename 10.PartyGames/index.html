@@ -9,7 +9,18 @@
 </head>
 <body>
     <div id="main">
-        <button id="requestBtn">Start Hangman</button>
+        <div id="name-field-ctn-pl1">
+            <label for="name-field-pl1">Enter <span class="pl1">Player 1</span>'s name:</label>
+            <input id="name-field-pl1" name="name-pl1" type="text"
+            placeholder="Ex: Inej">
+        </div>
+        <div id="name-field-ctn-pl2">
+            <label for="name-field-pl2">Enter <span class="pl2">Player 2</span>'s name:</label>
+            <input id="name-field-pl2" name="name-pl2" type="text"
+            placeholder="Ex: Kaz">
+        </div>
+        <button id="name-validation-btn">Submit</button>
+        <!-- <button id="requestBtn">Start Hangman</button> -->
     </div>
     <p id="word"></p>
     <footer id="footer">

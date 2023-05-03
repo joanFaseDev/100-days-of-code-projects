@@ -8,39 +8,140 @@
  * update the page without having to refresh it.
  */
 
-initHangmanGame();
 
-function initHangmanGame()
+const validationBtn = document.querySelector('#name-validation-btn');
+validationBtn.addEventListener('click', (event) => {
+    const players = getPlayer();
+    const namesAreValid = checkPlayersName(players[1].name, players[2].name);
+    if (!namesAreValid)
+    {
+        if (!isNamesWarning())
+        {
+            showNamesWarning();
+        }
+    }
+    else {
+        getReady(players);
+    }
+});
+
+function getPlayer()
 {
-    // Wait for the page to be fully loaded before executing the script
-    addEventListener('load', (event) => {
-        const btn = document.querySelector('#requestBtn');
-        btn.addEventListener('click', (event) => {
-            requestHandler();
-        });
+    return {
+        1: {
+            name: document.querySelector('#name-field-pl1').value,
+            style: 'pl1'
+        },
+        2: {
+            name: document.querySelector('#name-field-pl2').value,
+            style: 'pl2'
+        }
+    }
+}
+
+function checkPlayersName(namePl1, namePl2)
+{
+   const regEx = new RegExp(/^((?![0-9.,!?:;_|+\-*\\/=%°@&#§$"'`¨^ˇ()\[\]<>{}])[\S])+$/);
+   return regEx.test(namePl1) && regEx.test(namePl2); 
+}
+
+function isNamesWarning()
+{
+    return document.querySelector('#name-warning-message');
+}
+
+function showNamesWarning()
+{
+    const main = document.querySelector('#main');
+    const p = document.createElement('p')
+    p.innerHTML = `Please only use letters for your names.</br>No number or special character allowed`;
+    p.setAttribute('id', 'name-warning-message');
+    p.classList.add('warning');
+    main.append(p);
+}
+
+function getReady(players)
+{
+    clearNameElements();
+    showReadyElements(players);
+    addInitLogic(players);
+}
+
+function clearNameElements()
+{
+    const nameElements = [
+        document.querySelector('#name-field-ctn-pl1'),
+        document.querySelector('#name-field-ctn-pl2'),
+        document.querySelector('#name-warning-message'),
+        document.querySelector('#name-validation-btn')
+    ];
+
+    nameElements.forEach((elem) => {
+        if (elem)
+        {
+            elem.remove();
+            console.log(`Removed -> ${elem}`);
+        }
     });
 }
 
-function createRequestObj(method, url)
+function showReadyElements(players)
 {
-    return {
-        method: method,
-        url: url,
-        isAsynchronous: true
-    };
+    const main = document.querySelector('#main');
+    const p = createNamesConfirmation(players);
+    const button = createInitButton();
+    main.append(p, button);
+}
+
+function createNamesConfirmation(players)
+{
+    const p = document.createElement('p');
+    p.setAttribute('id', 'name-confirmation');
+    p.innerHTML = `<span class="pl1">${players[1].name}</span>, you're the <span class="pl1">player 1</span>.</br>
+    <span class="pl2">${players[2].name}</span>, you're the <span class="pl2">player 2</span>.</br>
+    Good luck to the both of you!`;
+    return p;
+}
+
+function createInitButton()
+{
+    const button = document.createElement('button');
+    button.textContent = 'Start Hangman';
+    button.setAttribute('id', 'requestBtn');
+    return button;
+}
+
+function addInitLogic(players)
+{
+    // Wait for the page to be fully loaded before executing the script
+        const btn = document.querySelector('#requestBtn');
+        btn.addEventListener('click', () => {
+            requestHandler(players);
+            removeNamesConfirmation();
+        });
+}
+
+function removeNamesConfirmation()
+{
+    const namesConfirmation = document.querySelector('#name-confirmation');
+    if (namesConfirmation)
+    {
+        namesConfirmation.remove();
+    }
 }
 
 // Configure the request and set the function tasked with handling the response
-function requestHandler()
+function requestHandler(players)
 {
     const httpRequest = new XMLHttpRequest();
     const request = createRequestObj(
     'GET',
-    'https://random-word-api.vercel.app/api?words=1'
+    'https://random-word-api.vercel.app/api?words=1',
+    true
     );
 
     httpRequest.onreadystatechange = (httpRequest) => {
-        responseHandler(httpRequest);
+        responseHandler(httpRequest, players);
     };
 
     httpRequest.open(
@@ -52,22 +153,26 @@ function requestHandler()
     httpRequest.send();
 }
 
+function createRequestObj(method, url, isAsynchronous)
+{
+    return {
+        method: method,
+        url: url,
+        isAsynchronous: isAsynchronous
+    };
+}
+
 // Check the response's status. If it is ok, set up the Hangman's gameplay loop.
-function responseHandler(xmlHttpRequest)
+function responseHandler(xmlHttpRequest, players)
 {
     try {
         if (xmlHttpRequest.target.readyState === XMLHttpRequest.DONE)
         {
             if (xmlHttpRequest.target.status === 200)
             {
-                displayRandomWord(xmlHttpRequest);
-                createHangmanSlots(xmlHttpRequest);
-                
-                deactivateHangmanButton();
-                const ctx = getContext();
-
-                showPlayerField('Jordan');
-                const userInput = handleUserInput();
+                setGameLayout(xmlHttpRequest, players);
+                const lettersPools = createLettersPools();
+                handleUserInput(lettersPools);
                 // showAnimationButton();
                 // setAnimationButton(ctx);
             }
@@ -88,6 +193,31 @@ function responseHandler(xmlHttpRequest)
     
 }
 
+function setGameLayout(xmlHttpRequest, players)
+{
+    setRandomWord(xmlHttpRequest);
+    setNewGameButton();
+    const ctx = getContext();
+    showInputPlayer(players);
+}
+
+function setRandomWord(xmlHttpRequest)
+{
+    displayRandomWord(xmlHttpRequest);
+    createWordSlots(xmlHttpRequest);
+}
+
+function setNewGameButton()
+{
+    const btn = document.querySelector('#requestBtn');
+    btn.removeEventListener('click', requestHandler);
+    btn.textContent = 'New Game';
+    btn.addEventListener('click', (event) => {
+        window.location.reload();
+    });
+}
+
+// DEBUG FUNCTION
 function displayRandomWord(xmlHttpRequest)
 {
     const randomWord = JSON.parse(xmlHttpRequest.target.response);
@@ -95,7 +225,7 @@ function displayRandomWord(xmlHttpRequest)
     p.textContent = randomWord;
 }
 
-function createHangmanSlots(xmlHttpRequest)
+function createWordSlots(xmlHttpRequest)
 {
     const randomWord = JSON.parse(xmlHttpRequest.target.response)[0];
     const divParent = document.createElement('div');
@@ -113,6 +243,97 @@ function createHangmanSlots(xmlHttpRequest)
     document.querySelector('#main').append(divParent);
 }
 
+function getContext()
+{
+    const canvas = setUpCanvas();
+    const ctx = setUpContext(canvas);
+    return ctx;
+    // drawExample(canvas, ctx);
+    // drawHangman(canvas, ctx);
+}
+
+function createLettersPools()
+{
+    return {
+        valid: [],
+        unvalid: []
+    }
+}
+
+function handleUserInput(lettersPools)
+{
+    const validationBtn = document.querySelector('#player-field-btn');
+    if (validationBtn)
+    {
+        validationBtn.addEventListener('click', (event) => {
+            const inputField = document.querySelector('#letter-field');
+            const userInput = inputField.value;
+            inputField.value = '';
+            checkUserInput(userInput, lettersPools);
+        });
+    } 
+}
+
+function checkUserInput(userInput, lettersPools)
+{
+    const regExp = new RegExp('[a-zA-Z]');
+    if (regExp.test(userInput))
+    {
+        removeWarning();
+        checkValidLetter(userInput);
+    }
+    else
+    {
+        if (document.querySelector('.warning'))
+        {
+            return;
+        }
+        else
+        {
+            showWarning();        
+        }
+    }
+}
+
+function checkValidLetter(userInput)
+{
+    console.log('CHECKVALIDLETTER -> ' + userInput);
+    const lettersCtn = document.querySelector('#letters-ctn');
+    const letters = Array.from(lettersCtn.children);
+    const validLetters = letters.filter((letter) => letter.textContent === userInput.toLowerCase());
+    console.dir(validLetters);
+
+    if (validLetters)
+    {
+        // Add to the valid letters pool
+        validLetters.forEach((letter) => {
+            letter.classList.add('is-visible');
+        });
+    }
+    else
+    {
+        // Add to the unvalid letters pool
+    }
+    
+}
+
+function showWarning()
+{
+    const warning = document.createElement('p');
+    warning.textContent = 'You need to write a letter. Any other character is not valid.';
+    warning.classList.add('warning');
+    document.querySelector('#player-field-letter-sub').prepend(warning);
+}
+
+function removeWarning()
+{
+    const warning = document.querySelector('.warning');
+    if (warning)
+    {
+        warning.remove();
+    }
+}
+
 function showAnimationButton()
 {
     const main = document.querySelector('#main');
@@ -124,13 +345,12 @@ function showAnimationButton()
     main.append(div);
 }
 
-function showPlayerField(player)
+function showInputPlayer(players)
 {
-    console.log('Hi! It\'s the showPlayerField function!');
     const main = document.querySelector('#main');
 
     const containers = createPlayerFieldContainers();
-    const items = createPlayerFieldItems(player);
+    const items = createPlayerFieldItems(players);
     
     containers.sub.append(
         items.label, 
@@ -143,14 +363,6 @@ function showPlayerField(player)
         );
 
     main.append(containers.main);
-}
-
-function showWarning()
-{
-    const warning = document.createElement('p');
-    warning.textContent = 'You need to write a letter. Any other character is not valid.';
-    warning.classList.add('warning');
-    document.querySelector('#player-field-letter-sub').prepend(warning);
 }
 
 function removeWarning()
@@ -175,10 +387,10 @@ function createPlayerFieldContainers()
     
 }
 
-function createPlayerFieldItems(player)
+function createPlayerFieldItems(players)
 {
     const label = document.createElement('label');
-    label.textContent = `${player}, it is your turn to guess a letter!`;
+    label.innerHTML = `<span class="${players[1].style}">${players[1].name}</span>, it is your turn to guess a letter!`;
     label.setAttribute('for', 'letter-field');
 
     const input = document.createElement('input');
@@ -197,18 +409,6 @@ function createPlayerFieldItems(player)
         button: button
     };
     
-}
-
-function handleUserInput()
-{
-    const validationBtn = document.querySelector('#player-field-btn');
-    if (validationBtn)
-    {
-        validationBtn.addEventListener('click', (event) => {
-            const userInput = document.querySelector('#letter-field').value;
-            checkUserInput(userInput);
-        });
-    } 
 }
 
 function checkUserInput(userInput)
@@ -238,6 +438,18 @@ function checkValidLetter(userInput)
     const letters = Array.from(lettersCtn.children);
     const validLetters = letters.filter((letter) => letter.textContent === userInput.toLowerCase());
     console.dir(validLetters);
+
+    if (validLetters)
+    {
+        // Add to the valid letters pool
+        validLetters.forEach((letter) => {
+            letter.classList.add('is-visible');
+        });
+    }
+    else
+    {
+        // Add to the unvalid letters pool
+    }
     
 }
 
@@ -261,21 +473,6 @@ function setAnimationButton(context)
     } catch (error) {
         console.log(error);
     }
-}
-
-function deactivateHangmanButton()
-{
-    const btn = document.querySelector('#requestBtn');
-    btn.setAttribute('disabled', '');
-}
-
-function getContext()
-{
-    const canvas = setUpCanvas();
-    const ctx = setUpContext(canvas);
-    return ctx;
-    // drawExample(canvas, ctx);
-    // drawHangman(canvas, ctx);
 }
 
 function setUpCanvas()
