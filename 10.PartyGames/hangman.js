@@ -11,8 +11,9 @@
 
 const validationBtn = document.querySelector('#name-validation-btn');
 validationBtn.addEventListener('click', (event) => {
-    const players = getPlayer();
-    const namesAreValid = checkPlayersName(players[1].name, players[2].name);
+    const gameManager = getGameManager();
+    setActivePlayer(gameManager, gameManager[2]);
+    const namesAreValid = checkPlayersName(gameManager[1].name, gameManager[2].name);
     if (!namesAreValid)
     {
         if (!isNamesWarning())
@@ -21,21 +22,27 @@ validationBtn.addEventListener('click', (event) => {
         }
     }
     else {
-        getReady(players);
+        getReady(gameManager);
     }
 });
 
-function getPlayer()
+function getGameManager()
 {
     return {
         1: {
             name: document.querySelector('#name-field-pl1').value,
-            style: 'pl1'
+            style: 'pl1',
+            score: 0,
         },
         2: {
             name: document.querySelector('#name-field-pl2').value,
-            style: 'pl2'
-        }
+            style: 'pl2',
+            score: 0,
+        },
+        pools: {
+            valid: [],
+            unvalid: [],
+        },
     }
 }
 
@@ -60,11 +67,11 @@ function showNamesWarning()
     main.append(p);
 }
 
-function getReady(players)
+function getReady(gameManager)
 {
     clearNameElements();
-    showReadyElements(players);
-    addInitLogic(players);
+    showReadyElements(gameManager);
+    addInitLogic(gameManager);
 }
 
 function clearNameElements()
@@ -80,25 +87,24 @@ function clearNameElements()
         if (elem)
         {
             elem.remove();
-            console.log(`Removed -> ${elem}`);
         }
     });
 }
 
-function showReadyElements(players)
+function showReadyElements(gameManager)
 {
     const main = document.querySelector('#main');
-    const p = createNamesConfirmation(players);
+    const p = createNamesConfirmation(gameManager);
     const button = createInitButton();
     main.append(p, button);
 }
 
-function createNamesConfirmation(players)
+function createNamesConfirmation(gameManager)
 {
     const p = document.createElement('p');
     p.setAttribute('id', 'name-confirmation');
-    p.innerHTML = `<span class="pl1">${players[1].name}</span>, you're the <span class="pl1">player 1</span>.</br>
-    <span class="pl2">${players[2].name}</span>, you're the <span class="pl2">player 2</span>.</br>
+    p.innerHTML = `<span class="pl1">${gameManager[1].name}</span>, you're the <span class="pl1">player 1</span>.</br>
+    <span class="pl2">${gameManager[2].name}</span>, you're the <span class="pl2">player 2</span>.</br>
     Good luck to the both of you!`;
     return p;
 }
@@ -111,12 +117,12 @@ function createInitButton()
     return button;
 }
 
-function addInitLogic(players)
+function addInitLogic(gameManager)
 {
     // Wait for the page to be fully loaded before executing the script
         const btn = document.querySelector('#requestBtn');
         btn.addEventListener('click', () => {
-            requestHandler(players);
+            requestHandler(gameManager);
             removeNamesConfirmation();
         });
 }
@@ -131,7 +137,7 @@ function removeNamesConfirmation()
 }
 
 // Configure the request and set the function tasked with handling the response
-function requestHandler(players)
+function requestHandler(gameManager)
 {
     const httpRequest = new XMLHttpRequest();
     const request = createRequestObj(
@@ -141,7 +147,7 @@ function requestHandler(players)
     );
 
     httpRequest.onreadystatechange = (httpRequest) => {
-        responseHandler(httpRequest, players);
+        responseHandler(httpRequest, gameManager);
     };
 
     httpRequest.open(
@@ -163,16 +169,15 @@ function createRequestObj(method, url, isAsynchronous)
 }
 
 // Check the response's status. If it is ok, set up the Hangman's gameplay loop.
-function responseHandler(xmlHttpRequest, players)
+function responseHandler(xmlHttpRequest, gameManager)
 {
     try {
         if (xmlHttpRequest.target.readyState === XMLHttpRequest.DONE)
         {
             if (xmlHttpRequest.target.status === 200)
             {
-                setGameLayout(xmlHttpRequest, players);
-                const lettersPools = createLettersPools();
-                handleUserInput(lettersPools);
+                setGameLayout(xmlHttpRequest, gameManager);
+                handleUserInput(gameManager);
                 // showAnimationButton();
                 // setAnimationButton(ctx);
             }
@@ -193,12 +198,12 @@ function responseHandler(xmlHttpRequest, players)
     
 }
 
-function setGameLayout(xmlHttpRequest, players)
+function setGameLayout(xmlHttpRequest, gameManager)
 {
     setRandomWord(xmlHttpRequest);
     setNewGameButton();
     const ctx = getContext();
-    showInputPlayer(players);
+    showInputPlayer(gameManager);
 }
 
 function setRandomWord(xmlHttpRequest)
@@ -252,77 +257,130 @@ function getContext()
     // drawHangman(canvas, ctx);
 }
 
-function createLettersPools()
-{
-    return {
-        valid: [],
-        unvalid: []
-    }
-}
-
-function handleUserInput(lettersPools)
+function handleUserInput(gameManager)
 {
     const validationBtn = document.querySelector('#player-field-btn');
     if (validationBtn)
     {
         validationBtn.addEventListener('click', (event) => {
-            const inputField = document.querySelector('#letter-field');
-            const userInput = inputField.value;
-            inputField.value = '';
-            checkUserInput(userInput, lettersPools);
+            const userInput = getUserInput();
+            const isFormated = checkUserInput(userInput);
+            if (isFormated)
+            {
+                togglePlayerTurn(gameManager);
+                updatePlayerFieldItems(gameManager.activePlayer);
+                removeWarning();
+                const validLetters = checkValidLetter(userInput);
+                if (validLetters.length > 0)
+                {
+                    handleValidAnswer(userInput, validLetters, gameManager);
+                }
+                else 
+                {
+                    handleUnvalidAnswer(userInput, validLetters, gameManager);
+                }
+            }
+            else 
+            {
+                showWarning();
+            }
         });
     } 
 }
 
-function checkUserInput(userInput, lettersPools)
+function togglePlayerTurn(gameManager)
 {
-    const regExp = new RegExp('[a-zA-Z]');
-    if (regExp.test(userInput))
-    {
-        removeWarning();
-        checkValidLetter(userInput);
-    }
-    else
-    {
-        if (document.querySelector('.warning'))
-        {
-            return;
-        }
-        else
-        {
-            showWarning();        
-        }
-    }
+    console.log(gameManager.activePlayer);
+    gameManager.activePlayer = (gameManager.activePlayer === gameManager[1]) ? gameManager[2] : gameManager[1];
+    console.log(gameManager.activePlayer);
+}
+
+function getUserInput()
+{
+    const inputField = document.querySelector('#letter-field');
+    const userInput = inputField.value;
+    inputField.value = '';
+    return userInput;
+}
+
+function checkUserInput(userInput)
+{
+    const regEx = new RegExp('[a-zA-Z]');
+    return regEx.test(userInput);
 }
 
 function checkValidLetter(userInput)
 {
-    console.log('CHECKVALIDLETTER -> ' + userInput);
     const lettersCtn = document.querySelector('#letters-ctn');
     const letters = Array.from(lettersCtn.children);
     const validLetters = letters.filter((letter) => letter.textContent === userInput.toLowerCase());
-    console.dir(validLetters);
+    return validLetters;    
+}
 
-    if (validLetters)
+function handleValidAnswer(userInput, validLetters, gameManager)
+{
+    displayValidLetters(validLetters);
+    if (!checkIsInValidPool(userInput, gameManager))
     {
-        // Add to the valid letters pool
-        validLetters.forEach((letter) => {
-            letter.classList.add('is-visible');
-        });
+        addValidPool(userInput, gameManager);
     }
-    else
+}
+
+function handleUnvalidAnswer(userInput, validLetters, gameManager)
+{
+    if (!checkIsInUnvalidPool(userInput, gameManager))
     {
-        // Add to the unvalid letters pool
+        addUnvalidPool(userInput, gameManager);
     }
-    
+}
+
+function displayValidLetters(validLetters)
+{
+    validLetters.forEach((letter) => {
+        letter.classList.add('is-visible');
+    });
+}
+
+function checkIsInValidPool(userInput, gameManager)
+{
+    return gameManager.pools.valid.some((letter) => letter === userInput.toLowerCase());
+}
+
+function checkIsInUnvalidPool(userInput, gameManager)
+{
+    return gameManager.pools.unvalid.some((letter) => letter === userInput.toLowerCase());
+}
+
+function addValidPool(userInput, gameManager)
+{
+    gameManager.pools.valid.push(userInput.toLowerCase());
+    console.log(gameManager);
+}
+
+function addUnvalidPool(userInput, gameManager)
+{
+    gameManager.pools.unvalid.push(userInput.toLowerCase());
+    console.log(gameManager);
+}
+
+function incrementScore()
+{
+
 }
 
 function showWarning()
 {
-    const warning = document.createElement('p');
-    warning.textContent = 'You need to write a letter. Any other character is not valid.';
-    warning.classList.add('warning');
-    document.querySelector('#player-field-letter-sub').prepend(warning);
+    if (document.querySelector('.warning'))
+    {
+        return;
+    }
+    else
+    {
+        const warning = document.createElement('p');
+        warning.textContent = 'You need to write a letter. Any other character is not valid.';
+        warning.classList.add('warning');
+        document.querySelector('#player-field-letter-sub').prepend(warning);
+    }
 }
 
 function removeWarning()
@@ -345,12 +403,13 @@ function showAnimationButton()
     main.append(div);
 }
 
-function showInputPlayer(players)
+function showInputPlayer(gameManager)
 {
     const main = document.querySelector('#main');
 
     const containers = createPlayerFieldContainers();
-    const items = createPlayerFieldItems(players);
+    const activePlayer = getActivePlayer(gameManager);
+    const items = createPlayerFieldItems(activePlayer);
     
     containers.sub.append(
         items.label, 
@@ -384,13 +443,12 @@ function createPlayerFieldContainers()
         main: div,
         sub: subDiv
     };
-    
 }
 
-function createPlayerFieldItems(players)
+function createPlayerFieldItems(activePlayer)
 {
     const label = document.createElement('label');
-    label.innerHTML = `<span class="${players[1].style}">${players[1].name}</span>, it is your turn to guess a letter!`;
+    label.innerHTML = `<span class="${activePlayer.style}">${activePlayer.name}</span>, it is your turn to guess a letter!`;
     label.setAttribute('for', 'letter-field');
 
     const input = document.createElement('input');
@@ -411,46 +469,21 @@ function createPlayerFieldItems(players)
     
 }
 
-function checkUserInput(userInput)
+function updatePlayerFieldItems(activePlayer)
 {
-    const regExp = new RegExp('[a-zA-Z]');
-    if (regExp.test(userInput))
-    {
-        removeWarning();
-        checkValidLetter(userInput);
-    }
-    else
-    {
-        if (document.querySelector('.warning'))
-        {
-            return;
-        }
-        else
-        {
-            showWarning();        
-        }
-    }
+    const label = document.querySelector('label[for="letter-field"]');
+    label.innerHTML = `<span class="${activePlayer.style}">${activePlayer.name}</span>, it is your turn to guess a letter!`;
 }
 
-function checkValidLetter(userInput)
+function getActivePlayer(gameManager)
 {
-    const lettersCtn = document.querySelector('#letters-ctn');
-    const letters = Array.from(lettersCtn.children);
-    const validLetters = letters.filter((letter) => letter.textContent === userInput.toLowerCase());
-    console.dir(validLetters);
+    console.log(gameManager.activePlayer);
+    return gameManager.activePlayer;
+}
 
-    if (validLetters)
-    {
-        // Add to the valid letters pool
-        validLetters.forEach((letter) => {
-            letter.classList.add('is-visible');
-        });
-    }
-    else
-    {
-        // Add to the unvalid letters pool
-    }
-    
+function setActivePlayer(gameManager, activePlayer)
+{
+    gameManager.activePlayer = activePlayer;
 }
 
 function setAnimationButton(context)

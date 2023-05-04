@@ -20,17 +20,38 @@
 - [X] Create a script to show the hangman drawing step by step (using setInterval() ?).
 
 - [X] Create a field to receive Player's input.
-- [] Refactor the existing code before adding new features to the application.
+- [X] Refactor the existing code before adding new features to the application.
 - [X] Clear the user's input once sended.
 - [X] Once clicked, replace the 'Start Hangman' button by a 'Start over' button to refresh the page and start a new game.
-- [] Add the logic to set both player's name at the beginning of the game.
-- [] Check players names through regular expressions (only letters, no special characters or numbers)
-- [] Create two pools, one for the player's valid letters and another for the unvalid ones.
-- [] Use the collected names and implement them to work with the showInputPlayer function.
+- [X] Add the logic to set both player's name at the beginning of the game.
+- [X] Check players names through regular expressions (only letters, no special characters or numbers)
+- [X] Use the collected names and implement them to work with the showInputPlayer function.
+
+**04/05/2023**
+    * Function getUserInput() to retrive the user's answer.
+    * Function checkUserInput() to check the user's format.
+    * Function showWarning rewritten.
+    * Function checkValidAnswer rewritten.
+    * Function handleValidAnswer() to treat correct answer.
+    * Function handleUnvalidAnswer() to treat uncorrect answer.
+    * Correct a bug where a pair of functions had the same name (the last one declared is the one called in that case, unfortunately it wasn't the correct one).
+    * Created a game manager object to hold all variables needed by multiple functions (didn't want to create global functions on that project).
+    * Function addValidPool() to keep trace of previous good answers.
+    * Function addUnvalidPool() to keep trace of previous bad answers.
+    * Functions checkIsInValidPool() and checkIsInUnvalidPool() to check if a good/bad answer has already been told.
+    * Function getActivePlayer() to check which player's turn it is.
+    * Function setActivePlayer() to indicate which player has to answer. 
+    * Function togglePlayerTurn() to switch initiative between players.
+    * Function updatePlayerFieldItems() to display the player which turn it is.
+
+- [X] Create two pools, one for the player's valid letters and another for the unvalid ones.
+- [X] Ask the user for a letter and get its input.
+- [X] If the letter is correct, display the letter in its div.
+- [X] Implement logic so Players can switch turn after a letter is output.
+- [] Increment player's score when a letter is found.
+- [] Modify createPlayerFieldItems() behavior so it adapts to the player currently playing.
 - [] Make the field overlap the hangman's canvas (using relative/absolute position?)
 - [] Make the drawing half transparent on screen. Each element of the drawing can become fully opaque when activated.
-- [X] Ask the user for a letter and get its input.
-- [] If the letter is correct, display the letter in its div.
 - [] If the letter is not correct, show a part of the hangman.
 - [] The game ends when all letters are found or when the drawing is complete.
 - [] Victory goes to the player who have scored the most points.
