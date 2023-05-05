@@ -12,7 +12,7 @@
 const validationBtn = document.querySelector('#name-validation-btn');
 validationBtn.addEventListener('click', (event) => {
     const gameManager = getGameManager();
-    setActivePlayer(gameManager, gameManager[2]);
+    setActivePlayer(gameManager, gameManager[1]);
     const namesAreValid = checkPlayersName(gameManager[1].name, gameManager[2].name);
     if (!namesAreValid)
     {
@@ -33,16 +33,32 @@ function getGameManager()
             name: document.querySelector('#name-field-pl1').value,
             style: 'pl1',
             score: 0,
+            hasWarning: false,
         },
         2: {
             name: document.querySelector('#name-field-pl2').value,
             style: 'pl2',
             score: 0,
+            hasWarning: false,
         },
         pools: {
             valid: [],
             unvalid: [],
         },
+        hangman: {
+            colors: {
+                PRIMARY: 'rgba(64, 61, 57)',
+                SECONDARY: 'rgba(255, 252, 242)',
+                HALF_PRIMARY: 'rgba(247, 37, 133, .5)',
+                HALF_SECONDARY: 'rgba(76, 201, 240, .5)',
+                DETAILS: 'rgba(235, 94, 40)',
+                BODY: 'rgba(235, 94, 40)',
+                BODY_SHADOWS: 'rgba(255, 243, 204)',
+            },
+            currentFrame: 0,
+            frames: getFrames,
+            ctx: null,
+        }
     }
 }
 
@@ -203,6 +219,7 @@ function setGameLayout(xmlHttpRequest, gameManager)
     setRandomWord(xmlHttpRequest);
     setNewGameButton();
     const ctx = getContext();
+    gameManager.hangman.ctx = ctx;
     showInputPlayer(gameManager);
 }
 
@@ -263,12 +280,13 @@ function handleUserInput(gameManager)
     if (validationBtn)
     {
         validationBtn.addEventListener('click', (event) => {
+            console.dir(gameManager);
+            resetHasWarning(gameManager);
+            removePlayerFieldWarning();
             const userInput = getUserInput();
             const isFormated = checkUserInput(userInput);
             if (isFormated)
             {
-                togglePlayerTurn(gameManager);
-                updatePlayerFieldItems(gameManager.activePlayer);
                 removeWarning();
                 const validLetters = checkValidLetter(userInput);
                 if (validLetters.length > 0)
@@ -279,6 +297,23 @@ function handleUserInput(gameManager)
                 {
                     handleUnvalidAnswer(userInput, validLetters, gameManager);
                 }
+
+                if (getPlayerWarning(gameManager))
+                {
+                    const warning = createPlayerFieldWarning(gameManager, userInput);
+                    displayPlayerFieldWarning(warning);
+                }
+
+                // Check for win condition here
+                const isLastFrame = checkLastFrame(gameManager)
+                if (isLastFrame)
+                {
+                    // Game is over
+                }
+
+                // Player's turn need to be changed last so score's update is applied to the correct player.
+                togglePlayerTurn(gameManager);
+                updatePlayerFieldItems(gameManager.activePlayer);
             }
             else 
             {
@@ -290,9 +325,7 @@ function handleUserInput(gameManager)
 
 function togglePlayerTurn(gameManager)
 {
-    console.log(gameManager.activePlayer);
     gameManager.activePlayer = (gameManager.activePlayer === gameManager[1]) ? gameManager[2] : gameManager[1];
-    console.log(gameManager.activePlayer);
 }
 
 function getUserInput()
@@ -323,6 +356,22 @@ function handleValidAnswer(userInput, validLetters, gameManager)
     if (!checkIsInValidPool(userInput, gameManager))
     {
         addValidPool(userInput, gameManager);
+        incrementScore(gameManager);
+    }
+    else
+    {
+        setPlayerWarning(gameManager, true);
+        decrementScore(gameManager);
+        addCurrentFrame(gameManager);
+        const isLastFrame = checkLastFrame(gameManager);
+        if (isLastFrame)
+        {
+            // Game is over
+        }
+        else
+        {
+            updateCurrentFrame(gameManager);
+        }
     }
 }
 
@@ -331,6 +380,21 @@ function handleUnvalidAnswer(userInput, validLetters, gameManager)
     if (!checkIsInUnvalidPool(userInput, gameManager))
     {
         addUnvalidPool(userInput, gameManager);
+    }
+    else
+    {
+        setPlayerWarning(gameManager, true);
+        decrementScore(gameManager);
+    }
+    addCurrentFrame(gameManager);
+    const isLastFrame = checkLastFrame(gameManager);
+    if (isLastFrame)
+    {
+        // Game is over   
+    }
+    else
+    {
+        updateCurrentFrame(gameManager);
     }
 }
 
@@ -363,9 +427,58 @@ function addUnvalidPool(userInput, gameManager)
     console.log(gameManager);
 }
 
-function incrementScore()
+function incrementScore(gameManager)
 {
+    gameManager.activePlayer.score += 1;
+    console.log(`The score of ${gameManager.activePlayer.name} is now ${gameManager.activePlayer.score}.`);
+}
 
+function decrementScore(gameManager)
+{
+    if (gameManager.activePlayer.score >= 1)
+    {
+        gameManager.activePlayer.score -= 1;
+    }
+    console.log(`The score of ${gameManager.activePlayer.name} is now ${gameManager.activePlayer.score}.`);
+}
+
+function setPlayerWarning(gameManager, bool)
+{
+    gameManager.activePlayer.hasWarning = bool;
+}
+
+function getPlayerWarning(gameManager)
+{
+    return gameManager.activePlayer.hasWarning;
+}
+
+function resetHasWarning(gameManager)
+{
+    gameManager[1].hasWarning = false;
+    gameManager[2].hasWarning = false;
+}
+
+function createPlayerFieldWarning(gameManager, userInput)
+{
+    const p = document.createElement('p');
+    p.setAttribute('id', 'player-warning');
+    p.innerHTML = `<span class="${gameManager.activePlayer.style}">${gameManager.activePlayer.name}</span> just lost one point because <span class="is-underlined">the letter <span class="is-weighted">${userInput}</span> was already in the pool</span>.`;
+    return p;
+}
+
+function displayPlayerFieldWarning(warning)
+{
+    const playerField = document.querySelector('#player-field-letter');
+    playerField.prepend(warning); 
+}
+
+function removePlayerFieldWarning()
+{
+    const playerWarning = document.querySelector('#player-warning');
+    if (playerWarning)
+    {
+        playerWarning.remove();
+    }
 }
 
 function showWarning()
@@ -486,13 +599,38 @@ function setActivePlayer(gameManager, activePlayer)
     gameManager.activePlayer = activePlayer;
 }
 
+function addCurrentFrame(gameManager)
+{
+    const colors = gameManager.hangman.colors;
+    const context = gameManager.hangman.ctx;
+    const idxFrame = gameManager.hangman.currentFrame;
+    gameManager.hangman.frames(colors, context)[idxFrame](colors, context);
+}
+
+function updateCurrentFrame(gameManager)
+{
+    const currentFrame = gameManager.hangman.currentFrame;
+    gameManager.hangman.currentFrame = currentFrame + 1;
+}
+
+function checkLastFrame(gameManager)
+{
+    const colors = gameManager.hangman.colors;
+    const context = gameManager.hangman.ctx;
+    const currentFrame = gameManager.hangman.currentFrame;
+    const lastFrame = gameManager.hangman.frames(colors, context).length - 1;
+    console.log(currentFrame, lastFrame);
+
+    return currentFrame === lastFrame; 
+}
+
 function setAnimationButton(context)
 {
     const btn  = document.querySelector('#animation-btn');
     try {
         btn.addEventListener('click', (event) => {
             const colors = initColorObj();
-            const animations = initAnimationSteps(colors);
+            const animations = getFrames(colors);
             let steps = 0;
             const idInterval = setInterval(() => {
                 animations[steps](colors, context);
@@ -560,7 +698,7 @@ function initColorObj()
     };
 }
 
-function initAnimationSteps(colors, context)
+function getFrames(colors, context)
 {
     return [
         // Horizontal Base

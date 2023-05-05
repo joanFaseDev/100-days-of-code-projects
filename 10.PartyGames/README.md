@@ -27,6 +27,25 @@
 - [X] Check players names through regular expressions (only letters, no special characters or numbers)
 - [X] Use the collected names and implement them to work with the showInputPlayer function.
 
+
+
+- [X] Create two pools, one for the player's valid letters and another for the unvalid ones.
+- [X] Ask the user for a letter and get its input.
+- [X] If the letter is correct, display the letter in its div.
+- [X] Implement logic so Players can switch turn after a letter is output.
+- [X] Increment player's score when a letter is found.
+- [X] Modify createPlayerFieldItems() behavior so it adapts to the player currently playing.
+- [] If the letter is not correct, show a part of the hangman.
+- [] At the end of each turn, check if the hangman is fully displayed. If it is, end the game.
+- [] At the end of each turn, check if the mystery word is fully displayed. If it is, end the game.
+- [] Display the winner based on the highest score among players.
+- [] Make the field overlap the hangman's canvas (using relative/absolute position?)
+- [] Make the drawing half transparent on screen. Each element of the drawing can become fully opaque when activated.
+- [] The game ends when all letters are found or when the drawing is complete.
+- [] Victory goes to the player who have scored the most points.
+- [] Shorten the number of frames in the gameManager object so there's a reasonable chance of losing for the players.
+
+## Diary
 **04/05/2023**
     * Function getUserInput() to retrive the user's answer.
     * Function checkUserInput() to check the user's format.
@@ -44,17 +63,14 @@
     * Function togglePlayerTurn() to switch initiative between players.
     * Function updatePlayerFieldItems() to display the player which turn it is.
 
-- [X] Create two pools, one for the player's valid letters and another for the unvalid ones.
-- [X] Ask the user for a letter and get its input.
-- [X] If the letter is correct, display the letter in its div.
-- [X] Implement logic so Players can switch turn after a letter is output.
-- [] Increment player's score when a letter is found.
-- [] Modify createPlayerFieldItems() behavior so it adapts to the player currently playing.
-- [] Make the field overlap the hangman's canvas (using relative/absolute position?)
-- [] Make the drawing half transparent on screen. Each element of the drawing can become fully opaque when activated.
-- [] If the letter is not correct, show a part of the hangman.
-- [] The game ends when all letters are found or when the drawing is complete.
-- [] Victory goes to the player who have scored the most points.
+**05/05/2023**
+    * Player's score is incremented when he/she guessed right.   
+    * Player's score is decremented when they pick a letter that is already in the pool. 
+    * When a player picked a letter already in the pool, he/she gets a warning informing him he/she lost a point as well as the reason why.
+    * Warning is automatically reset at the beginning of each turn.
+    * Animations steps and colors for rendering the hangman are now added to the gameManager object.
+    * When a player's guess is wrong, display the next hangman's animation.
+    * If the game is not over at the end of a round, load the next frame in the gameManager object.
 
 ## Worthy of note
 ### Canvas

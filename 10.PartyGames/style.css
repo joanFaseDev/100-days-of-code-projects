@@ -160,3 +160,11 @@ input {
 .pl2 {
     color: var(--secondary-color-light);
 }
+
+.is-weighted {
+    font-weight: bold;
+}
+
+.is-underlined {
+    text-decoration: underline solid var(--color-font);
+}
