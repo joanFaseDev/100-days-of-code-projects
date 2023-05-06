@@ -35,15 +35,16 @@
 - [X] Implement logic so Players can switch turn after a letter is output.
 - [X] Increment player's score when a letter is found.
 - [X] Modify createPlayerFieldItems() behavior so it adapts to the player currently playing.
-- [] If the letter is not correct, show a part of the hangman.
-- [] At the end of each turn, check if the hangman is fully displayed. If it is, end the game.
+- [X] If the letter is not correct, show a part of the hangman.
+- [X] At the end of each turn, check if the hangman is fully displayed. If it is, end the game.
 - [] At the end of each turn, check if the mystery word is fully displayed. If it is, end the game.
-- [] Display the winner based on the highest score among players.
+- [X] Display the winner based on the highest score among players.
 - [] Make the field overlap the hangman's canvas (using relative/absolute position?)
 - [] Make the drawing half transparent on screen. Each element of the drawing can become fully opaque when activated.
-- [] The game ends when all letters are found or when the drawing is complete.
-- [] Victory goes to the player who have scored the most points.
-- [] Shorten the number of frames in the gameManager object so there's a reasonable chance of losing for the players.
+- [X] The game ends when all letters are found or when the drawing is complete.
+- [X] Victory goes to the player who have scored the most points.
+- [X] Shorten the number of frames in the gameManager object so there's a reasonable chance of losing for the players.
+- [X] Automatically reveal the mystery word when the game ends (in case the players did not discover it).
 
 ## Diary
 **04/05/2023**
@@ -71,6 +72,13 @@
     * Animations steps and colors for rendering the hangman are now added to the gameManager object.
     * When a player's guess is wrong, display the next hangman's animation.
     * If the game is not over at the end of a round, load the next frame in the gameManager object.
+
+**06/05/2023**
+    * Keep track of each time a player has received a penalty. The penalty count is used when determining the winner of the game (in the case where both players have the same score).
+    * Implemented the logic to get the game's winner when the hangman's last image is displayed.
+    * When the game ends, part of the document is removed to clear the space for the last message.
+    * Last message reveal the winner and thanks both players for their participation in the game.
+    * Implemented the feature where the game ends if all letters are discovered. Winner is then decided using the same logic applied if the last image is displayed.
 
 ## Worthy of note
 ### Canvas

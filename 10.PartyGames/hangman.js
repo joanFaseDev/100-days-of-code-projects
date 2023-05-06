@@ -34,12 +34,14 @@ function getGameManager()
             style: 'pl1',
             score: 0,
             hasWarning: false,
+            penalty: 0,
         },
         2: {
             name: document.querySelector('#name-field-pl2').value,
             style: 'pl2',
             score: 0,
             hasWarning: false,
+            penalty: 0,
         },
         pools: {
             valid: [],
@@ -58,6 +60,7 @@ function getGameManager()
             currentFrame: 0,
             frames: getFrames,
             ctx: null,
+            mysteryWord: null,
         }
     }
 }
@@ -216,16 +219,17 @@ function responseHandler(xmlHttpRequest, gameManager)
 
 function setGameLayout(xmlHttpRequest, gameManager)
 {
-    setRandomWord(xmlHttpRequest);
+    setRandomWord(xmlHttpRequest, gameManager);
     setNewGameButton();
     const ctx = getContext();
     gameManager.hangman.ctx = ctx;
     showInputPlayer(gameManager);
 }
 
-function setRandomWord(xmlHttpRequest)
+function setRandomWord(xmlHttpRequest, gameManager)
 {
-    displayRandomWord(xmlHttpRequest);
+    // displayRandomWord(xmlHttpRequest); // Debug function
+    gameManager.hangman.mysteryWord = JSON.parse(xmlHttpRequest.target.response);
     createWordSlots(xmlHttpRequest);
 }
 
@@ -304,12 +308,12 @@ function handleUserInput(gameManager)
                     displayPlayerFieldWarning(warning);
                 }
 
-                // Check for win condition here
-                const isLastFrame = checkLastFrame(gameManager)
-                if (isLastFrame)
-                {
-                    // Game is over
-                }
+                // // Check for win condition here
+                // const isLastFrame = checkLastFrame(gameManager)
+                // if (isLastFrame)
+                // {
+                //     // Game is over
+                // }
 
                 // Player's turn need to be changed last so score's update is applied to the correct player.
                 togglePlayerTurn(gameManager);
@@ -357,16 +361,30 @@ function handleValidAnswer(userInput, validLetters, gameManager)
     {
         addValidPool(userInput, gameManager);
         incrementScore(gameManager);
+        const areAllRevealed = checkAllLettersRevealed();
+        if (areAllRevealed)
+        {
+            // Game is over
+            const winner = getWinner(gameManager);
+            const winnerField = createWinnerField(winner, gameManager);
+            cleanDocument();
+            displayWinnerField(winnerField);
+        }
     }
     else
     {
         setPlayerWarning(gameManager, true);
         decrementScore(gameManager);
+        incrementPenalty(gameManager);
         addCurrentFrame(gameManager);
         const isLastFrame = checkLastFrame(gameManager);
         if (isLastFrame)
         {
             // Game is over
+            const winner = getWinner(gameManager);
+            const winnerField = createWinnerField(winner, gameManager);
+            cleanDocument();
+            displayWinnerField(winnerField);
         }
         else
         {
@@ -385,12 +403,17 @@ function handleUnvalidAnswer(userInput, validLetters, gameManager)
     {
         setPlayerWarning(gameManager, true);
         decrementScore(gameManager);
+        incrementPenalty(gameManager)
     }
     addCurrentFrame(gameManager);
     const isLastFrame = checkLastFrame(gameManager);
     if (isLastFrame)
     {
         // Game is over   
+        const winner = getWinner(gameManager);
+        const winnerField = createWinnerField(winner, gameManager);
+        cleanDocument();
+        displayWinnerField(winnerField)
     }
     else
     {
@@ -442,6 +465,18 @@ function decrementScore(gameManager)
     console.log(`The score of ${gameManager.activePlayer.name} is now ${gameManager.activePlayer.score}.`);
 }
 
+function incrementPenalty(gameManager)
+{
+    const currentPenalty = gameManager.activePlayer.penalty;
+    gameManager.activePlayer.penalty = currentPenalty + 1
+}
+
+function checkAllLettersRevealed()
+{
+    const letters = Array.from(document.querySelector('#letters-ctn').children);
+    return letters.every((letter) => letter.classList.contains('is-visible'));
+}
+
 function setPlayerWarning(gameManager, bool)
 {
     gameManager.activePlayer.hasWarning = bool;
@@ -479,6 +514,54 @@ function removePlayerFieldWarning()
     {
         playerWarning.remove();
     }
+}
+
+/**
+ * Player with the highest score wins. If both players have the same score,
+ * the winner is the player with the least penalty count. If both players have
+ * the same penalty count then the winner is the active player. 
+ */
+function getWinner(gameManager)
+{
+    const scorePl1 = gameManager[1].score;
+    const scorePl2 = gameManager[2].score;
+    const penaltyPl1 = gameManager[1].penalty;
+    const penaltyPl2 = gameManager[2].penalty;
+    return (scorePl1 > scorePl2) ? gameManager[1]
+        : (scorePl2 > scorePl1) ? gameManager[2]
+        : (penaltyPl1 > penaltyPl2) ? gameManager[2]
+        : (penaltyPl2 > penaltyPl1) ? gameManager[1]
+        : gameManager.activePlayer;
+}
+
+function cleanDocument()
+{
+    const elements = [
+        document.querySelector('#letters-ctn'),
+        document.querySelector('#canvas'),
+        document.querySelector('#player-field-letter')
+    ];
+
+    elements.forEach((element) => element.remove());
+}
+
+function createWinnerField(winner, gameManager)
+{
+    const div = document.createElement('div');
+    div.setAttribute('id', 'winner-field');
+    const p = document.createElement('p');
+    p.innerHTML = `Mystery word was <span class="mystery">${gameManager.hangman.mysteryWord}</span>!</br>
+    Congratulation <span class="${winner.style}">${winner.name}</span>!
+    You won the game with a total of <span class="${winner.style}">${winner.score}</span> points.</br>
+    <span class="${gameManager[1].style}">${gameManager[1].name}</span> and <span class="${gameManager[2].style}">${gameManager[2].name}</span>, thank you so much for taking the time to play that game!`;
+    div.append(p)
+    return div;
+}
+
+function displayWinnerField(winnerField)
+{
+    const main = document.querySelector('#main');
+    main.append(winnerField);
 }
 
 function showWarning()
@@ -720,9 +803,8 @@ function getFrames(colors, context)
         // Vertical Arm
         (colors, context) => {
             context.fillRect(350, 155, 10, 45);
-        },
-        // Vertical Edge
-        (colors, context) => {
+            
+            // Vertical Edge
             context.beginPath();
             context.strokeStyle = colors.PRIMARY;
             context.moveTo(240, 100);
@@ -738,17 +820,13 @@ function getFrames(colors, context)
             context.lineTo(240, 155);
             context.lineTo(220, 145);
             context.fill();
-        },
-        // Right Side
-        (colors, context) => {
+
             context.beginPath();
             context.moveTo(370, 135);
             context.lineTo(370, 155);
             context.lineTo(390, 145);
             context.fill();
-        },
-        // Shadows
-        (colors, context) => {
+
             // Horizontal Base
             context.fillStyle = colors.HALF_SECONDARY;
             context.fillRect(170, 450, 10, 30);
@@ -767,8 +845,7 @@ function getFrames(colors, context)
             context.fillStyle = colors.SECONDARY;
             context.arc(355, 220, 30, 0, Math.PI * 2, true);
             context.fill();
-        },
-        (colors, context) => {
+
             // Eyes
             // Left
             context.beginPath();
@@ -776,15 +853,13 @@ function getFrames(colors, context)
             context.moveTo(340, 230);
             context.quadraticCurveTo(345, 235, 350, 230);
             context.stroke();
-        },
-        (colors, context) => {
+
             // Right
             context.beginPath();
             context.moveTo(360, 230);
             context.quadraticCurveTo(365, 235, 370, 230);
             context.stroke();
-        },
-        (colors, context) => {
+
             // Mouth
             context.beginPath();
             context.moveTo(350, 240);
@@ -798,8 +873,7 @@ function getFrames(colors, context)
             context.fillStyle = colors.SECONDARY;
             context.arc(335, 260, 10, 0, Math.PI * 2, true);
             context.fill();
-        },
-        (colors, context) => {
+
             // Right
             context.beginPath();
             context.arc(375, 260, 10, 0, Math.PI * 2, true);
@@ -814,8 +888,7 @@ function getFrames(colors, context)
             context.quadraticCurveTo(340, 250, 325, 295);
             context.quadraticCurveTo(327, 305, 335, 305);
             context.fill();
-        },
-        (colors, context) => {
+
             //Right
             context.beginPath();
             context.moveTo(375, 260);
