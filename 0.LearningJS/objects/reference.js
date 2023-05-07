@@ -78,3 +78,19 @@ console.log(myGames["PlayStation 2"]); // Metal Gear Solid 3: Snake Eater
 let sonGames = {};
 Object.assign(sonGames, brotherGames);
 console.log(sonGames["Game Cube"]); // Eternal Darkness
+
+/**
+ * About Garbage Collection
+ * No matter its type, creating data takes memory
+ * In JavaScript, memory management is based on the concept of 'reachability' (meaning what can be accessed and what cannot).
+ * If a value is useful and can be accessed then it is reachable and will be stored in memory.
+ * Some values cannot be deleted for obvious reasons:
+ *  - The current exectuting funtion, its parameters and local variables.
+ *  - Other functions on the current chain of nested calls, its parameters and local variables.
+ *  - Global variables.
+ *  
+ *  Theses values are called 'roots'.
+ * Any other value is considered 'reachable' if it can be accessed by a root through references or chain of references.
+ * 
+ * Garbage Collection is performed automatically and cannot be forced or prevented.
+ */
