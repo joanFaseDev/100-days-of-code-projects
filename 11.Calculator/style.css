@@ -1,0 +1,76 @@
+:root {
+    --default-font-size: 22px;
+    --clr-screen: #F4F1DE;
+    --clr-digit: #3D405B;
+    --clr-key: #F2CC8F;
+    --clr-calculator: #81B29A;
+    --clr-error: #E07A5F;
+}
+
+body {
+    box-sizing: border-box;
+    font-size: var(--default-font-size);
+}
+
+#calculator {
+    width: 500px;
+    height: 750px;
+    border: 1px solid var(--clr-digit);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+#header {
+    padding: 1rem;
+    border-bottom: 1px solid var(--clr-digit);
+    display: flex;
+}
+
+#main {
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+#screen {
+    width: 80%;
+    height: 100px;
+    font-size: 3rem;
+    padding: .5rem 1rem;
+    margin: 0 auto;
+    border: 1px solid var(--clr-digit);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#keys {
+    width: 80%;
+    margin: 1.5rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 1.2rem;
+}
+
+#double-key {
+    width: calc(150px + 1.2rem);
+}
+
+.rows {
+    display: flex;
+    column-gap: 1.2rem;
+}
+
+.key {
+    width: 75px;
+    height: 75px;
+    border: 1px solid var(--clr-digit);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+

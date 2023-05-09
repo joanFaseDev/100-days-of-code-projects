@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator | 100 days of challenge</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="calculator">
+        <div id="header">
+            <p id="header-title">Calculator App</p>
+            <div id="icons">
+                <img id="twitter" class="icon" src="" alt="">
+                <img id="github" class="icon" src="" alt="">
+                <img id="close" class="icon" src="" alt="">
+            </div>
+        </div>
+        <div id="main">
+            <div id="screen"></div>
+            <div id="keys">
+                <div class="rows">
+                    <span class="key" data-character="all-clear" data-type="other">AC</span>
+                    <span class="key" data-character="change-sign" data-type="other">CS</span>
+                    <span class="key" data-character="percent" data-type="operator">%</span>
+                    <span class="key" data-character="divide" data-type="operator">/</span>
+                </div>
+                <div class="rows">
+                    <span class="key" data-character="seven" data-type="digit">7</span>
+                    <span class="key" data-character="eight" data-type="digit">8</span>
+                    <span class="key" data-character="nine" data-type="digit">9</span>
+                    <span class="key" data-character="multiply" data-type="operator">*</span>
+                </div>
+                <div class="rows">
+                    <span class="key" data-character="four" data-type="digit">4</span>
+                    <span class="key" data-character="five" data-type="digit">5</span>
+                    <span class="key" data-character="six" data-type="digit">6</span>
+                    <span class="key" data-character="minus" data-type="operator">-</span>
+                </div>
+                <div class="rows">
+                    <span class="key" data-character="one" data-type="digit">1</span>
+                    <span class="key" data-character="two" data-type="digit">2</span>
+                    <span class="key" data-character="three" data-type="digit">3</span>
+                    <span class="key" data-character="add" data-type="operator">+</span>
+                </div>
+                <div class="rows">
+                    <span id="double-key" class="key" data-character="zero" data-type="digit">0</span>
+                    <span class="key" data-character="dot" data-type="digit">.</span>
+                    <span class="key" data-character="equal" data-type="operator">=</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+        <p id="author"><small>2023 Jordan Falaise</small></p>
+    </footer>
+    <script src="./script.js"></script>
+</body>
+</html>
