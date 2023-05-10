@@ -1,16 +1,19 @@
 "use strict";
 
-const nodeScreen = document.querySelector('#screen');
+const screenElement = document.querySelector('#screen');
+const keys = getKeys();
 
-const screen = new Screen(nodeScreen);
-const keys = new Keys();
+const screen = new Screen(screenElement);
 const calculator = new Calculator(screen, keys);
 
-calculator.screen.update(calculator.total);
-
-calculator.keys.digits.forEach((key) => {
-    key.addEventListener('click', () => {
-        calculator.handlerDigits(key);
+calculator.keys.forEach((key) => {
+    key.element.addEventListener('click', (event) => {
+        /** 
+         * Have to call the method directly from the calculator object for it is a callback
+         * function and using 'this' here will refers to the object calling the callback function
+         * which is key, not calculator.
+         */
+        calculator.handleInputs(key);
     });
 });
 
@@ -21,51 +24,66 @@ calculator.keys.digits.forEach((key) => {
 
 function Calculator(screen, keys)
 {
-    this.icons = {
-        twitter: document.querySelector('#twitter'),
-        github: document.querySelector('#github'),
-        close: document.querySelector('#close'),
-    };
     this.screen = screen; 
     this.keys = keys;
 
-    this.total = '0';
-    this.leftOperand = null;
-    this.rightOperand = null;
-    this.operator = null;
-
-    this.getTotal = function() {
-        return this.total;
-    };
-    this.updateTotal = function(digit) {
-        this.total += digit; 
+    this.previousKey = {
+        /**
+         * Here the context of 'this' is not the Calculator object but the object 
+         * calling the methods get() and set() which is previousKey 
+         */
+        value: null,
+        get() { return this.value; },
+        set(newValue) { this.value = newValue; },
     };
 
-    this.checkLeftOperand = () => this.leftOperand;
-    this.checkRightOperand = () => this.rightOperand;
-    this.checkOperator = () => this.checkOperator;
+    this.total = {
+        /**
+         * Here the context of 'this' is not the Calculator object but the object 
+         * calling the methods get() and set() which is total 
+         */
+        value: '0',
+        get() { return this.value; },
+        set(newValue) { this.value = newValue; },
+        concatenate(value) { this.value += value; }, 
+    };
 
-    this.handlerDigits = function(key) {
-        console.log('This is handleDigits function!');
-        if (this.checkLeftOperand())
-        {
-
-        }
-        else
-        {
-            console.dir(key);
-            if (key.dataset.character !== 'zero' && key.dataset.character !== 'dot')
-            {
-                this.updateTotal(true, key.textContent);
-                this.screen.update(this.getTotal());
-            }
-            else
-            {
-                // 'zero' or 'dot'
-            }
-        }
+    this.system = {
+        github(screen) {
+            screen.update('--> GitHub -->');
+        },
+        twitter(screen) {
+            screen.update('--> Twitter -->');
+        },
+        close(screen) {
+            screen.update('--> Closing... -->');
+            setTimeout(() => {
+                document.querySelector('#calculator').hidden = true;
+                console.dir(document.querySelector('#calculator'));
+            }, 2000);
+        }, 
     }
 
+    this.handleInputs = function(key) {
+        let actualKey = key;
+        if (this.previousKey.get()) {
+
+        } else {
+            switch (key.type) {
+                case "digit":
+                    this.total.set(key.value);
+                    this.screen.update(this.total.value);
+                    break;
+                case "system":
+                    this.system[key.value](this.screen);
+                    break;
+                case "operator":
+                default:
+                    break;
+            }
+        }
+
+    }
 }
 
 /**
@@ -80,9 +98,19 @@ function Screen(node)
     };
 }
 
-function Keys()
+function Key(element, value, type)
 {
-    this.digits = document.querySelectorAll('.key[data-type="digit"]');
-    this.operators = document.querySelectorAll('.key[data-type="operator"]');
-    this.others = document.querySelectorAll('.key[data-type="other"]'); 
+    this.element = element;
+    this.value = value;
+    this.type = type;
+}
+
+function getKeys()
+{
+    let arr = [];
+    let keys = document.querySelectorAll('.key');
+    keys.forEach((key) => {
+        arr.push(new Key(key, key.dataset.key, key.dataset.type));
+    });
+    return arr;
 }
