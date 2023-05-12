@@ -49,7 +49,7 @@ body {
     border: 1px solid var(--clr-digit);
     display: flex;
     justify-content: flex-end;
-    align-items: center;
+    align-items: space-between;
 }
 
 #keys {
@@ -63,6 +63,10 @@ body {
 
 #double-key {
     width: calc(150px + 1.2rem);
+}
+
+#small {
+    font-size: .9rem;
 }
 
 .rows {
@@ -79,5 +83,7 @@ body {
     align-items: center;
 }
 
-
+.key {
+    cursor: pointer;
+}
 

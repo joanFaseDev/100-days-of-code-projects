@@ -48,30 +48,44 @@ function Calculator(screen, keys)
         concatenate(value) { this.value += value; }, 
     };
 
-    this.computation = {
+    this.expression = {
         leftOperand: {
-            value: null,
+            value: '0',
+            isDecimal: false,
+            isNegative: false,
             get() { return this.value },
             set(newValue) { this.value = newValue },
+            concatenate(newValue) { this.value += newValue },
         },
         rightOperand: {
             value: null,
+            isDecimal: false,
+            isNegative: false,
             get() { return this.value },
             set(newValue) { this.value = newValue },
+            concatenate(newValue) { this.value += newValue },
         },
         operator: {
             key: null,
+            get() { return this.key },
+            set(newValue) { this.key = newValue },
         },
         calculate(
             leftOperand = this.leftOperand,
             rightOperand = this.rightOperand,
             operator = this.operator) {
+                let result = null;
             switch(operator.key.value) {
                 case "add":
-                    let result = Number(leftOperand) + Number(rightOperand);
+                    result = Number(leftOperand) + Number(rightOperand);
                     return result.toString();
                     break;
             }
+        },
+        changeIntoPercent(str) {
+            console.log('--- Method called: percent() ---');
+            let result = Number(str) / 100;
+            return result.toString();
         }
     };
 
@@ -106,70 +120,135 @@ function Calculator(screen, keys)
     }
 
     this.handleInputs = function(key) {
-        let actualKey = key;
-        // If a key was registered before that one
-        if (this.previousKey.get()) {
-            switch (this.previousKey.get().type) {
-                // If that previous key was a digit...
-                case "digit":
-                    // and if the actual one is a digit too
-                    if (actualKey.type === 'digit') {
-                        this.total.concatenate(actualKey.value);
-                        this.screen.update(this.total.get());
-                    }
+        if (key.type === 'system') {
+            switch (key.value) {
+                case "twitter":
+                    let twitterProfile = 'https://twitter.com/joan_fase';
+                    window.open(twitterProfile, '_blank', 'noopener');
                     break;
-                
-                case "system":
-                    this.system.load(
-                        actualkey,
-                        this.screen,
-                        this.previousKey,
-                        this.total
-                    );
+            
+                case "github":
+                    let githubProfile = 'https://github.com/joanFaseDev';
+                    window.open(githubProfile, '_blank', 'noopener');
                     break;
 
-                case "operator":
-
+                case "close":
+                    // Close the calculator then display a funny message and a button to reload the page.
                     break;
 
+                // This means that the key clicked is the 'all clear' key
                 default:
-                    break;
+                    this.expression.leftOperand.set('0');
+                    this.expression.leftOperand.isDecimal = false;
+                    this.expression.leftOperand.isNegative = false;
+
+                    this.expression.rightOperand.set(null);
+                    this.expression.rightOperand.isDecimal = false;
+                    this.expression.rightOperand.isNegative = false;
+
+                    this.expression.operator.set(null);
+                    this.screen.updateBig(this.expression.leftOperand.get());
+                    this.screen.updateSmall('');
             }
-        } else {
-            // If no previous key was registered
-            switch (key.type) {
-                case "digit":
-                    this.total.set(key.value);
-                    this.screen.update(this.total.value);
-                    break;
-
-                case "system":
-                    this.system.load(
-                        key,
-                        this.screen,
-                        this.previousKey,
-                        this.total
-                    );
-                    break;
-
-                case "operator":
-                    if (key.value === '.') {
-                        this.total.concatenate(key.value);
-                        this.screen.update(this.total.get());
-                    }
-                    break;
-
-                default:
-                    break;
-            }
-
         }
 
-        this.previousKey.set(key);
-        console.dir(this);
+        if (this.expression.operator.get()) {
+            if (this.expression.rightOperand.get()) {
+
+            } else {
+                /**
+                 * If there is a left operand and a operator but the right operand isn't known yet.
+                 */
+                switch (key.type) {
+                    case "digit":
+                        this.expression.rightOperand.concatenate(key.value);
+                        this.screen.updateBig(key.value);
+                        break;
+                    
+                    case "operator":
+                        // With our implementation, only '+', '-', '*' and '/' can be checked as operator.
+                        if (["add", "substract", "multiply", "divide"].includes(key.value)) {
+                            this.expression.operator.set(key);
+                            let updateText = `${this.expression.leftOperand.get()} ${this.expression.operator.get().content}`;
+                            this.screen.updateSmall(updateText);
+                        } else if (key.value === 'comma') {
+                            this.expression.rightOperand.set('0,');
+                            this.screen.updateBig(this.expression.rightOperand.get());
+                            this.expression.rightOperand.isDecimal = true;
+                        }
+                        break;
+                        
+                    default:
+                        break;
+                }
+            }
+            
+        } else {
+            /**
+             * If there is no operator, that means that there's currently only a left
+             * operand.
+             */
+            let leftOperand = this.expression.leftOperand.get();
+            console.log(key, leftOperand);
+            switch (key.type) {
+                case "digit":
+                    if (leftOperand === '0') {
+                        this.expression.leftOperand.set(key.value);
+                    } else {
+                        this.expression.leftOperand.concatenate(key.value);
+                    }
+                    this.total.set(this.expression.leftOperand.get());
+                    this.screen.updateBig(this.total.get()); 
+                    break;
+                    
+                case "operator":
+                    if (["add", "substract", "multiply", "divide", "equal"].includes(key.value)) {
+                        let expression = `${this.expression.leftOperand.get()} ${key.content}`;
+                        this.expression.operator.set(key);
+                        this.screen.updateSmall(expression);
+                    } else {
+                        // Comma, changeSign and percent doesn't update the operator property.
+                        switch (key.value) {
+                            // Comma is only added if the left operand is not a decimal yet.
+                            case "comma":
+                                if ((!this.expression.leftOperand.isDecimal)) {
+                                    this.expression.leftOperand.isDecimal = true;
+                                    this.expression.leftOperand.concatenate(key.content);
+                                    this.screen.updateBig(this.expression.leftOperand.get());   
+                                }
+                                break;
+                            case "changeSign":
+                                console.log('this is the CS case!');
+                                if (this.expression.leftOperand.get() !== '0') {
+                                    let leftOperand = null;
+                                    if (this.expression.leftOperand.isNegative) {
+                                        leftOperand = this.expression.leftOperand.get().substring(1);
+                                        this.expression.leftOperand.isNegative = false;
+                                    } else {
+                                        leftOperand = `-${this.expression.leftOperand.get()}`;
+                                        this.expression.leftOperand.isNegative = true;
+                                    }
+                                    this.expression.leftOperand.set(leftOperand);
+                                    this.screen.updateBig(this.expression.leftOperand.get());
+                                }
+                                break;
+                            case "percent":
+                                console.log('This is the percent case!');
+                                let percent = this.expression.changeIntoPercent(this.expression.leftOperand.get());
+                                this.screen.updateSmall(`${this.expression.leftOperand.get()}%`);
+                                this.screen.updateBig(percent);
+                                this.expression.leftOperand.set(percent);
+                                break;
+                        }
+                    }
+                    break;
+            }
+        }
+        
+        
     }
 
-    this.screen.update(this.total.get());
+    this.screen.updateBig(this.total.get());
 }
 
 /**
@@ -179,22 +258,31 @@ function Calculator(screen, keys)
 function Screen(node)
 {
     this.node = node;
-    this.update = function(text) {
+    this.updateBig = function(text) {
         // Calculator's screen can't handle more than 16 characters.
         let screenValue = text;
         if (screenValue.length > 16) {
             console.log('ALERT -> 16 characters limit!');
             screenValue = screenValue.substring(0, 16);
         }
-        this.node.textContent = screenValue;
+        this.node.lastElementChild.textContent = screenValue;
     };
+
+    /**
+     * This method is only here to give user a visual feedback on the current 
+     * calculation. That's why it should only be called once an operator key is pressed.
+     */
+    this.updateSmall = function(text) {
+        this.node.firstElementChild.textContent = text;
+    }
 }
 
-function Key(element, value, type)
+function Key(element, value, type, content)
 {
     this.element = element;
     this.value = value;
     this.type = type;
+    this.content = content;
 }
 
 function getKeys()
@@ -202,7 +290,7 @@ function getKeys()
     let arr = [];
     let keys = document.querySelectorAll('.key');
     keys.forEach((key) => {
-        arr.push(new Key(key, key.dataset.key, key.dataset.type));
+        arr.push(new Key(key, key.dataset.key, key.dataset.type, key.textContent));
     });
     return arr;
 }

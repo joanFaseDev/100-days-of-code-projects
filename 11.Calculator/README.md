@@ -16,6 +16,7 @@
 - [X] Limit the number of digits the calculator's screen can display at once (between 14 and 16 seems reasonable for this project).
 
 
+- [] Implement the 'close' feature from the 'system' keys.
 - [] Create a calculate method for the computation object. The method's behavior should change based on three parameters: leftOperand, rightOperand and operator.
 - [] Solve the pb with the dot operator appearing multiple times in the total value.
 - [] Experiment with a system property dedicated to the social medias logic.
@@ -44,6 +45,14 @@ sign to the very left of the number **if it was transformed into negative value*
 - Wrote the logic for the system keys (github, twitter, close and allClear).
 - Learned about the location property and load method of the Window interface which seems really easy to use, so easy in fact that user's security seems to be a problem but i'll look that up on a bigger project.
 - Set the whole logic for cases where no previous key was registered. 
+
+### 12/05/2023
+- Rewrote a big chunk of the current application. Calculator's actions are now based on three parameters: the left operand, the right operand and the operator in-between.
+- Wrote the parts of the use case where only the left operand is known. The calculator can now display positive and decimal values.
+- Change sign feature added.
+- Percent feature added.
+- Twitter and GitHub profile page's feature added. 
+- All clear feature added.
 
 ## Keys
 **AC** stands for **All Clear**: clears the calculator and resets any functions.
