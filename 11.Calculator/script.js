@@ -71,53 +71,36 @@ function Calculator(screen, keys)
             set(newValue) { this.key = newValue },
         },
         calculate(
-            leftOperand = this.leftOperand,
-            rightOperand = this.rightOperand,
-            operator = this.operator) {
+            leftOperand = this.leftOperand.get(),
+            rightOperand = this.rightOperand.get(),
+            operator = this.operator.get().value) 
+            {
                 let result = null;
-            switch(operator.key.value) {
-                case "add":
-                    result = Number(leftOperand) + Number(rightOperand);
-                    return result.toString();
-                    break;
-            }
-        },
+                switch(operator) 
+                {
+                    case "add":
+                        result = Number(leftOperand) + Number(rightOperand);
+                        break;
+                    case "substract":
+                        result = Number(leftOperand) - Number(rightOperand);
+                        break;
+                    case "multiply":
+                        result = Number(leftOperand) * Number(rightOperand);
+                        break;
+                    case "divide":
+                        result = Number(leftOperand) / Number(rightOperand);
+                }
+                return result.toString();
+            },
         changeIntoPercent(str) {
-            console.log('--- Method called: percent() ---');
+            // console.log('--- Method called: percent() ---');
             let result = Number(str) / 100;
             return result.toString();
+        },
+        getXPercentFrom(from, percent) {
+            return from * percent / 100;
         }
     };
-
-    this.system = {
-        github(screen) {
-            screen.update('Open: github');
-            window.open('https://github.com/joanFaseDev', '_blank', 'noopener');
-        },
-        twitter(screen) {
-            screen.update('Open: twitter');
-            window.open('https://twitter.com/joan_fase', '_blank', 'noopener');
-        },
-        close(screen) {
-            screen.update('Close: application');
-            setTimeout(() => {
-                const calculator = document.querySelector('#calculator');
-                calculator.remove();
-            }, 2000);
-        },
-        allClear(screen, previousKey, total ) {
-            previousKey.set(null);
-            total.set('0');
-            screen.update(total.get());
-        },
-        load(key, screen, previousKey, total) {
-            (key.value === 'allClear') ? this[key.value](
-                screen,
-                previousKey,
-                total
-                ) : this[key.value](screen);
-        }, 
-    }
 
     this.handleInputs = function(key) {
         if (key.type === 'system') {
@@ -134,6 +117,20 @@ function Calculator(screen, keys)
 
                 case "close":
                     // Close the calculator then display a funny message and a button to reload the page.
+                    let calculator = document.querySelector('#calculator');
+                    if (calculator);
+                    {
+                        calculator.remove();
+                        let body = document.querySelector('body');
+                        let button = document.createElement('button');
+                        button.textContent = 'Reload Calculator';
+                        button.classList.add('reload-btn');
+                        body.prepend(button);
+
+                        button.addEventListener('click', (event) => {
+                            window.location.reload();
+                        });
+                    }
                     break;
 
                 // This means that the key clicked is the 'all clear' key
@@ -148,20 +145,108 @@ function Calculator(screen, keys)
 
                     this.expression.operator.set(null);
                     this.screen.updateBig(this.expression.leftOperand.get());
-                    this.screen.updateSmall('');
+                    this.screen.updateSmall('0');
             }
         }
 
-        if (this.expression.operator.get()) {
-            if (this.expression.rightOperand.get()) {
+        if (this.expression.operator.get()) 
+        {
+            /**
+             * If both operands and the operator are known.
+             */
+            if (this.expression.rightOperand.get()) 
+            {
+                // console.log('IF LEFT OPERAND, RIGHT OPERAND && OPERATOR:');
+                switch (key.type) 
+                {
+                    case "digit":
+                        this.expression.rightOperand.concatenate(key.value);
+                        this.screen.updateBig(this.expression.rightOperand.get());        
+                        break;
+                
+                    case "operator":
+                        if (["add", "substract", "multiply", "divide"].includes(key.value))
+                        {
+                            let result = this.expression.calculate();
+                            this.total.set(result);
+                            this.expression.leftOperand.set(result);
+                            this.expression.rightOperand.set(null);
+                            this.expression.rightOperand.isDecimal = false;
+                            this.expression.rightOperand.isNegative = false;
+                            this.expression.operator.set(key);
+                            this.screen.updateBig(this.total.get());
+                            this.screen.updateSmall(
+                                `${this.expression.leftOperand.get()} ${this.expression.operator.get().content}`
+                            );
+                        }
+                        else if (key.value === 'comma')
+                        {
+                            // console.log('-> comma condition');
+                            if ((!this.expression.rightOperand.isDecimal)) 
+                            {
+                                this.expression.rightOperand.isDecimal = true;
+                                this.expression.rightOperand.concatenate(key.content);
+                                this.screen.updateBig(this.expression.rightOperand.get());   
+                            }
+                        }
+                        else if (key.value === 'changeSign')
+                        {
+                            // console.log('-> changeSign condition');
+                            if (this.expression.rightOperand.isNegative) 
+                            {
+                                let newRightOperand = this.expression.rightOperand.get().substring(1);
+                                this.expression.rightOperand.set(newRightOperand);
+                            } 
+                            else 
+                            {
+                                this.expression.rightOperand.set(`-${this.expression.rightOperand.get()}`);
+                            }
+                            this.screen.updateSmall(
+                                `${this.expression.leftOperand.get()} ${this.expression.operator.get().content} ${this.expression.rightOperand.get()}`
+                                );
+                            this.screen.updateBig(this.expression.rightOperand.get());
 
-            } else {
+                        }
+                        else if (key.value === 'equal')
+                        {
+                            let result = this.expression.calculate();
+                            this.total.set(result);
+                            this.screen.updateSmall(
+                                `${this.expression.leftOperand.get()} ${this.expression.operator.get().content} ${this.expression.rightOperand.get()} =`
+                            );   
+                            this.expression.leftOperand.set(result);
+                            this.expression.rightOperand.set(null);
+                            this.expression.rightOperand.isDecimal = false;
+                            this.expression.rightOperand.isNegative = false;
+                            this.expression.operator.set(null);
+                            this.screen.updateBig(this.total.get());
+                        }
+                        else if (key.value === 'percent')
+                        {
+                            // console.log('-> percent condition');
+                            let percent = this.expression.getXPercentFrom(
+                                this.expression.leftOperand.get(),
+                                this.expression.rightOperand.get()
+                            );
+                            this.expression.rightOperand.set(percent);
+                            this.screen.updateBig(this.expression.rightOperand.get());
+                            this.screen.updateSmall(
+                                `${this.expression.leftOperand.get()} ${this.expression.operator.get().content} ${this.expression.rightOperand.get()}`
+                            );
+                        }
+
+                        break;
+                }
+            } 
+            else 
+            {
                 /**
                  * If there is a left operand and a operator but the right operand isn't known yet.
                  */
+                // console.log('IF LEFT OPERAND && OPERATOR:');
                 switch (key.type) {
                     case "digit":
-                        this.expression.rightOperand.concatenate(key.value);
+                        this.expression.rightOperand.set(key.value);
                         this.screen.updateBig(key.value);
                         break;
                     
@@ -171,10 +256,55 @@ function Calculator(screen, keys)
                             this.expression.operator.set(key);
                             let updateText = `${this.expression.leftOperand.get()} ${this.expression.operator.get().content}`;
                             this.screen.updateSmall(updateText);
-                        } else if (key.value === 'comma') {
-                            this.expression.rightOperand.set('0,');
+                        } 
+                        else if (key.value === 'comma') 
+                        {
+                            // console.log('-> comma condition');
+                            this.expression.rightOperand.set('0.');
                             this.screen.updateBig(this.expression.rightOperand.get());
                             this.expression.rightOperand.isDecimal = true;
+                        } 
+                        else if (key.value === 'changeSign') 
+                        {
+                            // console.log('-> changeSign condition');
+                            if (this.expression.leftOperand.isNegative) 
+                            {
+                                let newLeftOperand = this.expression.leftOperand.get().substring(1);
+                                this.expression.rightOperand.set(newLeftOperand);
+                            } 
+                            else 
+                            {
+                                this.expression.rightOperand.set(`-${this.expression.leftOperand.get()}`);
+                            }
+                            this.screen.updateSmall(
+                                `${this.expression.leftOperand.get()} ${this.expression.operator.get().content} ${this.expression.rightOperand.get()}`
+                                );
+                            this.screen.updateBig(this.expression.rightOperand.get());
+
+                        }
+                        else if (key.value === 'equal')
+                        {
+                            // console.log('-> equal condition');
+                            this.expression.rightOperand.set(this.expression.leftOperand.get()); 
+                            let result = this.expression.calculate();
+                            this.total.set(result);
+                            this.screen.updateBig(this.total.get());
+                            this.screen.updateSmall(
+                                `${this.expression.leftOperand.get()} ${this.expression.operator.get().content} ${this.expression.rightOperand.get()} =`
+                            );
+                        }
+                        else if (key.value === 'percent')
+                        {
+                            // console.log('-> percent condition');
+                            let percent = this.expression.getXPercentFrom(
+                                Number(this.expression.leftOperand.get()),
+                                Number(this.expression.leftOperand.get())
+                            );
+                            this.expression.rightOperand.set(percent.toString());
+                            this.screen.updateBig(this.expression.rightOperand.get());
+                            this.screen.updateSmall(
+                                `${this.expression.leftOperand.get()} ${this.expression.operator.get().content} ${this.expression.rightOperand.get()}`
+                            );
                         }
                         break;
                         
@@ -189,12 +319,14 @@ function Calculator(screen, keys)
              * operand.
              */
             let leftOperand = this.expression.leftOperand.get();
-            console.log(key, leftOperand);
             switch (key.type) {
                 case "digit":
-                    if (leftOperand === '0') {
+                    if (leftOperand === '0') 
+                    {
                         this.expression.leftOperand.set(key.value);
-                    } else {
+                    } 
+                    else 
+                    {
                         this.expression.leftOperand.concatenate(key.value);
                     }
                     this.total.set(this.expression.leftOperand.get());
@@ -202,29 +334,36 @@ function Calculator(screen, keys)
                     break;
                     
                 case "operator":
-                    if (["add", "substract", "multiply", "divide", "equal"].includes(key.value)) {
+                    if (["add", "substract", "multiply", "divide", "equal"].includes(key.value)) 
+                    {
                         let expression = `${this.expression.leftOperand.get()} ${key.content}`;
                         this.expression.operator.set(key);
                         this.screen.updateSmall(expression);
-                    } else {
+                    } 
+                    else 
+                    {
                         // Comma, changeSign and percent doesn't update the operator property.
                         switch (key.value) {
                             // Comma is only added if the left operand is not a decimal yet.
                             case "comma":
-                                if ((!this.expression.leftOperand.isDecimal)) {
+                                if ((!this.expression.leftOperand.isDecimal)) 
+                                {
                                     this.expression.leftOperand.isDecimal = true;
                                     this.expression.leftOperand.concatenate(key.content);
                                     this.screen.updateBig(this.expression.leftOperand.get());   
                                 }
                                 break;
                             case "changeSign":
-                                console.log('this is the CS case!');
-                                if (this.expression.leftOperand.get() !== '0') {
+                                if (this.expression.leftOperand.get() !== '0') 
+                                {
                                     let leftOperand = null;
-                                    if (this.expression.leftOperand.isNegative) {
+                                    if (this.expression.leftOperand.isNegative) 
+                                    {
                                         leftOperand = this.expression.leftOperand.get().substring(1);
                                         this.expression.leftOperand.isNegative = false;
-                                    } else {
+                                    } 
+                                    else 
+                                    {
                                         leftOperand = `-${this.expression.leftOperand.get()}`;
                                         this.expression.leftOperand.isNegative = true;
                                     }
@@ -233,7 +372,6 @@ function Calculator(screen, keys)
                                 }
                                 break;
                             case "percent":
-                                console.log('This is the percent case!');
                                 let percent = this.expression.changeIntoPercent(this.expression.leftOperand.get());
                                 this.screen.updateSmall(`${this.expression.leftOperand.get()}%`);
                                 this.screen.updateBig(percent);
@@ -246,9 +384,13 @@ function Calculator(screen, keys)
         }
         
         
-    }
+    };
+    this.initReloadProcess = function() {
+        
+    };
 
     this.screen.updateBig(this.total.get());
+    this.screen.updateSmall('0');
 }
 
 /**
@@ -262,7 +404,6 @@ function Screen(node)
         // Calculator's screen can't handle more than 16 characters.
         let screenValue = text;
         if (screenValue.length > 16) {
-            console.log('ALERT -> 16 characters limit!');
             screenValue = screenValue.substring(0, 16);
         }
         this.node.lastElementChild.textContent = screenValue;

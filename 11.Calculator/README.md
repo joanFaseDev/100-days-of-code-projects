@@ -14,19 +14,13 @@
 - [X] Wrote the user case where the previous key and the current one are both digits.
 - [X] Create a computation property for the Calculator object. Use it to store a left and right operand plus one operator which are the basic elements needed to perform any mathematical operation in the Calculator.
 - [X] Limit the number of digits the calculator's screen can display at once (between 14 and 16 seems reasonable for this project).
+- [X] Create a calculate method for the expression object. The method's behavior should change based on three parameters: leftOperand, rightOperand and operator.
+- [X] Handle all use cases when left operand is known.
+- [X] Handle all use cases when left operand and operator are known.
+- [X] Handle all use cases when left operand, operator and right operand are known.
+- [X] Implement the 'close' feature from the 'system' keys.
 
 
-- [] Implement the 'close' feature from the 'system' keys.
-- [] Create a calculate method for the computation object. The method's behavior should change based on three parameters: leftOperand, rightOperand and operator.
-- [] Solve the pb with the dot operator appearing multiple times in the total value.
-- [] Experiment with a system property dedicated to the social medias logic.
-
-
-
-- [] As long as a **number key** is pressed without any **function key** following, each new digit is added
-to the right of the already displayed ones. The **dot**/**comma** key is considered a number key.
-- [] ==CS== is a special key, it changes a positive value into a negative one or vice versa and add a negative
-sign to the very left of the number **if it was transformed into negative value**.
 
 ## Development Diary
 
@@ -53,6 +47,23 @@ sign to the very left of the number **if it was transformed into negative value*
 - Percent feature added.
 - Twitter and GitHub profile page's feature added. 
 - All clear feature added.
+
+### 13/05/2023
+- Wrote the 'add', 'substract', 'multiply' and 'divide' methods.
+- Changed the comma character into a dot. The comma would cause an error when converted into number.
+- Implemented use case:
+    - Left operand and operator are known:
+        - "Change sign" key is pressed.
+        - "Equal" key is pressed.
+        - "Percent" key is pressed.
+    - Left operand, right operand and operator are known:
+        - Digit key is pressed.
+        - "Add", "substract", "multiply" or "divide" key is pressed
+        - "Comma" key is pressed. 
+        - "Percent" key is pressed. 
+        - "Change sign" key is pressed. 
+        - "Equal" key is pressed. 
+- Implement the 'close' feature.
 
 ## Keys
 **AC** stands for **All Clear**: clears the calculator and resets any functions.
