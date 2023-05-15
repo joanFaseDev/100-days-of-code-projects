@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');
+
+:root {
+    --font-family: 'Rock Salt', cursive;
+    --font-size: 18px;
+    --background-clr: #22333B;
+    --font-clr: #22333B;
+    --label-background-clr: #FEF8D4;
+}
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    box-sizing: border-box;
+    background-color: var(--background-clr);
+    color: var(--font-clr);
+}
+
+footer {
+    color: var(--label-background-clr);
+    text-align: center;
+}
+
+#main {
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 2rem;
+}
+
+#carousel {
+    width: 1230px;
+    height: 740px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.carousel-images {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#carousel-nav {
+    display: flex;
+    align-items: center;
+    column-gap: 3rem;
+}
+
+#label {
+    width: 350px;
+    background-color: var(--label-background-clr);
+    padding: .5rem 1rem; 
+    border-radius: 15px;
+}
+
+#title {
+    font-weight: 700;
+}
