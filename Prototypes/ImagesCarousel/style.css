@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+
+:root {
+    --font-family: 'Roboto Condensed', sans-serif;
+    --font-size: 18px;
+
+    --bc: #5e548e;
+    --bc-carousel: #231942;
+    --c-img-1: #3D5A80;
+    --c-img-2: #98C1D9;
+    --c-img-3: #EE6C4D;
+    --c-img-4: #293241;
+    --c-img-5: #e0fbfc;
+
+    --btn-width: 80px;
+    --btn-height: 80px;
+    --btn-half-width: calc(var(--btn-width) / 2);
+    --btn-half-height: calc(var(--btn-height) / 2);
+}
+
+body {
+    box-sizing: border-box;
+    background-color: var(--bc);
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    padding-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#carousel {
+    background-color: var(--bc-carousel);
+    width: 600px;
+    height: 800px;
+    border-radius: 15px;
+    position: relative;
+}
+
+#carousel-title {
+    color: var(--c-img-5);
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    top: 0;
+}
+
+#carousel-image-1 {
+    background-color: var(--c-img-1);
+}
+#carousel-image-2 {
+    background-color: var(--c-img-2);
+}
+#carousel-image-3 {
+    background-color: var(--c-img-3);
+}
+#carousel-image-4 {
+    background-color: var(--c-img-4);
+}
+#carousel-image-5 {
+    background-color: var(--c-img-5);
+}
+
+.btn-image {
+    background-color: var(--bc-carousel);
+    width: var(--btn-width);
+    height: var(--btn-height);
+    border: none;
+    border-radius: 50%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition:transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1)
+}
+
+.icons {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.btn-image:hover {
+    transform: translateY(-30%);
+}
+
+#previous-image {
+    left: calc(var(--btn-half-width) * -1);
+    top: calc(50% - 40px);
+}
+
+#next-image {
+    left: calc(100% - var(--btn-half-width));
+    top: calc(50% - var(--btn-half-height));
+}
+
+.carousel-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    position: absolute;
+    /*
+        Each 'image' is positionned from the upper-left corner of its parent container (i.e 0 px from the left and 0 px from the right).
+        Then, each 'image' has its display's property turn off which means the document is rendered as if these images did not exist.
+        Finally, one image has its display's property switch to 'block' value which means it reappears in the layout.
+    */
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.carousel-image:nth-of-type(1) {
+    display: block;
+}
