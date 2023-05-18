@@ -5,42 +5,72 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Images Carousel | Prototypes</title>
+    <link rel="stylesheet" href="./lib/slick/slick.css">
+    <link rel="stylesheet" href="./lib/slick/slick-theme.css">
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+    <nav id="nav-menu">
+        <ul>
+            <li><a href="#position-absolute"><img src="./assets/icons/nav/icon_1.png" alt="A circle with the number one inside"></a></li>
+            <li><a href="#visibility-none"><img src="./assets/icons/nav/icon_2.png" alt="A circle with the number two inside"></a></li>
+            <li><a href="#slick"><img src="./assets/icons/nav/icon_3.png" alt="A circle with the number three inside"></a></li>
+        </ul>
+    </nav>
     <!-- First Demo -->
-    <section id="position-absolute">
-        <div id="carousel">
-            <div id="carousel-image-1" class="carousel-image"></div>
-            <div id="carousel-image-2" class="carousel-image"></div>
-            <div id="carousel-image-3" class="carousel-image"></div>
-            <div id="carousel-image-4" class="carousel-image"></div>
-            <div id="carousel-image-5" class="carousel-image"></div>
-            <div id="previous-image" class="btn-image">
-                <img class="icons" src="./assets/icons/carousel-1/left-arrow.png" alt="A left arrow." data-navigation="left">
+    <div id="scroll-container">
+        <section id="position-absolute">
+            <div id="carousel">
+                <div id="carousel-image-1" class="carousel-image"></div>
+                <div id="carousel-image-2" class="carousel-image"></div>
+                <div id="carousel-image-3" class="carousel-image"></div>
+                <div id="carousel-image-4" class="carousel-image"></div>
+                <div id="carousel-image-5" class="carousel-image"></div>
+                <div id="previous-image" class="btn-image">
+                    <img class="icons" src="./assets/icons/carousel-1/left-arrow.png" alt="A left arrow." data-navigation="left">
+                </div>
+                <div id="next-image" class="btn-image">
+                    <img class="icons" src="./assets/icons/carousel-1/right-arrow.png" alt="A right arrow." data-navigation="right">
+                </div>
+                <!-- <h2 id="carousel-title">position: absolute</h2> -->
             </div>
-            <div id="next-image" class="btn-image">
-                <img class="icons" src="./assets/icons/carousel-1/right-arrow.png" alt="A right arrow." data-navigation="right">
+        </section>
+        <!-- Second Demo -->
+        <section id="visibility-none">
+            <div id="carousel-2">
+                <img src="./assets/images/satoshi_matsuura_2.jpg" alt="A drawing of a black knight by artist Satoshi Matsuura" id="carousel-2-img-1" class="carousel-2-img c2-next" data-title="The black knight">
+                <img src="./assets/images/satoshi_matsuura_3.jpg" alt="A drawing of an old knight by artist Satoshi Matsuura" id="carousel-2-img-2" class="carousel-2-img c2-last" data-title="The old knight">
+                <img src="./assets/images/satoshi_matsuura_4.jpg" alt="A drawing of an anthropomorphous shark soldier by artist Satoshi Matsuura" id="carousel-2-img-3" class="carousel-2-img c2-first" data-title="The shark soldier">
+                <img src="./assets/images/satoshi_matsuura_5.jpg" alt="A drawing of an anthropomorphous elephant soldier by artist Satoshi Matsuura" id="carousel-2-img-4" class="carousel-2-img c2-previous" data-title="The elephant soldier">
+                <img src="./assets/images/satoshi_matsuura_6.jpg" alt="A drawing of an anthropomorphous lizard soldier by artist Satoshi Matsuura" id="carousel-2-img-5" class="carousel-2-img c2-main" data-title="The lizard soldier">
+                <div id="nav">
+                    <img id="left-nav-btn" class="nav-btn" src="./assets/icons/carousel-2/icon_left.png" data-navigation="previous">
+                    <p id="label"><span id="title">The lizard soldier</span><br>by<br>Satoshi Matsuura</p>
+                    <img id="right-nav-btn" class="nav-btn" src="./assets/icons/carousel-2/icon_right.png" data-navigation="next">
+                </div>
             </div>
-            <h2 id="carousel-title">position: absolute</h2>
-        </div>
-    </section>
-
-    <!-- Second Demo -->
-    <section id="visibility-none">
-        <div id="carousel-2">
-            <img src="./assets/images/satoshi_matsuura_2.jpg" alt="A drawing of a black knight by artist Satoshi Matsuura" id="carousel-2-img-1" class="carousel-2-img c2-next" data-title="The black knight">
-            <img src="./assets/images/satoshi_matsuura_3.jpg" alt="A drawing of an old knight by artist Satoshi Matsuura" id="carousel-2-img-2" class="carousel-2-img c2-last" data-title="The old knight">
-            <img src="./assets/images/satoshi_matsuura_4.jpg" alt="A drawing of an anthropomorphous shark soldier by artist Satoshi Matsuura" id="carousel-2-img-3" class="carousel-2-img c2-first" data-title="The shark soldier">
-            <img src="./assets/images/satoshi_matsuura_5.jpg" alt="A drawing of an anthropomorphous elephant soldier by artist Satoshi Matsuura" id="carousel-2-img-4" class="carousel-2-img c2-previous" data-title="The elephant soldier">
-            <img src="./assets/images/satoshi_matsuura_6.jpg" alt="A drawing of an anthropomorphous lizard soldier by artist Satoshi Matsuura" id="carousel-2-img-5" class="carousel-2-img c2-main" data-title="The lizard soldier">
-            <div id="nav">
-                <img id="left-nav-btn" class="nav-btn" src="./assets/icons/carousel-2/icon_left.png" data-navigation="previous">
-                <p id="label"><span id="title">The lizard soldier</span><br>by<br>Satoshi Matsuura</p>
-                <img id="right-nav-btn" class="nav-btn" src="./assets/icons/carousel-2/icon_right.png" data-navigation="next">
+        </section>
+        <section id="slick">
+            <div>
+                <img src="./assets/images/glen_keane_1.jpg" alt="" class="slick-img">
             </div>
-        </div>
-    </section>
+            <div>
+                <img src="./assets/images/glen_keane_2.jpg" alt="" class="slick-img">
+            </div>
+            <div>
+                <img src="./assets/images/glen_keane_3.jpg" alt="" class="slick-img">
+            </div>
+            <div>
+                <img src="./assets/images/glen_keane_4.jpg" alt="" class="slick-img">
+            </div>
+            <div>
+                <img src="./assets/images/glen_keane_5.jpg" alt="" class="slick-img">
+            </div>
+            
+        </section>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="./script.js"></script>
 </body>
 </html>

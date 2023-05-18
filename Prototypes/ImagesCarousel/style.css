@@ -5,6 +5,13 @@
     --ff-rock-salt: 'Rock Salt', cursive;
     --font-size: 18px;
 
+    --c-nav-bg-demo-1: #471CA8;
+    --c-nav-bg-demo-2: #884AB2;
+    --c-nav-bg-demo-3: #FF930A;
+    --c-nav-bg-demo-4: #F24B04;
+    --c-nav-bg-demo-5: #D1105A;
+    --c-nav: #f3fae1;
+
     --bc: #5e548e;
     --bc-carousel: #231942;
     --c-img-1: #3D5A80;
@@ -25,20 +32,88 @@
     --carousel-2-img-height: 640px;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     box-sizing: border-box;
     background-color: var(--bc);
     font-family: var(--ff-roboto);
     font-size: var(--font-size);
-    padding-top: 2rem;
+    margin: 0;
+}
+
+section {
+    /* width: 100vw; */
+    height: 100vh;
+}
+
+li {
+    padding: .4rem .5rem;
+    display: block;
+    flex-grow: 1;
+}
+
+li:nth-of-type(1) {
+    background-color: var(--c-nav-bg-demo-1);
+}
+
+li:nth-of-type(2) {
+    background-color: var(--c-nav-bg-demo-2);
+}
+
+a {
+    font-family: inherit;
+    font-size: 1.2rem;
+    color: inherit;
+    text-decoration: none;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-section {
-    height: 100vh;
+a img {
+    width: 40px;
+    height: 40px;
+}
+
+a p {
+    margin: .5rem;
+    font-weight: 700;
+}
+
+#nav-menu {
+    position: sticky;
+    top: 0;
+    width: 100vw;
+    background-color: lightseagreen;
+    color: var(--c-nav);
+    z-index: 100;
+}
+
+#nav-menu ul {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#scroll-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    scroll-behavior: smooth;
+}
+
+#position-absolute {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
 }
 
 #carousel {
@@ -216,3 +291,16 @@ section {
     z-index: 6;
     opacity: .2;
 }
+
+#slick {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.slick-img {
+    
+}
+
+

@@ -153,6 +153,17 @@ function Carousel2(images, buttons, title) {
     };
 }
 
+/**
+ * SECTION 3
+ */
 
+$(document).ready(function() {
+    $('#slick').slick({
+        // infinite: true,
+        adaptativeHeigth: 1,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+    });
+});
 
 
