@@ -36,7 +36,7 @@ console.log(anotherBillion === billion) // true
 
 console.log(123e3, 123e6, 123e9);
 
-// It also works for negative numbers.
+// It also works in reverse.
 
 let negative = 5e-2; // divide by one and the given zero count -> 5 / 100
 console.log(negative === 0.05);
