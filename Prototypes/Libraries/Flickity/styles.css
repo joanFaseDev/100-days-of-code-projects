@@ -1,0 +1,62 @@
+:root {
+    --c-white: #F4F7F5;
+    --c-black: #08090A;
+    --c-gray-1: #A7A2A9;
+    --c-gray-1: #575A5E;
+    --c-gray-1: #222823;
+}
+
+body {
+    background-color: var(--c-white);
+    color: var(--c-black);
+    box-sizing: border-box;
+    margin: 0 auto;
+    height: 100vh;
+    width: 100%;
+}
+
+.section-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section {
+    margin: 0;
+    width: 480px;
+    height: 640px;
+    background-color: var(--c-white);
+    border-radius: 20px;
+}
+
+#second-carousel {
+    width: 75%;
+    height: 640px;
+}
+
+.first-carousel-cell, .second-carousel-cell {
+    width: 100%;
+    height: 100%;
+    background-color: #03045E;
+    border-radius: 20px;
+}
+
+.second-carousel-cell {
+    margin-right: 2rem;
+}
+
+.second-carousel-cell:nth-of-type(2) {
+    width: 60%;
+}
+
+.second-carousel-cell:nth-of-type(3) {
+    width: 75%;
+}
+
+.second-carousel-cell:nth-of-type(4) {
+    width: 80%;
+}
+
+

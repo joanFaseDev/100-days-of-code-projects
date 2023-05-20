@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flickity | Libraries</title>
+    <!-- media="screen" === intended primarily for screens -->
+    <link rel="stylesheet" href="./flickity.min.css" media="screen">
+    <link rel="stylesheet" href="./flickity-fade.css">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <!-- Flickity can be initialized through HTML -->
+    <div class="section-container">
+        <section id="first-carousel"  data-flickity="{}">
+            <img src="./assets/Takeshi_Oga_1.jpg" alt="A young girl high in the sky, playing with a cat." class="first-carousel-cell">
+            <img src="./assets/Takeshi_Oga_2.jpg" alt="A young girl, far above a heavy industrial city, watching while walking on the vertical wall." class="first-carousel-cell">
+            <img src="./assets/Takeshi_Oga_3.jpg" alt="An industrial fictionnal city, from below." class="first-carousel-cell">
+        </section>
+    </div>
+    <div class="section-container">
+        <section id="second-carousel" data-flickity='{"contain":true, "wrapAround":true, "fade":true}'>
+            <img src="./assets/atey-ghailan-Curious-Mermaid.jpg" alt="" class="second-carousel-cell">
+            <img src="./assets/atey-ghailan-Holiday.jpg" alt="" class="second-carousel-cell">
+            <img src="./assets/atey-ghailan-Koi-fishes.jpg" alt="" class="second-carousel-cell">
+            <img src="./assets/atey-ghailan-Stubborn.jpg" alt="" class="second-carousel-cell">
+        </section>
+    </div>
+    <script src="./flickity.pkgd.min.js"></script>
+    <script src="./flickity-fade.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>
