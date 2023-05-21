@@ -11,22 +11,60 @@
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
+    <nav>
+        <a href="#section-first" class="nav-link"><span>Takeshi Oga</span></a>
+        <a href="#section-second" class="nav-link"><span>Atey Ghailan</span></a>
+        <a href="#section-third" class="nav-link"><span>Avery Coleman</span></a>
+        <a href="#section-fourth" class="nav-link"><span>Darek Zabrocki</span></a>
+        <a href="#section-fifth" class="nav-link"><span>Miro Petrov</span></a>
+    </nav>
+    <p id="disclaimer">Each artwork displayed on this page come from the website <a href="https://conceptartworld.com/">Concept Art World.</a></p>
     <!-- Flickity can be initialized through HTML -->
-    <div class="section-container">
-        <section id="first-carousel"  data-flickity="{}">
+    <div id="section-first" class="section-container">
+        <section id="first-carousel"  data-flickity='{"wrapAround":true}'>
             <img src="./assets/Takeshi_Oga_1.jpg" alt="A young girl high in the sky, playing with a cat." class="first-carousel-cell">
             <img src="./assets/Takeshi_Oga_2.jpg" alt="A young girl, far above a heavy industrial city, watching while walking on the vertical wall." class="first-carousel-cell">
             <img src="./assets/Takeshi_Oga_3.jpg" alt="An industrial fictionnal city, from below." class="first-carousel-cell">
         </section>
     </div>
-    <div class="section-container">
-        <section id="second-carousel" data-flickity='{"contain":true, "wrapAround":true, "fade":true}'>
-            <img src="./assets/atey-ghailan-Curious-Mermaid.jpg" alt="" class="second-carousel-cell">
-            <img src="./assets/atey-ghailan-Holiday.jpg" alt="" class="second-carousel-cell">
-            <img src="./assets/atey-ghailan-Koi-fishes.jpg" alt="" class="second-carousel-cell">
-            <img src="./assets/atey-ghailan-Stubborn.jpg" alt="" class="second-carousel-cell">
+    <div id="section-second" class="section-container">
+        <section id="second-carousel" data-flickity='{"contain":true, "wrapAround":true}'>
+            <img src="./assets/atey-ghailan-Curious-Mermaid.jpg" alt="A mermaid distracting a man on his boat while playing with its dog." class="second-carousel-cell">
+            <img src="./assets/atey-ghailan-Holiday.jpg" alt="A woman and her dog watching the sunset on a beach." class="second-carousel-cell">
+            <img src="./assets/atey-ghailan-Koi-fishes.jpg" alt="Someone with a sun hat dipping its feet in water fill with many fishes." class="second-carousel-cell">
+            <img src="./assets/atey-ghailan-Stubborn.jpg" alt="Someone pulling out its dog which seems very interested in a nearby bird." class="second-carousel-cell">
         </section>
     </div>
+    <div id="section-third" class="section-container">
+        <section id="third-carousel" data-flickity='{"contain":true, "wrapAround":true, "groupCells":true, "adaptativeHeight":true}'>
+            <img src="./assets/Avery_Coleman_Concept_Art.jpg" alt="A demonic little creature loaded with weapons and books." class="third-carousel-cell">
+            <img src="./assets/Avery_Coleman_Concept_Art_01.jpg" alt="A weaponsized reddish devil-like creature." class="third-carousel-cell">
+            <img src="./assets/Avery_Coleman_Concept_Art_02.jpg" alt="A concept art for a creature half robot half demon." class="third-carousel-cell">
+            <img src="./assets/Avery_Coleman_Concept_Art_12.jpg" alt="A concept art of an ice lich for the game Darksiders 2." class="third-carousel-cell">
+            <img src="./assets/Avery_Coleman_Concept_Art_13.jpg" alt="A concept art for an ice undead for the game Darksiders 2." class="third-carousel-cell">
+        </section>
+    </div>
+    <div id="section-fourth" class="section-container">
+        <section id="fourth-carousel" data-flickity='{"contain":true, "wrapAround":true, "adaptativeHeight":true, "autoPlay":2000}'>
+            <img src="./assets/Darek-Zabrocki-Concept-Art-dragon3-final.jpg" alt="A knight below a gigantic dragon." class="fourth-carousel-cell">
+            <img src="./assets/Darek-Zabrocki-Concept-Art-accolade-final.jpg" alt="The birth of a knight by the hand of a king." class="fourth-carousel-cell">
+            <img src="./assets/Darek-Zabrocki-Concept-Art-ka-blockad.jpg" alt="People on a bot watching from afar as ships in fire are sinking." class="fourth-carousel-cell">
+            <img src="./assets/Darek-Zabrocki-Concept-Art-through-the-breach-final-flattened-fixed.jpg" alt="People are running from a gigantic insect-like creature." class="fourth-carousel-cell">
+            <img src="./assets/Darek-Zabrocki-Concept-Art-westminster-river-final-ac-syndicate.jpg" alt="A concept art of a masked man watching from afar, made for the game Assassin's Creed Syndicate." class="fourth-carousel-cell">
+        </section>
+    </div>
+    <div id="section-fifth" class="section-container">
+        <section id="fifth-carousel" data-flickity='{"contain":true, "wrapAround":true, "groupCells":true, "adaptativeHeight":true, "autoPlay": 2000}'>
+            <img src="./assets/Miro-Petrov-Concept-Art-paizocover-roadtofinal.jpg" alt="A sorceress and an archer fighting a dragon-like creature." class="fifth-carousel-cell">
+            <img src="./assets/Miro-Petrov-Concept-Art-drak-raga.jpg" alt="A reptile-like futuristic creature with a big gun." class="fifth-carousel-cell">
+            <img src="./assets/Miro-Petrov-Concept-Art-drakraga.jpg" alt="A humanoid lizard-like creature in armor." class="fifth-carousel-cell">
+            <img src="./assets/Miro-Petrov-Concept-Art-thu-clan-wip.jpg" alt="A big man, with a goat on his shoulders, voyaging on a pig." class="fifth-carousel-cell">
+            <img src="./assets/Miro-Petrov-Concept-Art-urudj.pg.jpg" alt="A creature which clearly belongs to the universe created by H.P Lovecraft." class="fifth-carousel-cell">
+        </section>
+    </div>
+    <footer>
+        <p>Jordan Falaise 2023</p>
+    </footer>
     <script src="./flickity.pkgd.min.js"></script>
     <script src="./flickity-fade.js"></script>
     <script src="./script.js"></script>
