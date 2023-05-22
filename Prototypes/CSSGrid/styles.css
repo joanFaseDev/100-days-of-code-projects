@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700;900&display=swap');
+
+:root {
+    --primary-4: #f70776; 
+    --primary-3: #c3195d; 
+    --primary-2: #680747; 
+    --primary-1: #141010;
+    
+    --secondary-1: #272343;
+    --secondary-2: #ffffff;
+    --secondary-3: #e3f6f5;
+    --secondary-4: #bae8e8;
+
+    --light-1: #fff2be;
+    --light-4: #fafafa;
+
+    --ff-default: 'Poppins', sans-serif;
+    --fs-default: 18px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 80%;
+    height: 100vh;
+    background-color: var(--light-1);
+    font-family: var(--ff-default);
+    font-size: var(--fs-default);
+    margin: 2em auto;
+}
+
+section {
+    margin-top: 4rem;
+}
+
+#wrapper-1 {
+    background-color: var(--primary-2);
+    border-radius: 14px;
+    padding: 10px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+#wrapper-1 .grid-item {
+    background-color: var(--primary-3);
+    color: var(--light-1);
+    height: 80px;
+    border: 1px solid var(--primary-4);
+    border-radius: 14px;
+    padding: 10px 1rem;
+    display: flex;
+    align-items: center;
+}
+
+#wrapper-1 .grid-item.is-selected {
+    animation-name: highlight-item;
+    animation-duration: 2s;
+    animation-direction: normal;
+    animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
+    animation-fill-mode: forwards;
+    border: 2px solid var(--light-4);
+}
+
+#wrapper-1 .grid-item.is-selected::before {
+    content: "";
+    margin-right: 1em;
+    border-style: solid;
+    border-width: 0 0.3em 0.25em 0;
+    transform: rotate(45deg);
+    animation-name: highlight-validation-sign;
+    animation-duration: 2s;
+    animation-direction: normal;
+    animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
+    animation-fill-mode: forwards;
+}
+
+#wrapper-2 {
+    background-color: var(--secondary-4);
+    padding: 2rem;
+    border: 2px solid var(--secondary-1);
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 400px;
+    grid-auto-rows: 150px;
+}
+
+#wrapper-2[class="cg-10"] {
+    column-gap: 10px;
+    animation-name: column-is-10;
+    animation-duration: 1.5s;
+    animation-direction: normal;
+    animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
+    animation-fill-mode: forwards;
+}
+#wrapper-2[class="cg-20"] {
+    column-gap: 20px;
+    animation-name: column-is-20;
+    animation-duration: 1.5s;
+    animation-direction: normal;
+    animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
+    animation-fill-mode: forwards;
+}
+#wrapper-2[class="cg-30"] {
+    column-gap: 30px;
+    animation-name: column-is-30;
+    animation-duration: 1.5s;
+    animation-direction: normal;
+    animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
+    animation-fill-mode: forwards;
+}
+#wrapper-2[class="cg-40"] {
+    column-gap: 40px;
+    animation-name: column-is-40;
+    animation-duration: 1.5s;
+    animation-direction: normal;
+    animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
+    animation-fill-mode: forwards;
+}
+#wrapper-2[class="cg-50"] {
+    column-gap: 50px;
+    animation-name: column-is-50;
+    animation-duration: 1.5s;
+    animation-direction: normal;
+    animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
+    animation-fill-mode: forwards;
+}
+
+#wrapper-2 .grid-item {
+    background-color: var(--secondary-1);
+    color: var(--secondary-2);
+    padding: .5em 1em;
+    border: 1px solid var(--secondary-3);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#wrapper-2 .grid-item.is-selected {
+    animation-name: retract-item;
+    animation-duration: 2s;
+    animation-direction: normal;
+    animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
+    animation-fill-mode: forwards;
+}
+
+@keyframes highlight-item {
+    from {
+        background-color: var(--primary-3);
+        color: var(--light-1);
+        border-color: var(--primary-4);
+    }
+
+    50% {
+        background-color: var(--primary-4);
+        color: var(--primary-4);
+    }
+
+    to {
+        background-color: var(--primary-1);
+        color: var(--light-4);
+        border-color: var(--light-4);
+    }
+}
+
+@keyframes highlight-validation-sign {
+    from {
+        border-color: var(--primary-4);
+        transform: rotate(0deg);
+        width: 0;
+        height: 0;
+    }
+
+    to {
+        border-color: var(--light-1);
+        transform: rotate(45deg);
+        width: 10px;
+        height: 1em;
+    }
+}
+
+@keyframes retract-item {
+    from {
+        background-color: var(--secondary-1);   
+        color: var(--secondary-2);    
+    }
+
+    50% {
+        color: var(--secondary-4);
+    }
+
+    to {
+        background-color: var(--secondary-2);
+        color: var(--secondary-1);
+    }
+}
+
+@keyframes column-is-10 {
+    from {
+        column-gap: 0;
+    }
+
+    to {
+        column-gap: 10px;
+    }
+}
+@keyframes column-is-20 {
+    from {
+        column-gap: 0;
+    }
+
+    to {
+        column-gap: 20px;
+    }
+}
+
+@keyframes column-is-30 {
+    from {
+        column-gap: 0;
+    }
+
+    to {
+        column-gap: 30px;
+    }
+}
+
+@keyframes column-is-40 {
+    from {
+        column-gap: 0;
+    }
+
+    to {
+        column-gap: 40px;
+    }
+}
+
+@keyframes column-is-50 {
+    from {
+        column-gap: 0;
+    }
+
+    to {
+        column-gap: 50px;
+    }
+}
