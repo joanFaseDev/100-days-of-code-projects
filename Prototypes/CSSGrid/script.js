@@ -29,3 +29,20 @@ itemsWrapper2.forEach((item) => {
         wrapper2.classList.add(`cg-${item.dataset.gutter}`);
     });
 });
+
+// --------------------------------------------------------------------------------
+
+let itemsWrapper3 = document.querySelectorAll('#wrapper-3 .grid-item');
+console.dir(itemsWrapper3);
+itemsWrapper3.forEach((item) => {
+    item.addEventListener('click', (event) => {
+        itemsWrapper3.forEach((item) => {
+            if (item.classList.contains('is-under')) {
+                item.classList.remove('is-under');
+                item.style.zIndex = "";
+                console.dir(item.style);
+            }
+        });
+        event.target.parentElement.classList.add('is-under');
+    });
+});

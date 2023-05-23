@@ -11,6 +11,16 @@
     --secondary-3: #e3f6f5;
     --secondary-4: #bae8e8;
 
+    --ternary-1: #dbd8e3;
+    --ternary-2: #5c5470;
+    --ternary-3: #352f44;
+    --ternary-4: #2a2438;
+
+    --quaternary-1: #fda403;
+    --quaternary-2: #e8751a; 
+    --quaternary-3: #c51350; 
+    --quaternary-4: #8a1253;
+
     --light-1: #fff2be;
     --light-4: #fafafa;
 
@@ -31,15 +41,28 @@ body {
     margin: 2em auto;
 }
 
+#ctn-1, #ctn-2 {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 section {
     margin-top: 4rem;
 }
 
+.grid-item {
+    cursor: pointer;
+}
+
 #wrapper-1 {
     background-color: var(--primary-2);
+    width: 80%;
     border-radius: 14px;
     padding: 10px;
-    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
 }
@@ -84,49 +107,102 @@ section {
     border-radius: 10px;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: 400px;
-    grid-auto-rows: 150px;
-}
-
-#wrapper-2[class="cg-10"] {
-    column-gap: 10px;
-    animation-name: column-is-10;
+    grid-template-rows: repeat(3, 150px);
     animation-duration: 1.5s;
     animation-direction: normal;
     animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
     animation-fill-mode: forwards;
+}
+
+#wrapper-2[class="cg-2"] {
+    column-gap: 2px;
+    row-gap: 2px;
+    animation-name: gutter-is-2;
+
+}
+#wrapper-2[class="cg-4"] {
+    column-gap: 4px;
+    row-gap: 4px;
+    animation-name: gutter-is-4;
+
+}
+#wrapper-2[class="cg-6"] {
+    column-gap: 6px;
+    row-gap: 6px;
+    animation-name: gutter-is-6;
+
+}
+#wrapper-2[class="cg-8"] {
+    column-gap: 8px;
+    row-gap: 8px;
+    animation-name: gutter-is-8;
+
+}
+#wrapper-2[class="cg-10"] {
+    column-gap: 10px;
+    row-gap: 10px;
+    animation-name: gutter-is-10;
+
+}
+#wrapper-2[class="cg-12"] {
+    column-gap: 12px;
+    row-gap: 12px;
+    animation-name: gutter-is-12;
+
+}
+#wrapper-2[class="cg-14"] {
+    column-gap: 14px;
+    row-gap: 14px;
+    animation-name: gutter-is-14;
+
+}
+#wrapper-2[class="cg-16"] {
+    column-gap: 16px;
+    row-gap: 16px;
+    animation-name: gutter-is-16;
+
+}
+#wrapper-2[class="cg-18"] {
+    column-gap: 18px;
+    row-gap: 18px;
+    animation-name: gutter-is-18;
+
 }
 #wrapper-2[class="cg-20"] {
     column-gap: 20px;
-    animation-name: column-is-20;
-    animation-duration: 1.5s;
-    animation-direction: normal;
-    animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
-    animation-fill-mode: forwards;
+    row-gap: 20px;
+    animation-name: gutter-is-20;
+
+}
+#wrapper-2[class="cg-22"] {
+    column-gap: 22px;
+    row-gap: 22px;
+    animation-name: gutter-is-22;
+
+}
+#wrapper-2[class="cg-24"] {
+    column-gap: 24px;
+    row-gap: 24px;
+    animation-name: gutter-is-24;
+
+}
+#wrapper-2[class="cg-26"] {
+    column-gap: 26px;
+    row-gap: 26px;
+    animation-name: gutter-is-26;
+
+}
+#wrapper-2[class="cg-28"] {
+    column-gap: 28px;
+    row-gap: 28px;
+    animation-name: gutter-is-28;
+
 }
 #wrapper-2[class="cg-30"] {
     column-gap: 30px;
-    animation-name: column-is-30;
-    animation-duration: 1.5s;
-    animation-direction: normal;
-    animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
-    animation-fill-mode: forwards;
-}
-#wrapper-2[class="cg-40"] {
-    column-gap: 40px;
-    animation-name: column-is-40;
-    animation-duration: 1.5s;
-    animation-direction: normal;
-    animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
-    animation-fill-mode: forwards;
-}
-#wrapper-2[class="cg-50"] {
-    column-gap: 50px;
-    animation-name: column-is-50;
-    animation-duration: 1.5s;
-    animation-direction: normal;
-    animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
-    animation-fill-mode: forwards;
+    row-gap: 30px;
+    animation-name: gutter-is-30;
+
 }
 
 #wrapper-2 .grid-item {
@@ -148,6 +224,91 @@ section {
     animation-fill-mode: forwards;
 }
 
+#wrapper-3 {
+    background-color: var(--ternary-1);
+    padding: 20px;
+    border: 2px solid var(--ternary-4);
+    border-radius: 10px;
+    overflow:hidden;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    column-gap: 20px;
+    row-gap: 20px;
+}
+
+#wrapper-3 .grid-item {
+    border: 1px solid var(--ternary-4);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+#wrapper-3 .grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#wrapper-3 .grid-item.is-under{
+    z-index: -1;
+}
+
+#wrapper-3 .grid-item:nth-of-type(1){
+    grid-column: 1 / 5;
+    grid-row: 1 / 2;
+}
+#wrapper-3 .grid-item:nth-of-type(2){
+    grid-column: 1 / 2;
+    grid-row: 2 / 4;
+}
+#wrapper-3 .grid-item:nth-of-type(3){
+    grid-column: 2 / 4;
+    grid-row: 2 / 4;
+}
+#wrapper-3 .grid-item:nth-of-type(4){
+    grid-column: 4 / 5;
+    grid-row: 2 / 4;
+}
+#wrapper-3 .grid-item:nth-of-type(5){
+    grid-column: 1 / 4;
+    grid-row: 4 / 6;
+}
+#wrapper-3 .grid-item:nth-of-type(6){
+    grid-column: 4 / 5;
+    grid-row: 4 / 8;
+}
+#wrapper-3 .grid-item:nth-of-type(7){
+    grid-column: 1 / 4;
+    grid-row: 6 / 8;
+}
+#wrapper-3 .grid-item:nth-of-type(8){
+    grid-column: 1 / 5;
+    grid-row: 1 / 2;
+}
+#wrapper-3 .grid-item:nth-of-type(9){
+    grid-column: 1 / 2;
+    grid-row: 2 / 4;
+}
+#wrapper-3 .grid-item:nth-of-type(10){
+    grid-column: 2 / 4;
+    grid-row: 2 / 4;
+}
+#wrapper-3 .grid-item:nth-of-type(11){
+    grid-column: 4 / 5;
+    grid-row: 2 / 4;
+}
+#wrapper-3 .grid-item:nth-of-type(12){
+    grid-column: 1 / 4;
+    grid-row: 4 / 6;
+}
+#wrapper-3 .grid-item:nth-of-type(13){
+    grid-column: 4 / 5;
+    grid-row: 4 / 8;
+}
+#wrapper-3 .grid-item:nth-of-type(14){
+    grid-column: 1 / 4;
+    grid-row: 6 / 8;
+}
 @keyframes highlight-item {
     from {
         background-color: var(--primary-3);
@@ -199,51 +360,177 @@ section {
     }
 }
 
-@keyframes column-is-10 {
-    from {
-        column-gap: 0;
+@keyframes gutter-is-2 {
+    50% {
+        column-gap: 40px;
+        row-gap: 40px;
+    }
+
+    to {
+        column-gap: 2px;
+        row-gap: 2px;
+    }
+}
+@keyframes gutter-is-4 {
+    50% {
+        column-gap: 40px;
+        row-gap: 40px;
+    }
+
+    to {
+        column-gap: 4px;
+        row-gap: 4px;
+    }
+}
+
+@keyframes gutter-is-6 {
+    50% {
+        column-gap: 40px;
+        row-gap: 40px;
+    }
+
+    to {
+        column-gap: 6px;
+        row-gap: 6px;
+    }
+}
+
+@keyframes gutter-is-8 {
+    50% {
+        column-gap: 40px;
+        row-gap: 40px;
+    }
+
+    to {
+        column-gap: 8px;
+        row-gap: 8px;
+    }
+}
+
+@keyframes gutter-is-10 {
+    50% {
+        column-gap: 40px;
+        row-gap: 40px;
     }
 
     to {
         column-gap: 10px;
+        row-gap: 10px;
     }
 }
-@keyframes column-is-20 {
-    from {
-        column-gap: 0;
+@keyframes gutter-is-12 {
+    50% {
+        column-gap: 40px;
+        row-gap: 40px;
+    }
+
+    to {
+        column-gap: 12px;
+        row-gap: 12px;
+    }
+}
+@keyframes gutter-is-14 {
+    50% {
+        column-gap: 40px;
+        row-gap: 40px;
+    }
+
+    to {
+        column-gap: 14px;
+        row-gap: 14px;
+    }
+}
+
+@keyframes gutter-is-16 {
+    50% {
+        column-gap: 40px;
+        row-gap: 40px;
+    }
+
+    to {
+        column-gap: 16px;
+        row-gap: 16px;
+    }
+}
+
+@keyframes gutter-is-18 {
+    50% {
+        column-gap: 40px;
+        row-gap: 40px;
+    }
+
+    to {
+        column-gap: 18px;
+        row-gap: 18px;
+    }
+}
+
+@keyframes gutter-is-20 {
+    50% {
+        column-gap: 40px;
+        row-gap: 40px;
     }
 
     to {
         column-gap: 20px;
+        row-gap: 20px;
+    }
+}
+@keyframes gutter-is-22 {
+    50% {
+        column-gap: 40px;
+        row-gap: 40px;
+    }
+
+    to {
+        column-gap: 22px;
+        row-gap: 22px;
+    }
+}
+@keyframes gutter-is-24 {
+    50% {
+        column-gap: 40px;
+        row-gap: 40px;
+    }
+
+    to {
+        column-gap: 24px;
+        row-gap: 24px;
     }
 }
 
-@keyframes column-is-30 {
-    from {
-        column-gap: 0;
+@keyframes gutter-is-26 {
+    50% {
+        column-gap: 40px;
+        row-gap: 40px;
+    }
+
+    to {
+        column-gap: 26px;
+        row-gap: 26px;
+    }
+}
+
+@keyframes gutter-is-28 {
+    50% {
+        column-gap: 40px;
+        row-gap: 40px;
+    }
+
+    to {
+        column-gap: 28px;
+        row-gap: 28px;
+    }
+}
+
+@keyframes gutter-is-30 {
+    50% {
+        column-gap: 40px;
+        row-gap: 40px;
     }
 
     to {
         column-gap: 30px;
-    }
-}
-
-@keyframes column-is-40 {
-    from {
-        column-gap: 0;
-    }
-
-    to {
-        column-gap: 40px;
-    }
-}
-
-@keyframes column-is-50 {
-    from {
-        column-gap: 0;
-    }
-
-    to {
-        column-gap: 50px;
+        row-gap: 30px;
     }
 }
