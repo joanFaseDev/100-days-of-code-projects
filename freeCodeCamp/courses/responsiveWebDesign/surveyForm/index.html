@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>freeCodeCamp's survey</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <h1 id="title">Favorite Disney Characters and Video Games Survey</h1>
+    <p id="description">The author likes Disney and video games so let's talk about both!</p>
+    <form id="survey-form">
+      <section id="personal-information" class="wrapper">
+        <div class="item">
+          <label id="name-label" for="name">Name</label>
+          <input id="name" type="text" placeholder="Enter your name" required>  
+        </div>
+        <div class="item">
+          <label id="number-label" for="number">Age (optional)</label>
+          <input id="number" type="number" min="18" max="120" placeholder="Enter your age">  
+        </div>
+        <div class="item">
+          <label id="email-label" for="email">Mail</label>
+          <input id="email" type="email" placeholder="Enter your email address" required>  
+        </div>
+      </section>
+      <section id="disney" class="wrapper">
+        <div class="item">
+        <label id="favorite-disney-movie-label" for="favorite-disney-movie">Which Disney movie is your all-time favorite?</label>
+        <input id="favorite-disney-movie" type="text" name="favorite-disney-movie" placeholder="Ex: The Beauty and the Beast, Rapunzel, ...">
+        </div>
+        <div class="item">
+        <label id="favorite-disney-character-label" for="favorite-disney-character">Who is your favorite Disney princess/heroine?</label>
+        <input id="favorite-disney-character" type="text" name="favorite-disney-character" placeholder="Ex: Ariel, Jasmine, ...">
+        </div>
+        <div class="item">
+        <label id="favorite-disney-villain-label" for="favorite-disney-villain">Which Disney villain do you find the most interesting?</label>
+        <input id="favorite-disney-villain" type="text" name="favorite-disney-villain" placeholder="Ex: Ursula, Scar,...">
+        </div>
+        <div class="item">
+        <label id="favorite-disney-support-label" for="favorite-disney-support">Which Disney sidekick or supporting character is your favorite?</label>
+        <input id="favorite-disney-support" type="text" name="favorite-disney-support" placeholder="Ex: Mushu, Cogsworth, ...">
+        </div>
+      </section>
+      <section id="video-games" class="wrapper">
+        <div class="item">
+          <label id="dropdown-label">What is your favorite video game genre?</label>
+          <select id="dropdown" name="favorite-video-game-genre">
+            <option value="action">Action</option>
+            <option value="platform">Platform</option>
+            <option value="adventure">Adventure</option>
+            <option value="survival-horror">Survival Horror</option>
+            <option value="rpg">RPG</option>
+            <option value="simulation">Simulation</option>
+            <option value="fighting">Fighting</option>
+            <option value="strategy">Strategy</option>
+          </select>
+        </div>
+        <div class="item">
+          <fieldset>
+            <legend>Which modern video game platform do you prefer?</legend>
+            <label class="favorite-video-game-platform-label" for="xbox-series-x">Xbox Series X</label>
+            <input id="xbox-series-x" type="radio" name="favorite-video-game-platform" value="xbox-series-x">
+            <label class="favorite-video-game-platform-label" for="xbox-series-s">Xbox Series S</label>
+            <input id="xbox-series-s" type="radio" name="favorite-video-game-platform" value="xbox-series-s">
+            <label class="favorite-video-game-platform-label" for="playstation-5">PlayStation 5</label>
+            <input id="playstation-5" type="radio" name="favorite-video-game-platform" value="playstation-5">
+            <label class="favorite-video-game-platform-label" for="playstation-4">PlayStation 4</label>
+            <input id="playstation-4" type="radio" name="favorite-video-game-platform" value="playstation-4">
+            <label class="favorite-video-game-platform-label" for="nintendo-switch">Nintendo Switch</label>
+            <input id="nintendo-switch" type="radio" name="favorite-video-game-platform" value="nintendo-switch">
+            <label class="favorite-video-game-platform-label" for="pc">PC</label>
+            <input id="pc" type="radio" name="favorite-video-game-platform" value="pc">
+          </fieldset>
+        </div>
+        <div>
+          <fieldset>
+            <legend>Which of the following video game platforms do you own? (Select all that apply)</legend>
+            <label class="video-game-platform-own-label" for="xbox">Xbox</label>
+            <input id="xbox" name="video-game-platform-own" value="xbox" type="checkbox">
+            <label class="video-game-platform-own-label" for="playstation">PlayStation</label>
+            <input id="playstation" name="video-game-platform-own" value="playstation" type="checkbox">
+            <label class="video-game-platform-own-label" for="nintendo-switch">Nintendo Switch</label>
+            <input id="nintendo-switch" name="video-game-platform-own" value="nintendo-switch" type="checkbox">
+            <label class="video-game-platform-own-label" for="pc">PC</label>
+            <input id="pc" name="video-game-platform-own" value="pc" type="checkbox">
+            <label class="video-game-platform-own-label" for="mobile">Mobile</label>
+            <input id="mobile" name="video-game-platform-own" value="mobile" type="checkbox">
+            <label class="video-game-platform-own-label" for="other">Other</label>
+            <input id="other" name="video-game-platform-own" value="other" type="checkbox">
+          </fieldset>
+        </div>
+        <div class="item">
+          <label id="favorite-video-game-label" for="favorite-video-game">What is your all-time favorite video game?</label>
+          <input id="favorite-video-game" type="text" name="favorite-video-game" placeholder="Ex: Odin Sphere, Secret of Evermore,...">
+        </div>
+        <div class="item">
+          <label id="favorite-video-game-protagonist-label" for="favorite-video-game-protagonist">Who is your favoirite video game protagonist?</label>
+          <input id="favorite-video-game-protagonist" type="text" name="favorite-video-game-protagonist" placeholder="Ex: Leon Scott Kennedy, Sir Daniel Fortesque,...">
+        </div>
+        <div class="item">
+          <label id="favorite-video-game-antagonist-label" for="favorite-video-game-antagonist">Which video game antagonist or villain is your favorite?</label>
+          <input id="favorite-video-game-antagonist" type="text" name="favorite-video-game-antagonist" placeholder="Ex: Kefka Palazzo, GLaDOS,...">
+        </div>
+      </section>
+      <section class="wrapper">
+        <div class="item">
+          <label id="collaboration-label" for="collaboration">If you could see a collaboration between a Disney movie and a video game, which ones would you choose and why?</label>
+          <input id="collaboration" type="text" name="collaboration" placeholder="Ex: Frozen & Darksiders, The Black Cauldron & Elden Ring,...">
+        </div>
+        <div class="item">
+          <label id="playable-disney-character-label" for="playable-disney-character">Which Disney character would you like to see as a playable character in a video game?</label>
+          <input id="playable-disney-character" type="text" name="playable-disney-character" placeholder="Ex: Taram, Bernard,...">
+        </div>
+      </section>
+      <section class="wrapper">
+        <div class="item">
+          <label id="additional-comment-label" for="additional-comment">Is there anything else you would like to share about your favorite Disney characters or video games?</label>
+          <textarea id="additional-comment" type="" name="additional-comment" rows="20"  cols="50" placeholder="Ex: There should be more games like Kingdom Hearts, i think that ..."></textarea>
+        </div>
+      </section>
+      <button id="submit">Submit</button>
+    </form>
+  </body>
+</html>

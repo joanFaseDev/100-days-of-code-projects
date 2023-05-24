@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'NewWaltDisneyFontRegular';
+    src: url('./fonts/NewWaltDisneyFontRegular-BPen.woff2') format('woff2'),
+        url('./fonts/NewWaltDisneyFontRegular-BPen.woff') format('woff'),
+        url('./fonts/NewWaltDisneyFontRegular-BPen.ttf') format('truetype');
+  }
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'NewWaltDisneyFontRegular';
+}
