@@ -1,14 +1,252 @@
-@font-face {
-    font-family: 'NewWaltDisneyFontRegular';
-    src: url('./fonts/NewWaltDisneyFontRegular-BPen.woff2') format('woff2'),
-        url('./fonts/NewWaltDisneyFontRegular-BPen.woff') format('woff'),
-        url('./fonts/NewWaltDisneyFontRegular-BPen.ttf') format('truetype');
-  }
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,400;0,500;0,700;0,900;1,400;1,700;1,900&display=swap');
+
+:root {
+    --font-family: 'Jost', sans-serif;
+    --font-size: 20px;
+
+    --c-white: #F9FAFB;
+    --c-gray: #F1F2F3;
+    --c-gray-2: #E6E7E8;
+    --c-gray-3: #BDBEBF;
+    --c-black-1: #949698;
+    --c-black-2: #787878;
+    --c-black-3: #3C3C3C;
+    --c-black-4: #1A1A1A;
+}
 
 * {
     box-sizing: border-box;
 }
 
 body {
-    font-family: 'NewWaltDisneyFontRegular';
+    color: var(--c-black-4);
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    width: 70%;
+    margin: 0 auto;
+}
+
+label {
+    font-weight: 500;
+}
+
+input, textarea {
+    font-family: inherit;
+    font-size: 18px;
+}
+
+input::placeholder, textarea::placeholder {
+    font-size: 18px;
+    color: var(--c-gray-3);
+}
+
+fieldset {
+    padding-bottom: 1rem;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+fieldset div {
+    width: 24%;
+    display: flex;
+    justify-content: space-between;
+}
+
+fieldset:first-of-type {
+    margin-bottom: 2rem;
+}
+
+legend {
+    background-color: var(--c-gray-3);
+    padding: .5rem 1rem;
+    margin-bottom: 1rem;
+    border-radius: 15px;
+}
+
+input[type="radio"] {
+    margin-left: 1rem;
+    display: inline-block;
+}
+
+#title {
+    background-color: var(--c-gray);
+    width: 80%;
+    padding: 1rem;
+    margin: 3rem auto 0;
+    border-radius: 15px;
+    text-align: center;
+}
+
+#description {
+    text-align: center;
+    font-style: italic;
+}
+
+#survey-form {
+    background-color: var(--c-gray);
+    border-radius: 15px;
+    width: 80%;
+    padding: 3rem;
+    margin: 2rem auto;
+}
+
+.wrapper {
+    border-radius: 15px;
+}
+
+#personal-information, #disney, #video-games {
+    background-color: var(--c-gray-2);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    row-gap: 1rem;
+}
+
+#video-games {
+    grid-template-rows: auto;
+    row-gap: 2.5rem;
+}
+
+#personal-information .item {
+    display: flex;
+    column-gap: 2rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#personal-information .item  input,
+#disney .item input {
+    font-family: inherit;
+    font-size: 18px;
+    width: 70%;
+    padding: .5rem 2rem;
+    border: none;
+    border-radius: 15px;
+}
+
+#disney {
+    row-gap: 2rem;
+}
+
+#disney .item {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+#disney .item input {
+    width: 100%;
+}
+
+#dropdown-label {
+    margin-right: 3rem;
+}
+
+#dropdown {
+    font-size: inherit;
+    font-family: inherit;
+    border: none;
+    border-radius: 15px;
+    padding: .5rem;
+    /* margin-right: 2rem; */
+}
+
+#video-games .item:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#video-games .item:nth-of-type(2),
+#video-games .item:nth-of-type(3),
+#video-games .item:nth-of-type(4) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#video-games .item:nth-of-type(4) {
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+
+#favorite-video-game,
+#favorite-video-game-protagonist,
+#favorite-video-game-antagonist {
+    font-family: inherit;
+    /* font-size: inherit; */
+    width: 40%;
+    padding: .5rem 1rem;
+    border: none;
+    border-radius: 15px;
+}
+
+#favorite-video-game::placeholder,
+#favorite-video-game-protagonist::placeholder,
+#favorite-video-game-antagonist::placeholder {
+    font-size: 18px;
+}
+
+#collaboration {
+    background-color: var(--c-gray-2);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+#extra {
+    background-color: var(--c-gray-2);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+#extra .item {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+#additional-comment {
+    padding: .5rem 2rem;
+    border: none;
+    border-radius: 15px;
+}
+
+#collaboration .item:first-child {
+    margin-bottom: 2rem;
+}
+
+#collaboration .item:first-child,
+#collaboration .item:last-child {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+#collaboration-disney-game, 
+#playable-disney-character {
+    padding: .5rem 2rem;
+    border: none;
+    border-radius: 15px;
+}
+
+#submit {
+    font-family: inherit;
+    font-size:inherit;
+    border: none;
+    border-radius: 15px;
+    background-color: var(--c-gray-3);
+    padding: 1rem 1.5rem;
+    text-align: center;
+    margin: 1rem auto 1rem;
+    display: block;
+    font-weight: 600;
+    transition: all .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#submit:hover {
+    background-color: var(--c-black-4);
+    color: var(--c-white);
 }
