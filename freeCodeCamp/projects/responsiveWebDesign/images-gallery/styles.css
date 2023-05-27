@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,700&display=swap');
+
+:root {
+    --primary-black: #253237;
+    --primary-white: #e0fbfc;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    color: var(--primary-black);
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    * {
+        scroll-behavior: smooth;
+    }
+}
+
+body {
+    margin: 0;
+}
+
+.header {
+    background-color: var(--primary-black);
+    color: var(--primary-white);
+    width: min(80%, 920px);
+    padding: 0 1.5rem;
+    margin: 20px auto;
+    position: sticky;
+    top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+} 
+
+.menu-title {
+    text-align: center;
+}
+
+.menu-gallery > ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    column-gap: 40px;
+}
+
+.menu-gallery > ul > li {
+    text-align: center;
+}
+
+.menu-gallery > ul > li > a {
+    color: inherit;
+    font-size: 1.2rem;
+    text-decoration: none;
+    padding: 10px 4px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all .2s linear;
+}
+
+.menu-gallery > ul > li > a:hover {
+   text-decoration: 2px underline var(--primary-white);
+   text-underline-offset: 4px;
+}
+
+.gallery {
+    width: 80%;
+    margin: 20vh auto 0;
+    max-width: 1000px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 20px;
+}
+
+.gallery > .title {
+    width: 55%;
+    text-align: center;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--primary-black);
+    margin-bottom: 40px;
+}
+
+img {
+    width: 45%;
+    object-fit: cover;
+}
+
+.large {
+    width: 90%;
+}
+
+.footer {
+    width: 30%;
+    border-bottom: 1px solid var(--primary-black);
+    margin: 5rem auto 2rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    column-gap: 15px;
+}
+
+.footer > address > a {
+    color: var(--primary-black);
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .menu-title {
+        margin-bottom: 0;
+    }
+
+    .header {
+        flex-direction: column;
+    }
+
+    
+    .menu-gallery > ul {
+        padding-left: 0;
+    }
+    
+    .gallery > .title {
+        width: 80%;
+    }
+
+    img {
+        width: 100%;
+        object-fit: contain;
+    }
+
+    .footer {
+        width: 50%;
+    }
+}
