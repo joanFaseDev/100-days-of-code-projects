@@ -40,6 +40,7 @@ body {
 
 .menu-title {
     text-align: center;
+    transition: all .2s linear;
 }
 
 .menu-gallery > ul {
@@ -70,7 +71,7 @@ body {
 
 .gallery {
     width: 80%;
-    margin: 20vh auto 0;
+    margin: 6rem auto 0;
     max-width: 1000px;
     display: flex;
     flex-wrap: wrap;
@@ -136,5 +137,19 @@ img {
 
     .footer {
         width: 50%;
+    }
+}
+
+@media (max-width: 500px) {
+    .header > .menu-title {
+        font-size: 1.2rem;
+    }
+
+    .menu-gallery > ul {
+        column-gap: 20px;
+    }
+
+    .menu-gallery > ul > li > a {
+        font-size: .9rem;
     }
 }
