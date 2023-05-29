@@ -1,0 +1,220 @@
+@import '../../../../node_modules/open-color/open-color.css';
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,300;0,400;0,600;0,700;0,900;1,100;1,300;1,400;1,600;1,700;1,900&display=swap');
+
+:root {
+    --primary-color: #F783AC;
+    --secondary-color: #fcc2d7;
+    --accent-color: #83F7CE;
+    --primary-white: #FFF;
+    --primary-black: #000;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 18px;
+    font-family: 'Raleway', sans-serif;
+    color: var(--primary-black);
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+img {
+    width: 100%;
+    /* max-width: 100%; */
+    /* display: block; */
+    object-fit: contain;
+}
+
+aside {
+    padding: 10px;
+}
+
+aside > figure {
+    background-color: var(--secondary-color);
+    padding: 10px;
+    margin: 0 40px;
+}
+
+aside > figure blockquote {
+    margin: 1rem;
+    font-style: italic;
+}
+
+aside > figure blockquote p::before{
+    content: '\201C';
+}
+aside > figure blockquote p::after{
+    content: '\201D';
+}
+
+aside > figure figcaption {
+    padding: 10px;
+}
+
+aside > p {
+    font-weight: bold;
+    padding: 10px 20px;
+    margin: 0;
+}
+
+aside > p > a {
+    background-color: var(--secondary-color);
+    color: inherit;
+    padding: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    transition: all .2s linear;
+}
+
+aside > p > a:hover {
+    background-color: var(--primary-color);
+}
+
+aside > p > a:active {
+    background-color: var(--primary-color);
+    padding: 6px;
+}
+
+.main, .footer {
+    width: min(90%, 1000px);
+    margin: 0 auto;
+}
+
+.header > h1, .header p {
+    text-align: center;
+    padding: 10px;
+}
+
+.header > h1 {
+    background-color: var(--primary-color);
+    margin-bottom: 0;
+}
+
+.header p {
+    background-color: var(--secondary-color);
+    margin-top: .4rem;
+}
+
+.header figure {
+    margin-top: 3rem;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.diviser {
+    width: 80%;
+    border-bottom: 3px solid var(--secondary-color);
+    margin: 2rem auto;
+}
+
+.header figure figcaption {
+    background-color: var(--secondary-color);
+    text-align: center;
+    padding: 5px 10px;
+    margin-top: 10px;
+}
+
+.time-line {
+    max-width: 700px;
+    padding: 10px 10px 0 10px;
+    margin: 0 auto;
+}
+
+.time-line > h2 {
+    text-align: center;
+    background-color: var(--primary-color);
+    padding: 10px;
+    margin: 0 0 2rem 0;
+}
+
+.time-line-list {
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.time-line-year {
+    font-weight: bold;
+    display: block;
+    background-color: var(--secondary-color);
+    transition: all .2s linear;
+}
+
+.time-line-year::after {
+    content: " - ";
+}
+
+.time-line-list li {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    transition: all .2s linear;
+}
+
+.footer {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 1rem;
+}
+
+.footer > address > a {
+    background-color: var(--secondary-color);
+    color: inherit;
+    padding: 4px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all .2s linear;
+}
+
+.footer > address > a:hover {
+    background-color: var(--primary-color);
+}
+
+.footer > address > a:active {
+    padding: 6px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 20px;
+    }
+
+    .time-line-list li {
+        padding-bottom: 10px;
+        border-bottom: 3px solid var(--secondary-color);
+        display: list-item;
+    }
+
+    .time-line-list li:last-child {
+        border-bottom: none;
+    }
+
+    .time-line-year {
+        display: inline-block;
+        padding: 5px 10px;
+        margin-right: 10px;
+    }
+
+    .outside {
+        width: min(80%, 800px);
+    }
+
+    aside:nth-last-of-type(1) {
+        text-align: center;
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+}
