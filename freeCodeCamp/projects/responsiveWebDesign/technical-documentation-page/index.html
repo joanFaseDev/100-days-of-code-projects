@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fictional technical documentation created as a freeCodeCamp project.">
+    <title>Technical Documentation C3 | Jordan Falaise</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <nav id="navbar" class="nav-bar">
+      <header>Construct 3 Documentation</header>
+      <ol>
+        <li><a class="nav-link" href="#Introduction_to_Construct_3">Introduction to Construct 3</a></li>
+        <li><a class="nav-link" href="#Getting_Started">Getting Started</a></li>
+        <li><a class="nav-link" href="#Working_with_Events_and_Actions">Working with Events and Actions</a></li>
+        <li><a class="nav-link" href="#Working_with_Objects_and_Behaviors">Working with Objects and Behaviors</a></li>
+        <li><a class="nav-link" href="#Working_with_Layouts_and_Layers">Working with Layouts and Layers</a></li>
+        <li><a class="nav-link" href="#Adding_Audio_and_Video">Adding Audio and Video</a></li>
+        <li><a class="nav-link" href="#Physics_and_Collision_Detection">Physics and Collision Detection</a></li>
+        <li><a class="nav-link" href="#User_Input_and_Touch_Controls">User Input and Touch Controls</a></li>
+        <li><a class="nav-link" href="#Game_Publishing_and_Exporting">Game Publishing and Exporting</a></li>
+        <li><a class="nav-link" href="#Optimizing_Performance">Optimizing Performance</a></li>
+        <li><a class="nav-link" href="#Advanced_Techniques">Advanced Techniques</a></li>
+        <li><a class="nav-link" href="#Troubleshooting_and_Debugging">Troubleshooting and Debugging</a></li>
+        <li><a class="nav-link" href="#Community_and_Resources">Community and Resources</a></li>
+        <li><a class="nav-link" href="#Conclusion">Conclusion</a></li>
+        <li><a class="nav-link" href="#Extra:_Construct_3_Tips_and_Tricks">Extra: Construct 3 Tips and Tricks</a></li>
+      </ol>
+    </nav>
+    <main id="main-doc" class="main">
+      <section id="Introduction_to_Construct_3" class="main-section">
+        <header>Introduction to Construct 3</header>
+        <article>
+          <p>Construct 3 is a powerful web-based game development engine that allows you to create games without the need for extensive programming knowledge. With its intuitive interface and rich set of features, Construct 3 empowers game developers of all skill levels to bring their ideas to life.</p>
+          <p>In this chapter, we will provide an overview of the main features and capabilities of Construct 3. We will explore the editor's layout, the project structure, and the key concepts that form the foundation of the engine. By the end of this chapter, you will have a solid understanding of what Construct 3 has to offer and how it can help you create stunning games.</p>
+          <code>html</code>
+          <code>
+            &lt;!-- Example code snippet --&gt;
+            &lt;code&gt;
+              &lt;script&gt;
+                const game = new Game();
+                game.start();
+              &lt;script&#47;
+            &lt;&#47;code&gt;
+          </code>
+        </article>
+      </section>
+      <section id="Getting_Started" class="main-section">
+        <header>Getting Started</header>
+        <article>
+          <p>Getting started with Construct 3 is a breeze. In this chapter, we will guide you through the installation process, setting up your first project, and exploring the user interface. You will learn how to navigate the editor, access important panels and windows, and customize your workspace to suit your preferences.</p>
+          <p>By the end of this chapter, you will be ready to dive into game development with Construct 3. So let's get started and embark on an exciting journey of creativity and innovation!</p>
+        </article>
+      </section>
+      <section id="Working_with_Events_and_Actions" class="main-section">
+        <header>Working with Events and Actions</header>
+        <article>
+          <p>Events and actions are at the heart of Construct 3's event-driven system. In this chapter, we will explore the power and flexibility of the event system. You will learn how to create events, define conditions, and specify actions to be executed in response to user input, collisions, timers, and other triggers.</p>
+          <p>With Construct 3's event system, you can bring your game to life by defining the rules and interactions that govern its behavior. Whether you want to create complex AI behavior or simple button click actions, this chapter will equip you with the knowledge and skills to make it happen.</p>
+          <code>javascript</code>
+          <code>
+            // Example code snippet
+            function onCollision(player, enemy) {
+            player.takeDamage();
+            enemy.explode();
+            }
+          </code>
+        </article>
+      </section>
+      <section id="Working_with_Objects_and_Behaviors" class="main-section">
+        <header>Working with Objects and Behaviors</header>
+        <article>
+          <p>Objects and behaviors are fundamental building blocks in Construct 3. In this chapter, we will explore the creation and manipulation of objects, as well as the application of behaviors to enhance their functionality.</p>
+          <p>You will learn how to create objects from scratch or choose from a library of pre-designed objects. We will cover object properties, instance variables, and how to interact with objects through events and actions. Additionally, we will delve into the world of behaviors, which provide ready-made functionality for common game mechanics like platform movement, physics simulations, and more.</p>
+        </article>
+      </section>
+      <section id="Working_with_Layouts_and_Layers" class="main-section">
+        <header>Working with Layouts and Layers</header>
+        <article>
+          <p>Construct 3 organizes game content into layouts and layers, allowing you to structure your game's scenes and control their visual presentation. In this chapter, we will explore the creation and management of layouts, as well as layering techniques for visual control.</p>
+          <p>You will learn how to create multiple layouts, switch between them, and manage their properties. We will also cover layer management, including layer ordering, parallax scrolling, and layer effects. By the end of this chapter, you will have a solid understanding of how to structure your game's visuals and create engaging scenes.</p>
+        </article>
+      </section>
+      <section id="Adding_Audio_and_Video" class="main-section">
+        <header>Adding Audio and Video</header>
+        <article>
+          <p>Sound effects and music can greatly enhance the gaming experience. In this chapter, we will demonstrate how to incorporate audio and video elements into your Construct 3 projects.</p>
+          <p>You will learn how to import audio files, play sounds, create background music loops, and add visual effects to your videos. Whether you want to create an immersive environment with realistic sound effects or provide a captivating audiovisual experience, this chapter will guide you through the process.</p>
+        </article>
+      </section>
+      <section id="Physics_and_Collision_Detection" class="main-section">
+        <header>Physics and Collision Detection</header>
+        <article>
+          <p>Physics simulations and collision detection are crucial aspects of many games. In this chapter, we will explore how to utilize the built-in physics engine and implement collision detection in Construct 3.</p>
+          <p>You will learn how to define physical properties for objects, apply forces, and detect collisions between objects. We will also cover advanced topics such as joints and constraints for creating complex physics-based interactions. By the end of this chapter, you will be equipped with the knowledge to create dynamic and realistic game worlds.</p>
+          <code>javascript</code>
+          <code>
+            // Example code snippet
+            function applyGravity(object) {
+              object.velocityY += GRAVITY;
+            }
+          </code>
+        </article>
+      </section>
+      <section id="User_Input_and_Touch_Controls" class="main-section">
+        <header>User Input and Touch Controls</header>
+        <article>
+          <p>User input and touch controls are essential for creating interactive games. In this chapter, we will guide you through capturing user input and implementing touch controls in Construct 3.</p>
+          <p>You will learn how to handle keyboard and mouse input, as well as touch and gesture events on mobile devices. We will cover common input scenarios like button presses, character movement, and object interactions. By the end of this chapter, you will be able to create intuitive and responsive controls for your games.</p>
+        </article>
+      </section>
+      <section id="Game_Publishing_and_Exporting" class="main-section">
+        <header>Game Publishing and Exporting</header>
+        <article>
+          <p>Once you have finished developing your game, you'll want to share it with others. In this chapter, we will explore the various options for publishing and exporting your Construct 3 projects.</p>
+          <p>You will learn how to export your game to different platforms, including web, mobile, and desktop. We will cover packaging your game for distribution, optimizing assets and performance, and considerations for different target platforms. By the end of this chapter, you will be ready to share your creations with the world.</p>
+        </article>
+      </section>
+      <section id="Optimizing_Performance" class="main-section">
+        <header>Optimizing Performance</header>
+        <article>
+          <p>Optimizing your game's performance ensures smooth gameplay and a positive user experience. In this chapter, we will provide tips and techniques for optimizing your Construct 3 projects.</p>
+          <p>You will learn how to identify performance bottlenecks, reduce memory usage, optimize rendering, and improve overall game performance. We will cover techniques like object pooling, sprite batching, and texture atlasing. By applying the optimization strategies discussed in this chapter, you can create high-performance games that run smoothly on a wide range of devices.</p>
+        </article>
+      </section>
+      <section id="Advanced_Techniques" class="main-section">
+        <header>Advanced Techniques</header>
+        <article>
+          <p>This chapter delves into advanced techniques and features of Construct 3. We will explore custom plugin development, shaders for advanced visual effects, and working with external APIs to integrate external services and data into your games.</p>
+          <p>By mastering these advanced techniques, you can take your game development skills to the next level and unlock limitless possibilities for creativity and innovation.</p>
+        </article>
+      </section>
+      <section id="Troubleshooting_and_Debugging" class="main-section">
+        <header>Troubleshooting and Debugging</header>
+        <article>
+          <p>No development process is without its challenges. In this chapter, we will offer guidance on troubleshooting and debugging common issues in Construct 3 projects.</p>
+          <p>You will learn how to diagnose and fix common runtime errors, handle exceptions, and use debugging tools to inspect and modify your game at runtime. We will also cover techniques for optimizing your workflow and avoiding common pitfalls. By the end of this chapter, you will be equipped with the skills to tackle any problem that may arise during game development.</p>
+        </article>
+      </section>
+      <section id="Community_and_Resources" class="main-section">
+        <header>Community and Resources</header>
+        <article>
+          <p>The Construct 3 community is a valuable resource for support and inspiration. In this chapter, we will highlight forums, tutorials, and other resources to help you further your game development journey.</p>
+          <p>You will discover vibrant online communities where you can connect with fellow game developers, seek help, share your creations, and find inspiration. We will also showcase tutorial websites, video channels, and documentation references to deepen your understanding of Construct 3 and enhance your skills</p>
+        </article>
+      </section>
+      <section id="Conclusion" class="main-section">
+        <header>Conclusion</header>
+        <article>
+          <p>In the final chapter, we summarize the key concepts covered in this documentation and encourage you to continue exploring and experimenting with Construct 3. We hope this documentation has provided you with a solid foundation to unleash your creativity and bring your game ideas to life.</p>
+          <p>Feel free to make any further adjustments to the content or layout as per your requirements. This sample should provide you with longer chapters, ensuring a more comprehensive technical documentation page on the Construct 3 game engine. Good luck with your web development project!</p>
+        </article>
+      </section>
+      <section id="Extra:_Construct_3_Tips_and_Tricks" class="main-section">
+        <header>Extra: Construct 3 Tips and Tricks</header>
+        <article>
+          <ul>
+            <li>Construct 3 is a browser-based game engine that provides a visual interface for creating games without traditional coding.</li>
+            <li>Construct 3 supports a wide range of platforms, including web, mobile, and desktop, allowing you to reach a broad audience with your games.</li>
+            <li>The event system in Construct 3 allows you to create complex game logic by combining events, conditions, and actions.</li>
+            <li>Construct 3 provides a rich library of built-in objects and behaviors, allowing you to quickly prototype and develop various game mechanics.</li>
+            <li>You can extend the functionality of Construct 3 by creating custom plugins using JavaScript.</li>
+            <li>The layout editor in Construct 3 enables you to design and arrange game scenes with ease, utilizing layers, sprites, and other visual elements.</li>
+            <li>Construct 3 offers a robust physics engine that allows you to simulate realistic physics interactions in your games.</li>
+            <li>The asset management system in Construct 3 helps you organize and import various media assets, such as images, audio files, and video clips.</li>
+            <li>Construct 3 provides a wide range of export options, allowing you to publish your games as HTML5, Android APKs, iOS apps, and more.</li>
+            <li>The Construct 3 community is vibrant and supportive, with active forums, tutorials, and resources to help you learn and grow as a game developer.</li>
+            <li>Construct 3 offers a built-in debugger and profiler to help you identify and resolve issues in your game's code and performance.</li>
+            <li>The event sheets in Construct 3 provide a visual overview of your game's logic and make it easy to navigate and manage complex projects.</li>
+            <li>Construct 3 supports multiplayer functionality, allowing you to create online multiplayer games and connect players across different devices.</li>
+            <li>The Construct 3 runtime engine is highly optimized, ensuring smooth gameplay and performance on a wide range of devices</li>
+            <li>Construct 3 provides a variety of export options for monetizing your games, including in-app purchases, ads, and sponsorship opportunities.</li>
+          </ul>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
