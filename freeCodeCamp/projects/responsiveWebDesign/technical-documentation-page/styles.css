@@ -1,8 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,1000;1,300;1,400;1,600;1,700;1,1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,400;0,700;1,400&display=swap');
 @import '../../../../node_modules/open-color/open-color.css';
 
 :root {
     --primary-color: var(--oc-cyan-5);
+    --secondary-color: var(--oc-cyan-0);
+    --accent-color: var(--oc-cyan-8);
+    --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 html {
@@ -26,12 +30,25 @@ body {
     margin: 0 auto;
 }
 
-header {
-    font-size: 2rem;
+li {
+    font-size: 1.1rem;
+}
+
+.nav-bar > header, .main-section > header {
     font-weight: bold;
     background-color: var(--primary-color);
     padding: 10px 5px;
     border-radius: 14px;
+    transition: all .4s var(--ease-out-back);
+}
+
+.nav-bar header {
+    font-size: 2rem;
+}
+
+.main-section > header {
+    font-size: 1.5rem;
+    padding: 10px;
 }
 
 a {
@@ -39,13 +56,39 @@ a {
     color: inherit;
 }
 
-code {
-    white-space: pre-line;
+pre, code {
+    background-color: var(--secondary-color);
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
-.nav-bar, .main {
+pre {
+    padding: 10px 20px;
+    margin-bottom: 0;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.pre-overflow {
+    overflow: scroll;
+}
+
+code[class="language-code"] {
+    height: 60px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-bar, .main, .footer {
     width: min(90%, 1000px);
     margin: 2rem auto;
+    transition: all .6s var(--ease-out-back);
 }
 
 .nav-bar > header {
@@ -55,18 +98,139 @@ code {
 .nav-bar ol {
     height: 50vh;
     font-size: 1.2rem;
-    border: 1px solid black;
+    border-top: 3px solid var(--primary-color);
+    border-bottom: 3px solid var(--primary-color);
+    border-left: 3px solid var(--primary-color);
+    border-radius: 10px 0 0 10px;
     padding-left: 0;
     overflow-y: scroll;
+    transition: all .4s var(--ease-out-back);
 }
 
 .nav-bar ol::-webkit-scrollbar {
     width: 20px;
-    background-color: black;
+    background-color: var(--primary-color);
+}
+
+.nav-bar ol::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    width: 15px;
+    border-radius: 10px;
+}
+
+.nav-bar ol::-webkit-scrollbar-track {
+    border-radius: 10px;
 }
 
 .nav-bar ol li {
     padding: 10px 5px;
-    border-bottom: 2px solid var(--primary-color);
     list-style: none;
+    transition: all .4s var(--ease-out-back);
+}
+.nav-bar ol li:not(:last-of-type) {
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.main-section {
+    margin: 3rem auto;
+}
+
+.main-section article {
+    padding: 10px 15px 0;
+}
+
+.main-section article p {
+    font-size: 1.1rem;
+}
+
+.main-section article ul {
+    padding: 0 20px;
+}
+
+.main-section article ul li:not(li:last-of-type) {
+    margin-bottom: 1rem;
+}
+
+.diviser {
+    width: 80%;
+    border-bottom: 4px solid var(--accent-color);
+    margin: 0 auto;
+}
+
+footer {
+    background-color: var(--secondary-color);
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 1rem;
+    transition: all .4s var(--ease-out-back);
+}
+
+footer a {
+    background-color: var(--secondary-color);
+    color: inherit;
+    font-size: inherit;
+    font-weight: bold;
+    transition: all .5s var(--ease-out-back);
+}
+
+.nav-bar ol li a{
+    transition: all .5s var(--ease-out-back);
+}
+
+.nav-bar ol li a:hover {
+    background-color: var(--primary-color);
+    padding: 5px 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+footer a:hover {
+    background-color: var(--primary-color);
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+footer a:active {
+    padding: 8px 14px;
+}
+
+@media (min-width: 815px) {
+    .nav-bar {
+        width: min(35%, 400px);
+        height: 100%;
+        margin: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+
+    .nav-bar > header {
+        border-radius: 0 14px 0 0;
+    }
+
+    .nav-bar ol {
+        height: 100%;
+        border-top: 0;
+        border-left: 0;
+        border-right: 3px solid var(--primary-color);
+        margin-top: 0;
+        overflow-y: initial;
+    }
+
+    .nav-bar ol li {
+        padding-left: 30px;
+    }
+
+    .main, .footer {
+        width: min(60%, 1000px);
+        margin-left: min(38%, 470px);
+        margin-right: auto;
+    }
+
+    .pre-overflow {
+        overflow: initial;
+    }
 }
