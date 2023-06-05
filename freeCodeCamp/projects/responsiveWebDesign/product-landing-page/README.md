@@ -12,4 +12,8 @@ I chose a fake game engine named Gaminit as a subject for this project. Most of 
 [X] Create a fake logo image on Figma.
 [] Create a responsive hamburger navbar using only HTML and CSS.
 
+## Ideas for upgrade
+
+[Gradient Borders in CSS](https://css-tricks.com/gradient-borders-in-css/)
+
 ## Links

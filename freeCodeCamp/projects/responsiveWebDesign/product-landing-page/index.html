@@ -15,8 +15,8 @@
                 <h1 class="hero-title">Gaminit</h1>
                 <img id="header-img" class="hero-img" src="./assets/Logo.png">
             </div>
-            <label for="hamburger-menu" class="hero-label"><span class="hamburger-middle-line"></span></label>
             <input id="hamburger-menu" class="hero-checkbox" type="checkbox">
+            <label for="hamburger-menu" class="hero-label"></label>
             <nav id="nav-bar" class="hero-navbar">
                 <ul class="hero-list">
                     <li class="hero-list-item"><a class="nav-link link" href="#home">Home</a></li>
@@ -31,48 +31,60 @@
             <section id="home" class="wrapper">
                 <h2 class="wrapper-title">Unleash your creativity and bring your game ideas to life with Gaminit!</h2>
                 <form id="form" class="wrapper-form" action="https://www.freecodecamp.com/email-submit" method="POST">
-                    <input id="email" type="email" name="user-email" placeholder="Enter your email address">
-                    <input id="form-submit" type="submit" value="Get Started">
+                    <input id="email" class="email-input" type="email" name="user-email" placeholder="Enter your email address">
+                    <input id="form-submit" class="email-button" type="submit" value="Get Started">
                 </form>
             </section>
+            <div class="divider"></div>
             <section id="features" class="wrapper">
                 <h2 class="wrapper-title">Why choose Gaminit?</h2>
                 <div class="wrapper-selling-point">
-                    <div class="wrapper-icon"><i class="icon"></i></div>
                     <div class="wrapper-text">
-                        <h3 class="selling-point-title">Powerful and Intuitive Design</h3>
+                        <div class="wrapper-icon">
+                            <i class="fa-solid fa-object-group fa-xl icon"></i>
+                            <h3 class="selling-point-title">Powerful and Intuitive Design</h3>
+                        </div>
                         <p class="selling-point-text"> Gaminit offers a user-friendly interface that allows you to create stunning games without any coding knowledge.</p>
                     </div>
                 </div>
                 <div class="wrapper-selling-point">
-                    <div class="wrapper-icon"><i class="icon"></i></div>
                     <div class="wrapper-text">
-                        <h3 class="selling-point-title">Versatile Asset Library</h3>
+                        <div class="wrapper-icon">
+                            <i class="fa-solid fa-book-open fa-xl icon"></i>
+                            <h3 class="selling-point-title">Versatile Asset Library</h3>
+                        </div>
                         <p class="selling-point-text">Access a vast collection of high-quality assets, including characters, objects, and environments, to enhance your game's visual appeal.</p>
                     </div>
                 </div>
                 <div class="wrapper-selling-point">
-                    <div class="wrapper-icon"><i class="icon"></i></div>
                     <div class="wrapper-text">
-                        <h3 class="selling-point-title">Advanced Scripting Capabilites</h3>
+                        <div class="wrapper-icon">
+                            <i class="fa-solid fa-scroll fa-xl icon"></i>
+                            <h3 class="selling-point-title">Advanced Scripting Capabilites</h3>
+                        </div>
                         <p class="selling-point-text">Utilize Gaminit's robust scripting system to add complex logic and interactivity to your games, giving them depth and excitement.</p>
                     </div>
                 </div>
                 <div class="wrapper-selling-point">
-                    <div class="wrapper-icon"><i class="icon"></i></div>
                     <div class="wrapper-text">
-                        <h3 class="selling-point-title">Seamless Multiplatform Deployment</h3>
+                        <div class="wrapper-icon">
+                            <i class="fa-solid fa-file-export fa-xl icon"></i>
+                            <h3 class="selling-point-title">Seamless Multiplatform Deployment</h3>
+                        </div>
                         <p class="selling-point-text">With Gaminit, effortlessly deploy your games on multiple platforms, including desktop, mobile, and even consoles.</p>
                     </div>
                 </div>
                 <div class="wrapper-selling-point">
-                    <div class="wrapper-icon"><i class="icon"></i></div>
                     <div class="wrapper-text">
-                        <h3 class="selling-point-title">Dedicated Community and Support</h3>
+                        <div class="wrapper-icon">
+                            <i class="fa-solid fa-comment fa-xl"></i>
+                            <h3 class="selling-point-title">Dedicated Community and Support</h3>
+                        </div>
                         <p class="selling-point-text">Join a vibrant community of game developers, share ideas, and get assistance from experts to accelerate your game development journey.</p>
                     </div>
                 </div>
             </section>
+            <div class="divider"></div>
             <section id="pricing" class="wrapper">
                 <h2 class="wrapper-title">Pricing Options</h2>
                 <div class="wrapper-pricing">
@@ -99,6 +111,7 @@
                     </div>
                 </div>
             </section>
+            <div class="divider"></div>
             <section id="showcase" class="wrapper">
                 <h2 class="wrapper-title">Showcase</h2>
                 <div class="wrapper-video">
