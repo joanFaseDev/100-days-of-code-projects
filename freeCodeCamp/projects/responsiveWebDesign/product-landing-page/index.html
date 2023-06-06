@@ -13,7 +13,7 @@
         <header id="header" class="hero">
             <div class="hero-wrapper">
                 <h1 class="hero-title">Gaminit</h1>
-                <img id="header-img" class="hero-img" src="./assets/Logo.png">
+                <img id="header-img" class="hero-img" src="./assets/Logo.png" alt="A little monster with a mean look">
             </div>
             <input id="hamburger-menu" class="hero-checkbox" type="checkbox">
             <label for="hamburger-menu" class="hero-label"></label>
@@ -31,8 +31,8 @@
             <section id="home" class="wrapper">
                 <h2 class="wrapper-title">Unleash your creativity and bring your game ideas to life with Gaminit!</h2>
                 <form id="form" class="wrapper-form" action="https://www.freecodecamp.com/email-submit" method="POST">
-                    <input id="email" class="email-input" type="email" name="user-email" placeholder="Enter your email address">
-                    <input id="form-submit" class="email-button" type="submit" value="Get Started">
+                    <input id="email" class="email-input" type="email" name="email" placeholder="Enter your email address">
+                    <input id="submit" class="email-button" type="submit" value="Get Started">
                 </form>
             </section>
             <div class="divider"></div>
@@ -115,7 +115,7 @@
             <section id="showcase" class="wrapper">
                 <h2 class="wrapper-title">Showcase</h2>
                 <div class="wrapper-video">
-                    <video src="./assets/Ask_Gamedev_40_Amazing_Indie_Games.mp4" controls muted>A video of the Youtube channel Ask Gamedev showcasing 40 indie games in 2022.</video>
+                    <video id="video" src="./assets/hangman-animation.mp4" controls muted>A video of a hangman animation i did a few weeks ago using HTML Canvas.</video>
                 </div>
                 <div class="wrapper-showcase">
                     <div class="wrapper-game">
@@ -123,7 +123,7 @@
                         <p class="game-genre">Action RPG</p>
                         <p class="game-pitch">Embark on an epic journey through time in "Chrono Legends," a thrilling action RPG developed by Virtuo Studios. Immerse yourself in a richly detailed fantasy world where you wield powerful magic and battle fearsome creatures. Uncover the secrets of ancient civilizations, shape the course of history, and become a legendary hero.</p>
                         <div class="game-capture-wrapper">
-                            <img class="game-capture" src="" alt="">
+                            <img class="game-capture" src="./assets/capture-game-1.png" alt="A pixelated 2D game">
                         </div>
                         <p class="game-loop">Engage in dynamic real-time combat, combining swordplay and spellcasting to defeat enemies and uncover hidden treasures. Explore vast open landscapes, ancient ruins, and mystical dungeons. Level up your character, unlock powerful abilities, and make choices that shape the story's outcome.</p>
                         <p class="game-developer">Virtuo Studios</p>
@@ -133,7 +133,7 @@
                         <p class="game-genre">Retro Platformer</p>
                         <p class="game-pitch">Dive into nostalgic pixelated adventures with "PixelQuest," a charming retro platformer developed by Luminary Games. Play as a courageous adventurer on a quest to rescue their kidnapped sibling from the clutches of an evil villain. Traverse challenging levels, discover secret passages, and unravel the mysteries of an enchanting pixelated world.</p>
                         <div class="game-capture-wrapper">
-                            <img class="game-capture" src="" alt="">
+                            <img class="game-capture" src="./assets/capture-game-2.png" alt="A top down game in pixel art">
                         </div>
                         <p class="game-loop">Run, jump, and fight your way through meticulously designed levels filled with pixel-perfect obstacles, tricky puzzles, and formidable enemies. Collect power-ups and unlock new abilities to overcome challenges and reach hidden areas. With its delightful visuals and tight controls, "PixelQuest" captures the essence of classic platforming nostalgia.</p>
                         <p class="game-developer">Luminary Games</p>
@@ -143,7 +143,7 @@
                         <p class="game-genre">Strategy</p>
                         <p class="game-pitch">Take command of interstellar fleets and conquer the galaxy in "Galactic Conquest," a strategic masterpiece developed by Starforge Games. As the leader of a space-faring civilization, build an empire, research advanced technologies, and engage in epic battles for supremacy in a vast and unforgiving universe.</p>
                         <div class="game-capture-wrapper">
-                            <img class="game-capture" src="" alt="">
+                            <img class="game-capture" src="./assets/capture-game-3.png" alt="A top down background in pixel art">
                         </div>
                         <p class="game-loop">Strategically manage resources, expand your territory, and forge alliances or wage wars with rival factions. Customize your fleets, deploy them in tactical battles, and witness breathtaking space combat in real-time. As you progress, unlock powerful technologies and unleash devastating weapons to dominate the galaxy.</p>
                         <p class="game-developer">Starforge Games</p>
@@ -151,10 +151,11 @@
                 </div>
             </section>
         </main>
+        <div class="divider"></div>
         <footer id="contact" class="footer">
             <div class="footer-wrapper">
                 <address class="footer-address">
-                    <a href="mailto:jordanfalaise.dev@gmail.com">Jordan Falaise</a>
+                    <a class="author" href="mailto:jordanfalaise.dev@gmail.com">Jordan Falaise</a>
                 </address>
                 <p class="footer-contact">&copy;2023 Gaminit. All rights reserved.</p>
             </div>

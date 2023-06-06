@@ -17,3 +17,8 @@ I chose a fake game engine named Gaminit as a subject for this project. Most of 
 [Gradient Borders in CSS](https://css-tricks.com/gradient-borders-in-css/)
 
 ## Links
+
+### Game Capture Sources
+- [Oak Woods](https://brullov.itch.io/oak-woods)
+- [Tiny Wonder Farm](https://butterymilk.itch.io/tiny-wonder-farm-asset-pack)
+- [Pixel Crawler](https://anokolisa.itch.io/dungeon-crawler-pixel-art-asset-pack)
