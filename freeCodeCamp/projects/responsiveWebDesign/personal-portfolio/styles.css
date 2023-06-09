@@ -74,6 +74,162 @@ header {
 }
 
 section {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.wrapper {
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+  background-color: #7d8488;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
+}
+
+.about.letters {
+/*   background-color: darkorange; */
+  color: var(--primary-white);
+  width: 200px;
+  height: 40px;
+/*   text-align: center; */
+  font-weight: bold;
+  display: block;
+  position: relative;
+}
+
+.letter {
+  position: absolute;
+}
+
+.letter:nth-of-type(1) {
+  top: 100%;
+  transform: rotate(-40deg);
+}
+
+.letter:nth-of-type(2) {
+  top: 50%;
+  left: 10%;
+  transform: rotate(-30deg);
+}
+
+.letter:nth-of-type(3) {
+  top: 20%;
+  left: 20%;
+  transform: rotate(-25deg);
+}
+
+.letter:nth-of-type(4) {
+  top: 0;
+  left: 30%;
+  transform: rotate(-5deg);
+}
+
+.letter:nth-of-type(5) {
+  top: -5%;
+  left: 40%;
+  transform: rotate(0deg);
+}
+
+.letter:nth-of-type(6)::after {
+  content: "a";
+  color: transparent;
+}
+
+.letter:nth-of-type(7) {
+  top: 20%;
+  right: 20%;
+  transform: rotate(25deg);
+}
+
+.letter:nth-of-type(8) {
+  top: 50%;
+  right: 10%;
+  transform: rotate(30deg);
+}
+
+.letter:nth-of-type(9) {
+  top: 100%;
+  right: 0;
+  transform: rotate(40deg);
+}
+
+.about.label {
+  width: 80px;
+  height: 80px;
+  background-color: var(--primary-white);
+  border-radius: 50%;
+  animation: pulsation-label 2s infinite cubic-bezier(0.42, 1.4, 0.58, 1);
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.about.checkbox {
+  display: none;
+}
+
+@keyframes pulsation-label{
+  0% {
+    width: 80px;
+    height: 80px;
+  }
+  50% {
+    width: 100px;
+    height: 100px;
+  }
+  75% {
+    width: 70px;
+    height: 70px;
+  }
+  100% {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.about.bio {
+  max-height: 0;
+  padding:  0;
+  background-color: var(--primary-black);
+  color: var(--accent-color);
+  border: 1px solid var(--primary-white);
+  border-radius: .5rem;
+  overflow: hidden;
+  transition: all .3s linear;
+}
+
+.about.checkbox:checked ~ .about.label {
+  animation-iteration-count: 0;
+}
+
+.about.checkbox:checked ~ .about.bio {
+  border-color: var(--primary-black);
+  padding: .8rem 1rem;
+  max-height: 20%;
+}
+
+@keyframes reduce-circle {
+  0% {
+    
+  }
+  25% {
+    
+  }
+  50% {
+    
+  }
+  75% {
+    
+  }
+  100% {
+    
+  }
+}
+/* section {
     height: 100vh;
     display: grid;
     grid-template-columns: 1fr 400px  300px 1fr;
@@ -183,7 +339,7 @@ section {
     right: 38%;
     border-radius: 25% 100% 100% 100%;
     transform: rotate(-5deg);
-}
+} */
 
 @media only screen and (max-width: 460px) {
     
