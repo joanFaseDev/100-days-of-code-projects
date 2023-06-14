@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700&display=swap');
+:root {
+  --default-ff: "Josefin Sans", sans-serif;
+  --default-fs-desktop: 1.5em;
+  --primary-container: #ffbc42;
+  --primary-item: #ffd281;
+  --primary-dark: #190A27;
+  --primary-line: #480b5d;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
+}
+
+html {
+  font-family: var(--default-ff);
+  font-size: var(--default-fs-desktop);
+  color: var(--primary-dark);
+}
+
+
+.section {
+  height: 100vh;
+}
+
+.container {
+  background-color: var(--primary-container);
+  width: 40%;
+  height: 40%;
+  border: 2px solid var(--primary-dark);
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.container:before {
+  content: "Grid Line";
+  font-weight: bold;
+  font-style: italic;
+  color: var(--primary-line);
+  position: absolute;
+  bottom: calc(50% - 10px);
+  left: -120px;
+  display: block;
+}
+
+.item {
+  background-color: var(--primary-item);
+  border: 2px solid var(--primary-dark);
+}
+
+.one > div .item:nth-of-type(4) {
+  border-top: 5px solid var(--primary-line);
+}
+
+.one > div .item:nth-of-type(2) {
+  border-left: 5px solid var(--primary-line);
+  border-right: 5px solid var(--primary-line);
+}
+
+.one > div .item:nth-of-type(5) {
+  border-left: 5px solid var(--primary-line);
+  border-top: 5px solid var(--primary-line);
+  border-right: 5px solid var(--primary-line);
+}
+
+.one > div .item:nth-of-type(6) {
+  border-top: 5px solid var(--primary-line);
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
