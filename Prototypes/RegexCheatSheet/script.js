@@ -242,3 +242,119 @@ console.log(str.match(regEx));
 regEx = /\D/g;
 str = "666RoadToHell666";
 console.log(str.match(regEx));
+
+// The class character shortcut \s
+
+/**
+ * \s is used to match whitespaces, tabs, carriage returns, form feeds and new line characters. It is a shortcut for [\t\f\r\n\v]
+ */
+
+regEx = /\s/g;
+str = "Luke... ... ... ... I... am... your... father."
+console.log(str.match(regEx));
+
+str = `London Bridge is falling down...
+Falling down, falling down...
+London Bridge is falling down,
+My fair lady.`;
+console.log(str.match(regEx));
+
+// The class character shortcut \S
+
+/**
+ * \S is used to match any character that is not a whitespace, tab, form feed, new line or carriage return. It is a shortcut for [^\t\f\n\r\v].
+ */
+
+regEx = /\S/g;
+str = "Count how many non-whitespace character there are in this sentence";
+let nonWhitespaceChars = str.match(regEx).length;
+console.log(`There are ${nonWhitespaceChars} non-whitespace characters in this sentence.`);
+
+// The quantity specifier {}
+
+/**
+ * The {} characters are used to specify a range of patterns between a lower and upper numbers. The two numbers are separated by a comma and no whitespace. 
+ */
+
+regEx = /jaga{3,5}n/gi;
+str = "It is called Jagaaan, not Jagan or Jagaaaaaan!";
+console.log(str.match(regEx));
+
+// It is possible to not include the second number as to not specify an upper limit
+
+regEx = /Banzai{2,}!/i;
+str = "BANZAIIIIIIIIIIIIIIIIIIIIIII!";
+console.log(str.match(regEx));
+
+// By Omitting both the comma and second number, one can target a specific number of matches.
+
+regEx = /[a-z]{2}l{2}[a-z]{5}/i;
+str = "It is called Halloween for a reason.";
+console.log(str.match(regEx));
+
+// The optional character (?)
+
+/**
+ * The ? is used to specify that the preceding character is optional. It checks for zero or one of this character.
+ */
+
+regEx = /boyo?/i;
+str = "You have to speak to me with more respect boyo!";
+console.log(str.match(regEx));
+
+// Positive and negative lookahead
+
+/**
+ * Lookaheads are used to search for patterns further along in a string without actually matching it. They are useful when searching for multiple patterns over the same string. 
+ */
+
+// Parentheses are used to check groups of characters.
+
+regEx = /(?=[a-z]+\W)\w{3}\W\w{2}$/g;
+str = "joanfase@sfr.fr";
+console.log(str.match(regEx));
+
+regEx = /(?=\w{10,})(\D*\d{4,})/;
+str = "mypassword1811";
+console.log(regEx.test(str)); // Check for at least 10 characters with 4 digits or more within
+
+// Capture Groups
+
+/**
+ * Capture Groups are used to search for repeated sub-strings. They are constructed by enclosing the regex pattern to be captured in parentheses.
+ * The captured regex is then saved to a temporary variable which can be accessed using the backslash character \ and the number of the captured regex (e.g \1)
+ */
+
+regEx = /(\W[a-fA-F0-9]{3})\W \1/;
+str = "#FFF? #FFF is an hexadecimal color.";
+console.log(str.match(regEx));
+
+// The replace() function
+
+/**
+ * replace(pattern, value) is used to search a pattern and replace it with a value passed as argument.
+ */
+
+regEx = /Mana/i;
+str = "My favorite video game is Secret of Mana.";
+str = str.replace(regEx, "Evermore");
+console.log(str);
+
+// The dollar character $ can be used to access capture groups in the replacement string.
+
+regEx = /([a-z]{5,})\sand\s([a-z]{5,})/i;
+str = "Light and Darkness";
+str = str.replace(regEx, '$2 and $1');
+console.log(str);
+
+// Exercice: remove whitespace at the beginning and end of string
+
+regEx = /(?=\s*)\w+\s\w+(?=\s*)/;
+str = "    Trim me!    ";
+console.log(str.match(regEx));
+
+let hello = "   Hello, World!  ";
+let wsRegex = /(?=\s*)\w+\W\s\w+\W{1}(?=\s*)/; // Change this line
+let res = hello.match(wsRegex); // Change this line
+console.log(res);
+
