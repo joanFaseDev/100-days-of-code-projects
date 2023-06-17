@@ -129,3 +129,98 @@ for (let i = 0; i < words.length; i++) {
 }
 
 console.log(sixLettersOrMore);
+
+// Objects are collection of key/value pairs. Each pair is a property with an identifier (key) and a data (value).
+
+let user = {
+    firstName: "John",
+    lastName: "Package",
+    age: 38,
+    premium: true,
+    canBeTrusted: undefined,
+};
+
+console.log(user);
+
+//Dot and bracket notations
+
+user.mail = "alpha_package@hotmail.com";
+user["phone"] = "5555-555-555";
+let otherAlpha = "bro";
+user[otherAlpha] = {
+    firstName: "Barney",
+    lastName: "Stinson",
+    bros: {
+        "alpha": "me",
+        "others": "Ted Mosby",
+    },
+};
+
+console.log(user);
+
+let mainCharacter = user.bro.bros.others;
+console.log(mainCharacter); // Ted Mosby
+
+let gameGrade = {
+    "Uncharted 4": 7,
+    "Death Stranding": 8,
+    "The last case of Benedict Fox": 6,
+    "Hollow Knight": 9,
+}
+
+// Can switch with any of the other identifiers
+let game = "The last case of Benedict Fox";
+
+function retrieveGrade(game) {
+    return gameGrade[game];
+}
+
+console.log(`The last case of Benedict Fox was graded ${retrieveGrade(game)}.`);
+
+// The delete operator
+
+let notInfogramesGames = {
+    "Spirou": "Infogrames",
+    "The Last of Us": "Naughty Dog",
+    "Secret of Evermore": "Square Enix",
+    "Tintin": "Infogrames",
+    "Lucky Luck": "Infogrames",
+};
+
+let identifiers = Object.keys(notInfogramesGames);
+
+for (let i = 0; i < identifiers.length; i++) {
+    if (
+            identifiers[i] === "Spirou" ||
+            identifiers[i] === "Tintin" ||
+            identifiers[i] === "Lucky Luck" 
+        ) {
+            delete notInfogramesGames[identifiers[i]];
+        }
+}
+
+console.log(notInfogramesGames);
+
+// Checking if a property is within an object or not.
+
+let promisingWhale = {
+    firstName: "François",
+    lastName: "Perrin",
+    bankAccount: "xxx-xxx-xxx-xxx",
+};
+
+console.log(promisingWhale.hasOwnProperty("bankAccount")); // true
+console.log("bankAccount" in promisingWhale);
+
+// The for...in loop is used to iterate over an object's property identifiers.
+
+let gamesByHardware = {
+    "PS2": 47,
+    "PS3": 24,
+    "PS4": 15,
+    "PS5": null,
+}
+
+for (const hardware in gamesByHardware) {
+    console.log(`${hardware}: ${gamesByHardware[hardware]}`);
+}
