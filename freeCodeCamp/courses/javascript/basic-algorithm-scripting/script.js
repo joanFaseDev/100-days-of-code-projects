@@ -193,23 +193,152 @@ console.log(booWho(0));
 // Exercice 11: return the provided string with the first letter of each word capitalized. Make sure the rest of the word is in lower case.
 
 function titleCase(str) {
-    let regEx = /\S\w*\s|\s\w+\S|\S\w+$/gi;
+    // let regEx = /(?<=\s+|^)\S+(?=\s+|$)/gi;
+    let regEx = /\b\S+\b/gi;
     let arr = str.match(regEx);
     let newStr = "";
     for (let i = 0; i < arr.length; i++) {
-        let word = "";
-        for (let j = 0; j < arr[i].length; j++) {
-            if (j === 0) {
-                word += arr[i][j].toUpperCase();
-            } else {
-                word += arr[i][j].toLowerCase();
-            }
+      let word = "";
+      for (let j = 0; j < arr[i].length; j++) {
+        if (j === 0) {
+          word += arr[i][j].toUpperCase();
+        } else {
+          word += arr[i][j].toLowerCase();
         }
-        newStr += word;
-    }
-    return newStr;
+      }
+        if (i === arr.length - 1) {
+          newStr += word;
+        } else {
+          newStr += word + " ";
+        }
+      }
+      return newStr;
+  }
+  
+  console.log(titleCase("I'm a little tea pot"));
+
+/**
+ * Exercice 12: You are given two arrays and an index. Copy each element of the first array into the second array, in order.
+ * Begin inserting elements at index n of the second array. Return the resulting array. The input arrays should remain the same after the function returns.
+ */
+
+function frankenSplice(arr1, arr2, n) {
+    let contentFirstArray = [...arr1];
+    let contentSecondArray = [...arr2];
+    // Do not use undefined as value for the second argument here. It will be converted to 0.
+    let removedContent = contentSecondArray.splice(n, Infinity, ...contentFirstArray);
+    contentSecondArray.push(...removedContent);
+    return contentSecondArray;
 }
 
-test = "Hello little poney";
-console.log(titleCase(test));
+console.log(frankenSplice([1, 2, 3], [100, 200, 300], 1));
+ 
 
+/**
+ * Exercice 13: remove all falsy values from an array. Return a new array; do not mutate the original array.
+ */
+
+function bouncer(arr) {
+    let newArr = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i]) {
+            newArr.push(arr[i]);
+        }
+    }
+    return newArr;
+}
+
+test = [
+    false,
+    true, 
+    "Hello World", 
+    0, 
+    "0", 
+    NaN, 
+    42, 
+    "",
+    { firstName: "Jordan", lastName: "Falaise"},
+    undefined,
+    function(name) { console.log("Hey " + name + "!") },
+    null
+];
+
+console.log(bouncer(test));
+
+
+/**
+ * Exercice 14: Return the lowest index at which a value (second argument) should be inserted into an array (first argument) once it has been sorted. The returned value should be a number.
+ */
+
+function getIndexToIns(arr, num) {
+    let sortedArr = [];
+    let copyArr = [...arr];
+    copyArr.push(num);
+
+    while (copyArr.length > 0) {
+        let max = Math.max(...copyArr);
+        let maxIndex = copyArr.indexOf(max);
+        sortedArr.unshift(...copyArr.splice(maxIndex, 1));
+    }
+
+    console.log(sortedArr);
+    return sortedArr.indexOf(num);
+}
+
+test = [33234, 202, 34, 1, 400, 90];
+console.log(getIndexToIns(test, 25));
+
+
+// Exercice 15: return true if the string in the first element of the array contains all of the letters of the string in the second element of the array (ignoring case).
+
+function mutate(arr) {
+    let firstString = "";
+    let secondString = "";
+    for (let i = 0; i < arr[0].length; i++) {
+        firstString += arr[0][i].toLowerCase();
+    }
+    for (let i = 0; i < arr[1].length; i++) {
+        secondString += arr[1][i].toLowerCase();
+    }
+
+    let firstStringArr = [...firstString];
+    for (let i = 0; i < secondString.length; i++) {
+        let index = firstStringArr.indexOf(secondString[i]);
+        if (index === -1) {
+            return false;
+        }
+        // Uncomment if you want to count letters appearing more than once
+        // firstStringArr.splice(index, 1);
+    }
+
+    return true;
+}
+
+test = ["Tomorrow", "moRRow"];
+console.log(mutate(test));
+
+test = ["hello", "hey"];
+console.log(mutate(test));
+
+
+// Exercice 16: write a function that splits an array(first argument) into groups the length of size (second argument) and returns them as two dimensional array.
+
+function chunkArrayInGroups(arr, size) {
+    let newArr = [];
+    while (arr.length > 0) {
+        newArr.push(arr.splice(0, size));
+    }
+    return newArr;
+}
+
+test = [
+    "Secret of Mana",
+    "Secret of Evermore",
+    "Alundra",
+    "Legend of Thor",
+    "Zelda: A link to the past",
+    "Grandia",
+    "Jade Cocoon"
+];
+
+console.log(chunkArrayInGroups(test, 2));
