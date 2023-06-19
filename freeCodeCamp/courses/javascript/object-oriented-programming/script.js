@@ -106,4 +106,240 @@ console.log(botw.constructor === SwitchGame) // false, which should be true
 SwitchGame.prototype.constructor = SwitchGame;
 console.log(botw.constructor === SwitchGame);
 
+/**
+ * an object inherit its prototype from the constructor function that created it. One can verify it using the isPrototypeOf() function.
+ */
+
+function Movie(title, director) {
+    this.title = title;
+    this.director = director;
+}
+
+Movie.prototype.format = ["DVD", "Blu-ray"];
+
+let theThing = new Movie("The Thing", "John Carpenter");
+
+console.log(Movie.prototype.isPrototypeOf(botw)); // false;
+console.log(Movie.prototype.isPrototypeOf(theThing)); // true
+
+console.dir(theThing.constructor);
+console.log(Movie.prototype);
+
+/**
+ * An object's prototype is an object. So a prototype being an object also have a prototype. 
+ */
+
+console.log(Object.prototype.isPrototypeOf(Movie)); // true
+
+console.log(Movie instanceof Object); // true
+console.log(theThing instanceof Movie); // true
+console.log(Object instanceof Movie); // false
+
+// inheritance
+
+/**
+ * The two objects below have the same method defined in their prototype.
+ */
+
+function SegaCharacter(name) {
+    this.name;
+}
+
+SegaCharacter.prototype = {
+    constructor: SegaCharacter,
+    jump() {
+        return `${this.name} jumps!`;
+    },
+};
+
+function NintendoCharacter(name) {
+    this.name = name;
+}
+
+NintendoCharacter.prototype = {
+    constructor: NintendoCharacter,
+    jump() {
+        return `${this.name} jumps!`;
+    }
+}
+
+
+/**
+ * this is not ideal as repeated code means more work to modify/correct the code in every place it has been repeated plus higher chances to make a mistakes.
+ * 
+ * to solve that problem, one can create a supertype, a parent object, with the method nested in its prototype.
+ */
+
+function GameCharacter() {}
+GameCharacter.prototype = {
+    name: this.name,
+    constructor: GameCharacter,
+    jump() {
+        return `${this.name} jumps like a boss!`;
+    }
+};
+
+function SonyCharacter(name) {
+    this.name = name;
+}
+
+let sprite = Object.create(GameCharacter.prototype);
+sprite.name = "Sprity";
+console.log(sprite.jump()); // Sprity jumps like a boss!
+
+SonyCharacter.prototype = Object.create(GameCharacter.prototype);
+
+let jax = new SonyCharacter("Jax"); 
+console.log(jax.jump());
+
+// again
+function OS() {}
+
+OS.prototype = {
+    name: null,
+    description() {
+        return `Operating System: ${this.name}`;
+    }
+};
+
+function Microsoft() {}
+function Ubuntu(name) {
+    this.name = name;
+}
+
+Microsoft.prototype = Object.create(OS.prototype);
+Ubuntu.prototype = Object.create(OS.prototype);
+
+let microsoft = new Microsoft();
+let ubuntu = new Ubuntu("Ubuntu");
+
+// name isn't a property of Microsoft so JS search it in the prototype, which is the OS prototype. 
+console.log(microsoft.description());
+
+// name is a property of Ubuntu so JS can use its value and do not have to search in the prototype.
+console.log(ubuntu.description());
+
+console.log(Microsoft.prototype.constructor);
+console.log(Ubuntu.prototype.constructor);
+
+Microsoft.prototype.constructor = Microsoft;
+Ubuntu.prototype.constructor = Ubuntu;
+
+console.log(Microsoft.prototype.constructor);
+console.log(Ubuntu.prototype.constructor);
+
+// add methods after inheritance
+
+function Character() {}
+
+Character.prototype = {
+    name: "Ronald",
+    level: 1,
+    job: "Barbarian",
+    greeting() {
+        return `Hi! I'm ${this.name}, a ${this.job}. I'm currently level ${this.level}.`;
+    }
+}
+
+function Wizard() {}
+function Rogue() {}
+
+Wizard.prototype = Object.create(Character.prototype);
+Wizard.prototype.constructor = Wizard;
+
+Rogue.prototype = Object.create(Character.prototype);
+Rogue.prototype.constructor = Rogue;
+
+let wizard = new Wizard();
+let rogue = new Rogue();
+
+console.log(wizard.greeting());
+rogue.name = "Garret";
+rogue.job = "Thief"
+console.log(rogue.greeting());
+
+Wizard.prototype.cast = function(spellName = "Fireball") {
+    return `The ${this.job} ${this.name} is casting the spell ${spellName}!`;
+}
+
+Rogue.prototype.steal = function(item = "chest") {
+    return `${this.name} is stealing a ${item}!`;
+}
+
+console.log(wizard.cast("Frostball"));
+console.log(rogue.steal());
+
+wizard.name = "Vivi"
+wizard.job = "sorcerer";
+console.log(wizard.cast());
+
+// override inherited methods
+
+function Dragon() {}
+Dragon.prototype = {
+    attack() {
+        return `The dragon breaths fire on the intruders!`;
+    },
+};
+
+Dragon.prototype.constructor = Dragon;
+let normalDragon = new Dragon();
+
+console.log(normalDragon.attack());
+
+function IceDragon() {}
+IceDragon.prototype = Object.create(Dragon.prototype);
+IceDragon.prototype.constructor = IceDragon;
+let iceDragon = new IceDragon();
+console.log(iceDragon.attack());
+
+IceDragon.prototype.attack = function() {
+    return "The dragon breaths ice on the intruders while breathing fire on its afternoon snack... Wait?! It's a bicephalous dragon?!!!";
+}
+console.log(iceDragon.attack());
+
+// mixins -> 
+
+function gunAction(obj) {
+    obj.shoot = function() {
+        return "Pan Pan Pan!";
+    }
+}
+
+function AssaultRifle() {}
+function Revolver() {}
+
+let ak47 = new AssaultRifle();
+let colt = new Revolver();
+
+gunAction(ak47);
+gunAction(colt);
+console.log(ak47.shoot());
+console.log(colt.shoot());
+
+// closure 
+
+function SecretAgent() {
+    let name = "James Bond";
+    let id = "OO7";
+    this.getName = function() {
+        return name;
+    }
+    this.getId = function() {
+        return id;
+    }
+}
+
+let agent = new SecretAgent();
+console.log(agent.getName(), agent.getId()); // James Bond 007
+
+// iife (Immediately Invoked Function Expression)
+
+(function() {
+    console.log("Hello World!");
+})()
+
+
+
+
 
