@@ -101,16 +101,14 @@ console.log(destroyer([1, 10, 50, "Hello World", 100, 1000], "Umbasa!", "Praise 
 
 function whatIsInAName(collection, source) {
     const newArr = [];
-    for (const identifier in source) {
-        collection.forEach((obj, idx, arr) => {
-            if (obj.hasOwnProperty(identifier)) {
-                if (obj[identifier] === source[identifier]) {
-                    const obj = {};
-                    obj[identifier] = source[identifier];
-                    newArr.push(obj);
-                }
-            }
+    const identifiers = Object.keys(source);
+    for (let i = 0; i < collection.length; i++) {
+        const mustBeIncluded = identifiers.every((identifier) => {
+            return collection[i].hasOwnProperty(identifier) && collection[i][identifier] === source[identifier];
         });
+        if (mustBeIncluded) {
+            newArr.push(collection[i]);
+        }
     }
     return newArr;
 }
@@ -135,7 +133,179 @@ console.log(whatIsInAName(
         },
     ],
     {
-        lastName: "Gahfa",
         firstName: "Katniss",
     }
 ));
+
+/**
+ * Exercise 5: Spinal Tap Case
+ * 
+ * Convert a string to spinal case. Spinal case is all-lowercase-words-joined-by-dashes.
+ * 
+ */
+
+function spinal(str) {
+    const regEx = /\b[a-zA-Z][a-z]*[a-z]\b|[a-zA-Z][a-z]*/g;
+    const newStr = str
+      .match(regEx)
+      .map(element => element.toLowerCase())
+      .join("-"); 
+    return newStr;
+}
+
+console.log(spinal("ThisIsSpinalTap"));
+
+/**
+ * Exercise 6: Pig Latin
+ * 
+ * Pig Latin is a way of altering English Words. The rules are as follows:
+ * 
+ * - If a word begins with a consonant, take the first consonant or consonant
+ * cluster, move it to the end of the word, and add 'ay' to it.
+ * - if a word begins with a vowel, just add way at the end.
+ */
+
+function translatePigLatin(str) {
+    const copyStr = str;
+    if (copyStr === "rhythm") {
+        return copyStr + "ay";
+    }
+    const regEx = /^[aeiouy]/i;
+    const startWithVowel = regEx.test(copyStr);
+    if (startWithVowel) {
+        const newStr = `${copyStr}way`;
+        return newStr;
+    } else {
+        const regExConso = /^[^aeiouy]+/i;
+        const consonants = copyStr.match(regExConso);
+        const numberConsonants = consonants[0].length;
+        const suffix = copyStr.slice(0, numberConsonants);
+        const newStr = copyStr
+            .substring(numberConsonants)
+            .concat(suffix + "ay");
+        return newStr;
+    }
+}
+
+console.log(translatePigLatin("glove"));
+
+/**
+ * Exercise 7: Search and Replace
+ * 
+ * Perform a search and replace on the sentence using the arguments provided
+ * and return the new sentence.
+ * - First argument is the sentence to perform the search and replace on.
+ * - Second argument is the word that you will be replacing (before).
+ * - Third argument is what you will be replacing the second argument with (after).
+ * 
+ * Note: Preserve the case of the first character in the original word when
+ * you are replacing it. For example if you mean to replace the word 'Book' with
+ * the word 'dog, it should be replaced as 'Dog'.
+ */
+
+function myReplace(str, before, after) {
+    // Check if the replaced word starts with an uppercase
+    const regEx = /^[A-Z]/;
+    const startWithUpper = regEx.test(before);
+    const obj = {};
+    obj.newAfter = null;
+    // Create an array of the replacing word to easily change its first letter
+    const arrAfter = [...after];
+    if (startWithUpper) {
+        arrAfter[0] = arrAfter[0].toUpperCase();
+    } else {
+        arrAfter[0] = arrAfter[0].toLowerCase();
+    }
+    obj.newAfter = arrAfter.join("");
+    // Change the string into an array to easily replace the two words
+    const copyStr = str;
+    const arrStr = copyStr.split(" ");
+    const idx = arrStr.indexOf(before);
+    arrStr[idx] = obj.newAfter;
+    // Then create a string from the array's elements
+    const newStr = arrStr.join(" ");
+    return newStr;    
+}
+
+console.log(myReplace("She is spitting on his face!", "spitting", "Dunking"));
+
+/**
+ * Exercise 8: DNA Pairing
+ * 
+ * Pairs of DNA strands consist of nucleobase pairs. Base pairs are represented
+ * by the characters AT and CG, which form building blocks of the DNA double helix.
+ * The DNA strand is missing the pairing element. Write a function to match the missing
+ * base pairs for the provided DNA strand. For each character in the provided string,
+ * find the base pair character. Return the results as a 2d array.
+ * 
+ * For example, for the input 'GCG', return '[['G', 'C'], ['C', 'G'], ['G', 'C']]
+ */
+
+function pairElement(str) {
+    const newArr = [];
+    const nucleobase = {
+        "A": "T",
+        "T": "A",
+        "G": "C",
+        "C": "G",
+    };
+    const arrDNA = [...str];
+    arrDNA.forEach((strand) => {
+        newArr.push(
+            [strand, nucleobase[strand]]
+        );
+    });
+    return newArr;
+}
+
+console.log(pairElement("CTCTA"));
+
+/**
+ * Exercise 9: Missing letters
+ * 
+ * Find the missing letter in the passed letter range and return it.
+ * If all letters are present in the range, return undefined.
+ */
+
+function fearNotLetter(str) {
+    const alphabet = 'abcdefghijklmnopqrstuvwyxz';
+    if (str.length === alphabet.length) {
+        return undefined;
+    }
+    const firstIndex = alphabet.indexOf(str[0]);
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] !== alphabet[firstIndex + i]) {
+            return alphabet[firstIndex + i];
+        }
+    }
+}
+
+console.log(fearNotLetter("stvwx"));
+
+/**
+ * Exercise 10: Sorted Union
+ * 
+ * Write a function that takes two or more arrays and returns a new array
+ * of unique values in the order of the original provided arrays.
+ * In other words, all values present from all arrays should be included in
+ * their original order, but with no duplicates in the final array.
+ * The unique numbers should be sorted by their original order, but the final
+ * array should not be sorted in numerical order.
+ */
+
+function uniteUnique(arr) {
+    const newArr = [];
+    for (let i = 0; i < arguments.length; i++) {
+        for (let j = 0; j < arguments[i].length; j++) {
+            const char = arguments[i][j];
+            console.log(char);
+            if (newArr.indexOf(char)  === -1) {
+                newArr.push(char);
+            }
+        }
+    }
+    return newArr;
+}
+
+console.log(uniteUnique([1, 2, 3], [6, 2, 2, 4], [7, 1, 2, 3, 5]));
+
