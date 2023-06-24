@@ -309,3 +309,180 @@ function uniteUnique(arr) {
 
 console.log(uniteUnique([1, 2, 3], [6, 2, 2, 4], [7, 1, 2, 3, 5]));
 
+/**
+ * Exercise 11: Convert HTML entities
+ * 
+ * Convert the characters &, <, >, ""(double quote), and '(apostrophe), in a string
+ * to their corresponding HTML entities.
+ */
+
+function convertHTML(str) {
+    const HTMLEntities = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&apos;",
+    };
+    const newArr = [];
+    for (let i = 0; i < str.length; i++) {
+        const char = str[i];
+        // If the identifier doesn't exist then undefined is returned (falsy)
+        if (HTMLEntities[char]) {
+            newArr.push(HTMLEntities[char]);
+        } else {
+            newArr.push(char);
+        }
+    }
+    return newArr.join("");
+}
+
+console.log(convertHTML("Rock & Revy"));
+
+/**
+ * Exercice 12: Sum All Odd Fibonacci Numbers
+ * 
+ * Given a positive integer num, return the sum of all odds Fibonacci numbers that
+ * are less than or equal to num.
+ * The first two numbers in the Fibonacci sequence are 0 and 1. Every additional number
+ * in the sequence is the sum of the two previous numbers. The first seven numbers of the 
+ * Fibonacci sequence are 0, 1, 1, 2, 3, 5, 8.
+ * 
+ */
+
+function sumFibs(num) {
+    if (num === 1) {
+        return 1;
+    }
+    
+    const obj = {
+        numberA: 0,
+        numberB: 1,
+        currentNumber: 1,
+        sum: 0,
+    }
+
+    while (obj.currentNumber <= num) {
+        if (obj.currentNumber % 2 !== 0) {
+            obj.sum += obj.currentNumber;
+        }
+        obj.currentNumber = obj.numberA + obj.numberB;
+        obj.numberA = obj.numberB;
+        obj.numberB = obj.currentNumber;
+    }
+
+    return obj.sum;
+}
+
+console.log(sumFibs(1000));
+
+/**
+ * Exercise 13: Sum All Primes
+ * 
+ * A prime number is a whole number greater than 1 with exactly two divisors:
+ * 1 and itself. For example: 2 is a primer number because it is only divisible by
+ * 1 and 2. In contrast, 4 is not prime since it is divisible by 1, 2 and 4.
+ * 
+ * Rewrite sumPrimes so it returns the sum of all prime numbers that are less than
+ * or equal to num.
+ */
+
+function sumPrimes(num) {
+    const obj = {
+        primeNumbers: [],
+    };
+
+    for (let i = 2; i <= num; i++) {
+        if (isPrime(i)) {
+            obj.primeNumbers.push(i);
+        }
+    }
+
+    return obj.primeNumbers.reduce((sum, elem) => sum + elem, 0);
+
+}
+
+function isPrime(num) {
+    if (num < 2) {
+        return false;
+    }
+
+    for (let i = 2; i < num; i++) {
+        if (num % i === 0) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+console.log(sumPrimes(10));
+
+/**
+ * Exercise 14: Smallest Common Multiple
+ * 
+ * Find the smallest common multiple of the provided parameters that can be evenly
+ * divided by both, as well as by all sequential numbers in the range between these parameters.
+ * 
+ * The range will be an array of two numbers that will not necessarily be in numerical order.
+ * 
+ * For example, if given 1 and 3, find the smallest common multiple of both 1 and 3 that is also
+ * evenly divisible by all numbers between 1 and 3. The answer here would be 6.
+ * 
+ */
+
+function smallestCommons(arr) {
+    const min = Math.min(arr[0], arr[1]);
+    const max = Math.max(arr[0], arr[1]);
+    const range = [];
+    for (let i = min; i <= max; i++) {
+        range.push(i);
+    }
+
+    const obj = {
+        smallestMultiple: null,
+        startValue: max * 2,
+    }
+
+    while (!obj.smallestMultiple) {
+       if (range.every((elem) => obj.startValue % elem === 0)) {
+        obj.smallestMultiple = obj.startValue;
+       }
+       obj.startValue++;
+    }
+
+    return obj.smallestMultiple;
+}
+
+console.log(smallestCommons([5, 1]));
+
+/**
+ * Exercice 15: Drop it
+ * 
+ * Given the array 'arr', iterate through and remove each eleemnt starting from the first element (the 0 index)
+ * until the function 'func' returns 'true' when the iterated element is passed through it.
+ * Then return the rest of the array once the condition is satisfied, otherwise, 'arr' should be returned as an
+ * empty array.
+ */
+
+function dropElements(arr, func) {
+    const copyArr = arr.concat([]);
+    for (let i = 0; i < copyArr.length; i++) {
+        if (func(copyArr[i])) {
+            return copyArr.slice(i, copyArr.length);
+        }
+    }
+    return [];
+}
+
+console.log(dropElements([1, 2, 3, 4], function(n) { return n >= 3; }));
+
+/**
+ * Exercise 16: Steamroller
+ * 
+ * Flatten a nested array. You must account for varying levels of nesting.
+ */
+
+function steamrollArray(arr) {
+    
+}
