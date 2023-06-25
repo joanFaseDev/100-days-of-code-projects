@@ -484,5 +484,169 @@ console.log(dropElements([1, 2, 3, 4], function(n) { return n >= 3; }));
  */
 
 function steamrollArray(arr) {
+    const copyArr = arr.concat([]);
     
+    while (copyArr.some(elem => Array.isArray(elem))) {
+        for (let i = 0; i < copyArr.length; i++) {
+            if (Array.isArray(copyArr[i])) {
+                const nestedArr = copyArr[i];
+                copyArr.splice(i, 1, ...nestedArr);
+            }
+        } 
+    }
+    return copyArr;
 }
+
+console.log(steamrollArray([1, [2], [3, [4]]]));
+
+/**
+ * Exercise 17: Binary Agents
+ * 
+ * Return an English translated sentence of the passed binary string.
+ * The binary string will be space separated.
+ */
+
+function binaryAgent(str) {
+    const obj = {
+        weight: [128, 64, 32, 16, 8, 4, 2, 1],
+        decimalSumming: 0,    
+    }
+    const arr = str.split(" ");
+    const translation = [];
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr[i].length; j++) {
+            const bit = arr[i][j];
+            // From bit to decimal
+            obj.decimalSumming += Number(bit) * obj.weight[j];    
+        }
+        // From decimal to ASCII character
+        const asciiCharacter = String.fromCharCode(obj.decimalSumming);
+        translation.push(asciiCharacter);
+        obj.decimalSumming = 0;
+    }
+
+    return translation.join("");
+}
+
+console.log(binaryAgent(
+    "01001001 00100000 01101100 01101111 01110110 01100101 00100000 01000110 01110010 01100101 01100101 01000011 01101111 01100100 01100101 01000011 01100001 01101101 01110000 00100001"
+));
+
+/**
+ * Exercise 18: Everything Be True
+ * 
+ * Check if predicate (second argument) is truthy on all elements of a collection (first argument).
+ * In other words, you are given an array collection of objects. The predicate 'pre' will be an object property and you need
+ * to return true if its value is 'truthy'. Otherwise, return false.
+ */
+
+function truthCheck(collection, pre) {
+    return collection.every((elem, index, arr) => {
+        return Boolean(elem[pre]);
+      });
+}
+
+console.log(
+    truthCheck([{name: "Quincy", role: "Founder", isBot: false}, {name: "Naomi", role: "", isBot: false}, {name: "Camperbot", role: "Bot", isBot: true}], "isBot")
+);
+
+/**
+ * Exercise 19: Arguments Optional
+ * 
+ * Create a function that sums two arguments together. If only one argument is provided, then return a function that expects one
+ * argument and return the sum.
+ * For example. addTogether(2, 3) should return 5, and addTogether(2) should return a function.
+ * If either argument isn't a valid number, return undefined.
+ */
+
+function addTogether() {
+    if (arguments.length === 2) {
+        if (typeof arguments[0] === "number" && typeof arguments[1] === "number") {
+            return arguments[0] + arguments[1];
+        } else {
+            return undefined;
+        }
+    } else if (arguments.length === 1 && typeof arguments[0] === "number") {
+        const arg = arguments[0];
+        return function(x) {
+            if (typeof x === "number") {
+              return arg + x;
+            }
+            return undefined;
+        }
+    }
+}
+
+console.log(addTogether(2,3));
+
+/** 
+ * Exercise 20: Make a Person
+ * 
+ * Fill in the object constructor with the following methods below:
+ * - getFirstName()
+ * - getLastName()
+ * - getFullName()
+ * - setFirstName(first)
+ * - setLastName(last)
+ * - setFullName(firstAndLast)
+ * 
+ * Run the tests to see the expected output for each method. The methods that take an argument must accept only one argument
+ * and it has to be a string. These methods must be the only available means of interacting with the object.
+ * 
+ */
+
+const Person = function(firstAndLast) {
+    this.getFirstName = function() {
+          const firstName = firstAndLast.split(" ")[0];
+          return firstName;
+    };
+    this.getLastName = function() {
+        const lastName = firstAndLast.split(" ")[1];
+        return lastName;
+    };
+    this.getFullName = function() {
+      return firstAndLast;
+    };
+    this.setFirstName = function(first) {
+        firstAndLast = `${first} ${firstAndLast.split(" ")[1]}`;
+    };
+    this.setLastName = function(last) {
+        firstAndLast = `${firstAndLast.split(" ")[0]} ${last}`;
+    }
+    this.setFullName = function(firstAndLast) {
+      const first = firstAndLast.split(" ")[0];
+      const second = firstAndLast.split(" ")[1];
+      console.log(first, second);
+      this.setFirstName(first);
+      this.setLastName(second);
+    }
+  };
+  
+  const bob = new Person('Bob Ross');
+  console.log(bob.getFullName());
+
+  /**
+   * Exercise 21: Map the Debris
+   * 
+   * According to Kepler's Third Law, the orbital period T of two point masses orbiting each other in a circular
+   * or elliptic orbit is:
+   *    T=2πa3μ
+   * 
+   * Return a new array that transforms the element's average altitude into their orbital periods (in seconds).
+   */
+
+  function orbitalPeriod(arr) {
+    const GM = 398600.4418;
+    const earthRadius = 6367.4447;
+    const objs = [];
+    arr.forEach((obj, index, arr) => {
+        const newObj = {};
+        newObj["name"] = obj["name"];
+        newObj["orbitalPeriod"] = Math.round(2 * Math.PI * Math.sqrt(Math.pow(earthRadius + obj["avgAlt"], 3) / GM));
+        console.log(newObj);
+        objs.push(newObj);
+    });
+    return objs;
+  }
+  
+  console.log(orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]));
