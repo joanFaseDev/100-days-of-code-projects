@@ -170,3 +170,93 @@ function rot13(str) {
 }
 
 console.log(rot13("SERR PBQR PNZC"));
+
+/**
+ * Project 4: Telephone Number Validator
+ * 
+ * Return 'true' if the passed string looks like a valid US phone number.
+ * The user may fill out the form field any way they choose as long as it has the format of a valid US number.
+ * The following are exemples of valid formats for US numbers (refer to the test below for other variants).
+ * - 555-555-5555
+ * - (555)555-5555
+ * - (555) 555-5555
+ * - 555 555 5555
+ * - 5555555555
+ * - 1 555 555 5555
+ * 
+ * Your job is to validate or reject the US phone number based on any combination of the formats provided above.
+ * The area code is required. If the country code is provided, you must confirm that the country code is 1.
+ * Return true if the string is a valid US phone number; otherwise return false.
+ */
+
+function telephoneCheck(str) {
+    const verifiedStr = checkCountryCode("1", str);
+    const regEx = /^\d{3}-\d{3}-\d{4}$|^\(\d{3}\)[ ]?\d{3}-\d{4}$|^\d{3}[ ]\d{3}[ ]\d{4}$|^\d{10}$|^1[ ]\d{3}[ ]\d{3}[ ]\d{4}$/;
+    return regEx.test(verifiedStr);
+}
+
+function checkCountryCode(countryCode, str) {
+    if (str[0] === countryCode && str[1] === " ") {
+        return str.slice(2);
+    } else if (str[0] === countryCode) {
+        return str.slice(1);
+    }
+    return str;
+}
+
+console.log(telephoneCheck("555-555-5555"));
+console.log(telephoneCheck("(555)555-5555"));
+console.log(telephoneCheck("(555) 555-5555"));
+console.log(telephoneCheck("555 555 5555"));
+console.log(telephoneCheck("5555555555"));
+console.log(telephoneCheck("1 555 555 5555"));
+
+/**
+ * Project 5: Cash Register
+ * 
+ * Design a cash register drawer function checkCashRegister() that accepts purchase price as the first argument (price)
+ * , payment as the second argument (cash), and cash-in-drawer (cid) as the third argument.
+ * cid is 2D array listing available currency.
+ * 
+ * The checkCashRegister() function should always return an object with a 'status' key and a 'change' key.
+ * 
+ * Return {status: "INSUFFICIENT_FUNDS", change: []} if cash-in drawer is less than the change due, or if you cannot return the exact change.
+ * 
+ * Return {status: "CLOSED", change: [...]} with cash-in-drawer as the value for the key 'change' if it is equal to the change due.
+ * 
+ * Otherwise, return {status: "OPEN", change: [...]}, with the change due in coins and bills, sorted in highest to lowest order, as the value of the 'change' key.
+ */
+
+function checkCashRegister(price, cash, cid) {
+    const drawer = Object.fromEntries(cid);
+    const changeToGiveBack = cash - price;
+    const totalDrawer = getTotalDrawer(drawer);
+    const enoughMoney = totalDrawer >= changeToGiveBack;
+    console.log(drawer);
+    const checkedDrawer = deleteZeroCurrency(drawer);
+    console.log(checkedDrawer);
+}
+
+function getTotalDrawer(drawer) {
+    const obj = {
+        total: 0,
+    };
+    for (const amount in drawer) {
+        obj.total += drawer[amount];
+    }
+
+    return obj.total.toFixed(2);
+}
+
+function deleteZeroCurrency(drawer) {
+    const obj = {};
+    for (const amount in drawer) {
+        if (drawer[amount]) {
+            obj[amount] = drawer[amount];
+        }
+    }
+    return obj;
+}
+
+checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
+checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
