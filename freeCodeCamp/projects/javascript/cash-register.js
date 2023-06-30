@@ -83,7 +83,7 @@ function checkCashRegister(price, cash, cid) {
         change: [],
     };
     const changeDue = {
-        total: price - cash,
+        total: cash - price,
     }
     const AMOUNT_PER_CURRENCY = {
         "ONE HUNDRED": 100,
@@ -102,24 +102,101 @@ function checkCashRegister(price, cash, cid) {
         cidCopy.push(currency);
     });
     const drawer = Object.fromEntries(cidCopy);
-    const totalDrawer = cid.reduce((sum, amount) => {
+    const totalDrawer = Number(cid.reduce((sum, amount) => {
         sum += amount[1];
         return sum;
-    }, 0).toFixed(2);
-    const enoughFunds = checkFunds(changeDue, totalDrawer);
+    }, 0).toFixed(2));
+    const enoughFunds = checkFunds(changeDue.total, totalDrawer);
 
+    // If there is not enough money in the cash drawer to give back the cash due...
     if (enoughFunds === false) {
+        console.log("Change due is superior to the drawer's total amount."); 
         cashRegister.status = "INSUFFICIENT_FUNDS";
-        cashRegister.change = [];
+    } else {
+        const drawerClose = checkDrawerClose(changeDue.total, totalDrawer);
+        // If there is just enough money in the cash drawer to give back the cash due...
+        if (drawerClose) {
+            console.log("Change due is strictly equal to the drawer's total amount.");
+            cashRegister.status = "CLOSED";
+            cashRegister.change = cid;
+            // If there is enough money in the cash drawer to give back the cash due...
+        } else {
+            console.log("Change due is inferior to the drawer's total amount.");
+            for (const identifier in drawer) {
+                const currencyDrawer = drawer[identifier];
+                console.log(identifier, currencyDrawer);
+                // If the current currency is available in the drawer...
+                if (currencyDrawer > 0) {
+                    /**
+                     * As long as the currency is available in the drawer and the change due is superior to the base amount for this particular currency.
+                     */
+                    const currencyBaseAmount = AMOUNT_PER_CURRENCY[identifier];
+                    console.log(changeDue.total, currencyBaseAmount);   
+                    while (drawer[identifier] > 0 && changeDue.total >= currencyBaseAmount) {
+                        console.log(`WHILE LOOP:
+                        Current Currency: ${identifier}
+                        Change Due: ${changeDue.total}
+                        Cash Register Change: ${cashRegister.change}`);
+                        const newChangeDUe = Number((changeDue.total - currencyBaseAmount).toFixed(2));
+                        changeDue.total = newChangeDUe;
+                        console.log(`New Change Due: ${changeDue.total}`);
+                        drawer[identifier] -= currencyBaseAmount;
+                        /**
+                         * If the change array already contains a sub-array for this particular currency.
+                         */
+                        const cashRegisterCurrency = {}; 
+                        if (cashRegister.change.some((subArr, idx, arr) => {
+                            cashRegisterCurrency.idx = idx;
+                            return subArr[0] === identifier;
+                        })) {
+                            const idx = cashRegisterCurrency.idx;
+                            cashRegister.change[idx][1] += currencyBaseAmount;
+                            // If it does not, create the dedicated sub-array and nest it inside the change.
+                        } else {
+                            const currency = [identifier, currencyBaseAmount];
+                            cashRegister.change.push(currency);
+                        }
+                    }
+                }
+            }
+            /**
+             * Once the loop is done, if the change due is superior to 0, that means there's not enough     money in the drawer.
+             */
+            console.log(typeof changeDue.total, changeDue.total);
+            if (changeDue.total > 0) {
+                cashRegister.status = "INSUFFICIENT_FUNDS";
+                cashRegister.change = [];
+                // If it's equal to zero then the change due was give back.
+            } else if (changeDue.total === 0) {
+                cashRegister.status = "OPEN";
+            }
+        }
     }
+
+    console.log(`Total Change Due: ${changeDue.total}
+    Returned: ${cashRegister.change} || ${cashRegister.status}`);
+    return cashRegister;
 }
 
 function checkFunds(changeDue, totalDrawer) {
+    console.log(`Change Due: ${changeDue} | Total Drawer: ${totalDrawer}, ${typeof changeDue} ${typeof totalDrawer}`);
     return totalDrawer >= changeDue;
 }
 
 function checkDrawerClose(changeDue, totalDrawer) {
+    console.log(totalDrawer, changeDue);
     return totalDrawer === changeDue;
 }
 
-checkCashRegister(85, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
+// Should return { status: "OPEN", change [["QUARTER", 0.5]]}
+// console.log(checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
+
+/**
+ * Should return {status: "CLOSED", change: [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]}
+ */
+// console.log(checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
+
+/**
+ * Should return {status: "CLOSED", change: [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]}
+ */
+console.log(checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
