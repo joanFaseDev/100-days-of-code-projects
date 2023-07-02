@@ -7,16 +7,21 @@
         <title>Cat Photo App | Jordan Falaise</title>
         <link rel="stylesheet" href="./styles.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     </head>
     <body>
         <div class="container-fluid">
-            <h1 class="text-primary text-center">Cat Photo App</h1>
-            <a href="#" target="_blank"><img class="img-responsive thick-green-border" src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="A cute orange cat lying on its back."></a>
+            <div class="row">
+                <div class="col-xs-8">
+                    <h1 class="text-primary text-center">Cat Photo App</h1>
+                </div>
+                <div class="col-xs-4"><a href="#" target="_blank"><img class="img-responsive thick-green-border" src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="A cute orange cat lying on its back."></a></div>
+            </div>
             <img class="img-responsive" src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/running-cats.jpg">
             <div class="row">
-                <div class="col-xs-4"><button class="btn btn-primary btn-block">Like</button></div>
-                <div class="col-xs-4"><button class="btn btn-info btn-block">Info</button></div>
-                <div class="col-xs-4"><button class="btn btn-block btn-danger">Delete</button></div>
+                <div class="col-xs-4"><button class="btn btn-primary btn-block">Like<i class="fas fa-thumbs-up"></i></button></div>
+                <div class="col-xs-4"><button class="btn btn-info btn-block">Info<span class="fas fa-info-circle"></span></button></div>
+                <div class="col-xs-4"><button class="btn btn-block btn-danger">Delete<span class="fas fa-trash"></span></button></div>
             </div>
             <p>Things cats <span class="text-danger">love</span>:</p>
             <ul>
@@ -31,13 +36,19 @@
                 <li>other cats</li>
             </ol>
             <form action="https://freecatphotoapp.com/submit-cat-photo">
-                <input id="indoor" type="radio" name="indoor-outdoor"><label for="indoor">Indoor</label>
-                <input id="outdoor" type="radio" name="indoor-outdoor"><label for="outdoor">Outdoor</label>
-                <input id="" type="checkbox" name="personality"><label for="">Loving</label>
-                <input id="" type="checkbox" name="personality"><label for="">Lazy</label>
-                <input id="" type="checkbox" name="personality"><label for="">Crazy</label>
-                <input id="" type="text" placeholder="cat photo URL">
-                <input id="" type="submit" value="Submit">
+                <div class="col">
+                    <div class="col-xs-6"><input id="indoor" type="radio" name="indoor-outdoor"><label for="indoor">Indoor</label></div>
+                    <div class="col-xs-6"><input id="outdoor" type="radio" name="indoor-outdoor"><label for="outdoor">Outdoor</label></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4"><input id="" type="checkbox" name="personality"><label for="">Loving</label></div>
+                    <div class="col-xs-4"><input id="" type="checkbox" name="personality"><label for="">Lazy</label></div>
+                    <div class="col-xs-4"><input id="" type="checkbox" name="personality"><label for="">Crazy</label></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-7"><input class="form-control" type="text" placeholder="cat photo URL"></div>
+                    <div class="col-xs-5"><button class="btn btn-primary">Submit<i class="fa fa-paper-plane"></i></button></div>
+                </div>
             </form>
                 </body>
         </div>
