@@ -1,0 +1,116 @@
+/*
+    In SASS, variables are declared by using the dollar sign '$'.
+    
+    Mixins are a way to reuse CSS rules anywhere in the stylesheet. They look a lot like functions. A mixin is initialized with the @mixin directive followed by a custome name (arguments can also be provided). It is then used with the @include directive followed by the name of the mixin.
+
+    SASS allows nesting of CSS rules.
+
+    SASS allows @if, @else if, and @else rules that work exactly like if conditions in JavaScript. The same is also true with @for loops and @each.
+
+    Partials are Sass files containing snippets of CSS. Partials can be imported into other Sass files and are great to modularize and maintain CSS. Partial files are named with a leading underscore but when importing them into another Sass file only the @import and quotes are necessary, the underscore and file extension aren't required.
+
+    @extend is used to share a set of properties from one CSS rule to another.
+*/
+
+@import 'mixins';
+
+// Variables
+$black-1: #22223b;
+$black-2:  #4a4e69;
+$black-3: #333533;
+$white-1: #f2e9e4;
+$yellow-1: #f5cb5c;
+$red-1: #ba181b;
+$green-1: #62929e;
+$purple-1: #231942;
+$purple-2: #5e548e;
+$purple-3: #9f86c0;
+$purple-4: #be95c4;
+$purple-5: #e0b1cb;
+$leaf-1: #1f363d;
+$leaf-2: #40798c;
+$leaf-3: #70a9a1;
+$leaf-4: #9ec1a3;
+$leaf-5: #cfe0c3;
+$default-width: 70%;
+$default-margin: 1rem auto;
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.title, .section {
+    @include default-layout($default-width, $default-margin);
+}
+
+.section {
+    div {
+        background-color: $black-3;
+        height: 100px;
+    }
+
+    @for $i from 1 to 5 {
+        .for-example-#{$i} {
+            width: 100px * $i;
+        }        
+    }
+
+    $colors: (purple-1: $purple-1, purple-2: $purple-2, purple-3: $purple-3, purple-4: $purple-4, purple-5: $purple-5);
+    @each $key, $color in $colors {
+        .#{$key} {
+            background-color: $color;
+        }
+    }
+
+    $leafs: (leaf-1: $leaf-1, leaf-2: $leaf-2, leaf-3: $leaf-3, leaf-4: $leaf-4, leaf-5: $leaf-5);
+    @each $key, $leaf in $leafs {
+        .#{$key} {
+            background-color: $leaf;
+        }
+    }
+
+    $x: 5;
+    @while $x >= 1 {
+        .while-example-#{$x} {
+            width: 600px - $x * 100px;
+        }
+        $x: $x - 1;
+    }
+}
+
+.title, .sub-title {
+    background-color: $black-1;
+    color: $white-1;
+    padding: .5rem 1rem;
+}
+
+.title {
+    text-align: center;
+}
+
+.sub-title {
+    @include default-layout(50%, 1rem 0);
+}
+
+.paragraph {
+    .em {
+        @include emphasize(default);
+        font-weight: bold;
+        padding: .4rem;
+        display: inline-block;
+    }
+
+    .em.validation {
+        @include emphasize(validation);
+    }
+
+    .em.information {
+        @include emphasize(information);
+    }
+
+    .em.danger {
+        @include emphasize(danger);
+    }
+}

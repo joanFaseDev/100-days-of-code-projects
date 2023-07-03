@@ -1,0 +1,122 @@
+/*
+    In SASS, variables are declared by using the dollar sign '$'.
+
+    Mixins are a way to reuse CSS rules anywhere in the stylesheet. They look a lot like functions. A mixin is initialized with the @mixin directive followed by a custome name (arguments can also be provided). It is then used with the @include directive followed by the name of the mixin.
+
+    SASS allows nesting of CSS rules.
+
+    SASS allows @if, @else if, and @else rules that work exactly like if conditions in JavaScript. The same is also true with @for loops and @each.
+
+    Partials are Sass files containing snippets of CSS. Partials can be imported into other Sass files and are great to modularize and maintain CSS. Partial files are named with a leading underscore but when importing them into another Sass file only the @import and quotes are necessary, the underscore and file extension aren't required.
+
+    @extend is used to share a set of properties from one CSS rule to another.
+*/
+*, *::before, *::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.title, .section {
+  width: 70%;
+  margin: 1rem auto;
+}
+
+.section div {
+  background-color: #333533;
+  height: 100px;
+}
+.section .for-example-1 {
+  width: 100px;
+}
+.section .for-example-2 {
+  width: 200px;
+}
+.section .for-example-3 {
+  width: 300px;
+}
+.section .for-example-4 {
+  width: 400px;
+}
+.section .purple-1 {
+  background-color: #231942;
+}
+.section .purple-2 {
+  background-color: #5e548e;
+}
+.section .purple-3 {
+  background-color: #9f86c0;
+}
+.section .purple-4 {
+  background-color: #be95c4;
+}
+.section .purple-5 {
+  background-color: #e0b1cb;
+}
+.section .leaf-1 {
+  background-color: #1f363d;
+}
+.section .leaf-2 {
+  background-color: #40798c;
+}
+.section .leaf-3 {
+  background-color: #70a9a1;
+}
+.section .leaf-4 {
+  background-color: #9ec1a3;
+}
+.section .leaf-5 {
+  background-color: #cfe0c3;
+}
+.section .while-example-5 {
+  width: 100px;
+}
+.section .while-example-4 {
+  width: 200px;
+}
+.section .while-example-3 {
+  width: 300px;
+}
+.section .while-example-2 {
+  width: 400px;
+}
+.section .while-example-1 {
+  width: 500px;
+}
+
+.title, .sub-title {
+  background-color: #22223b;
+  color: #f2e9e4;
+  padding: 0.5rem 1rem;
+}
+
+.title {
+  text-align: center;
+}
+
+.sub-title {
+  width: 50%;
+  margin: 1rem 0;
+}
+
+.paragraph .em {
+  background-color: #4a4e69;
+  color: #f2e9e4;
+  font-weight: bold;
+  padding: 0.4rem;
+  display: inline-block;
+}
+.paragraph .em.validation {
+  background-color: #62929e;
+  color: #f2e9e4;
+}
+.paragraph .em.information {
+  background-color: #f5cb5c;
+  color: #333533;
+}
+.paragraph .em.danger {
+  background-color: #ba181b;
+  color: #f2e9e4;
+}
+
+/*# sourceMappingURL=styles.css.map */

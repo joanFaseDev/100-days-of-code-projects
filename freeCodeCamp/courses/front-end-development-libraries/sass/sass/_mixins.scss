@@ -1,0 +1,26 @@
+// _mixins.scss
+
+// Mixins
+@mixin default-layout($default-width, $default-margin) {
+    width: $default-width;
+    margin: $default-margin;
+}
+
+@mixin emphasize($type) {
+    @if $type == information {
+        background-color: $yellow-1;
+        color: $black-3; 
+    }
+    @else if $type == danger {
+        background-color: $red-1;
+        color: $white-1;
+    }
+    @else if $type == validation {
+        background-color: $green-1;
+        color: $white-1;
+    }
+    @else {
+        background-color: $black-2;
+        color: $white-1;
+    }
+}
