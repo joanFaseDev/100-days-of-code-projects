@@ -175,6 +175,22 @@ setState can be called within a component class like this:
 
 State should never be modified directly. Instead, the setState() method should be privileged.
 
+## Lifecycle methods
+
+React components have special methods that provide opportunities to perform actions at specific points in the lifecycle of a component.
+
+**componentWillMount()**: Is called before the render() method when a component is mounted to the DOM.
+**componentDidMount()**: Is called after a component is mounted to the DOM. Any call of setState in this method will trigger a re-rendering of the component.
+**shouldComponentUpdate()**: The method takes nextProps & nextState as parameters and returns a boolean value that tells React if the component should be update or not (by default, any component receiving new state or new props is re-rendered).
+
+## Using Inline Styles
+
+Because of the way JSX is transpiled, one cannot set the value of the style attribute to a string. Instead, in React, one set it to an object like this:
+
+    ```
+    <MyComponent style={{color: "green", backgroundColor: "red"}}/>
+    ```
+Also, React doesn't accept kebab-case in the style object because hyphenated word like 'font-size' are invalid syntax for JavaScript object properties. As a rule, any hyphenated style properties are written using camelCase in JSX.
 
 ## Terminology
 
@@ -182,3 +198,4 @@ State should never be modified directly. Instead, the setState() method should b
 **Stateless component**: Class that extends React.Component but does not use internal state.
 **Statefull component**: Class that extends React.Component but maintains its own internal state. Is usually referred as 'component' or 'React component'. 
 **Internal State**: ?
+**Unidirectional data flow**: State flows in one direction down the tree of the application's components, from the stateful parent component to child components. The child components only receive the state data they need.
