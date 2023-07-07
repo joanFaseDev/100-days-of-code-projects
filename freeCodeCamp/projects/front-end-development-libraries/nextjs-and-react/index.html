@@ -16,10 +16,10 @@
     <!-- 'react-dom' provides DOM-specific methods that enables you to use React with the DOM -->
     <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-    <script src="./script.js"></script>
-    <script type="text/javascript">
-        ReactDOM.render(<h1>Hello World!</h1>)
-    </script>
+    <!-- 'babel is a transpiler, it is used here to convert JSX into JavaScript'-->    
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- To inform Babel what code to transform, give the 'type' attribute a value of 'text/jsx'-->
+    <script type="text/jsx" src="./state.js"></script>
 </body>
 
 </html>
